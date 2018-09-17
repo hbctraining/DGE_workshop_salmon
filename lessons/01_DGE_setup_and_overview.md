@@ -98,6 +98,7 @@ library(pheatmap)
 library(DEGreport)
 library(tximport)
 library(annotables)
+library(ggplot2)
 ```
 
 ### Loading data
