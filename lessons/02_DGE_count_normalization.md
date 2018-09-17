@@ -139,26 +139,6 @@ SampleB median ratio = 0.77
 > Please note that normalized count values are not whole numbers.
 
 ***
-**Exercise**
-
-Determine the normalized counts for your gene of interest, PD1, given the raw counts and size factors below. 
-
-NOTE: You will need to run the code below to generate the raw counts dataframe (PD1) and the size factor vector (size_factors), then use these objects to determine the normalized counts values:
-
-```r
-
-# Raw counts for PD1
-PD1 <- c(21, 58, 17, 97, 83, 10)
-names(PD1) <- paste0("Sample", 1:6)
-PD1 <- data.frame(PD1)
-PD1 <- t(PD1)
-
-# Size factors for each sample
-size_factors <- c(1.32, 0.70, 1.04, 1.27, 1.11, 0.85)
-
-```
-
-***
 
 ## Count normalization of Mov10 dataset using DESeq2
 
@@ -196,7 +176,7 @@ Let's start by creating the `DESeqDataSet` object and then we can talk a bit mor
 
 ```r
 ## Create DESeq2Dataset object
-dds <- DESeqDataSetFromMatrix(countData = data, colData = meta, design = ~ sampletype)
+dds <- DESeqDataSetFromTximport(countData = txi, colData = meta, design = ~ sampletype)
 ```
 
 ![deseq1](../img/deseq_obj1.png)
