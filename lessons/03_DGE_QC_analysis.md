@@ -201,6 +201,9 @@ head(rld_cor)   ## check the output of cor(), make note of the rownames and coln
 And now to plot the correlation values as a heatmap:
 
 ```r
+### Load pheatmap package
+library(pheatmap)
+
 ### Plot heatmap
 pheatmap(rld_cor)
 ```
