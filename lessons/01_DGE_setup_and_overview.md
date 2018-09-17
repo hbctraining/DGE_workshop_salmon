@@ -119,7 +119,8 @@ samples <- list.files(path = "./data", full.names = T, pattern="\\.salmon$")
 files <- file.path(samples, "quant.sf")
 
 ## Since all quant files have the same name it is useful to have names for each element
-names(files) <-  str_replace(samples, "./data/", "")
+names(files) <- str_replace(samples, "./data/", "") %>% 
+                str_replace(".salmon", "")
 ```
 
 Our Salmon index was generated with transcript sequences listed by Ensembl IDs, but `tximport` needs to know **which genes these transcripts came from**. We will use the [`annotables`](https://github.com/stephenturner/annotables) package to extract transcript to gene information. This package has basic annotation information from Ensembl Genes 91 for various organisms and is very helpful for mapping between different IDs. It also has `tx2gene` tables that link Ensembl gene IDs to Ensembl transcript IDs.
@@ -161,7 +162,9 @@ txi$counts %>% View()
 
 # Write the counts to file
 data <- txi$counts %>% 
-        round()
+  round() %>% 
+  data.frame()
+
 ```
 
 ### Creating metadata
