@@ -21,16 +21,17 @@ We have detailed the various steps in a differential expression analysis workflo
 	txi <- tximport(files, type="salmon", tx2gene=t2g, countsFromAbundance = "lengthScaledTPM")
 	
 	# "files" is a vector wherein each element is the path to the salmon quant.sf file, and each element is named with the name of the sample.
+	# "t2g" is a 2 column data frame which contains transcript IDs mapped to geneIDs (in that order)
 	```
 
 1. Creating the dds object:
 		
 	```r
 	# Check that the row names of the metadata equal the column names of the **raw counts** data
-	all(colnames(raw_counts) == rownames(metadata))
+	all(colnames(txi$counts) == rownames(metadata))
 	
 	# Create DESeq2Dataset object
-	dds <- DESeqDataSetFromTximport(countData = txi, colData = metadata, design = ~ condition)
+	dds <- DESeqDataSetFromTximport(txi, colData = metadata, design = ~ condition)
 	```
 	
 2. Exploratory data analysis (PCA & heirarchical clustering) - identifying outliers and sources of variation in the data:
@@ -53,7 +54,7 @@ We have detailed the various steps in a differential expression analysis workflo
 3. Run DESeq2:
 
 	```r
-		# **Optional step** - Re-create DESeq2 dataset if the design formula has changed after QC analysis in include other sources of variation using "dds <- DESeqDataSetFromTximport(countData = txi, colData = metadata, design = ~ condition)"
+		# **Optional step** - Re-create DESeq2 dataset if the design formula has changed after QC analysis in include other sources of variation using "dds <- DESeqDataSetFromTximport(txi, colData = metadata, design = ~ covaraite + condition)"
 
 	# Run DESeq2 differential expression analysis
 	dds <- DESeq(dds)
@@ -80,11 +81,17 @@ We have detailed the various steps in a differential expression analysis workflo
 6. Output significant results:
 
 	```r
-	# Turn the results object into a data frame
-	res_df <- data.frame(res)
+	# Set thresholds
+	padj.cutoff < - 0.05
+	
+	# Turn the results object into a tibble for use with tidyverse functions
+	res_tbl <- res %>%
+                  data.frame() %>%
+                  rownames_to_column(var="gene") %>% 
+                  as_tibble()
 	
 	# Subset the significant results
-	sig_res <- filter(res_df, padj < padj.cutoff)
+	sig_res <- filter(res_tbl, padj < padj.cutoff)
 	```
 
 7. Visualize results: volcano plots, heatmaps, normalized counts plots of top genes, etc.
