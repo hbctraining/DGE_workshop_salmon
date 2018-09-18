@@ -161,7 +161,7 @@ We should always make sure that we have sample names that match between the two 
 ```r
 ### Check that sample names match in both files
 all(colnames(txi$counts) %in% rownames(meta))
-all(colnames(data) == rownames(meta))
+all(colnames(txi$counts) == rownames(meta))
 ```
 
 If your data did not match, you could use the `match()` function to rearrange them to be matching.
