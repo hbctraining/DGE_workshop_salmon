@@ -165,15 +165,15 @@ res_tableOE %>% data.frame() %>% View()
 ```
 log2 fold change (MAP): sampletype MOV10_overexpression vs control 
 Wald test p-value: sampletype MOV10_overexpression vs control 
-DataFrame with 6 rows and 6 columns
-               baseMean log2FoldChange      lfcSE       stat    pvalue       padj
-              <numeric>      <numeric>  <numeric>  <numeric> <numeric>  <numeric>
-1/2-SBSRNA4  45.6520399     0.26976764 0.18775752  1.4367874 0.1507784 0.25242910
-A1BG         61.0931017     0.20999700 0.17315013  1.2128030 0.2252051 0.34444163
-A1BG-AS1    175.6658069    -0.05197768 0.12366259 -0.4203185 0.6742528 0.77216278
-A1CF          0.2376919     0.02237286 0.04577046  0.4888056 0.6249793         NA
-A2LD1        89.6179845     0.34598540 0.15901426  2.1758136 0.0295692 0.06725157
-A2M           5.8600841    -0.27850841 0.18051805 -1.5428286 0.1228724 0.21489067
+DataFrame with 57914 rows and 6 columns
+               		baseMean	log2FoldChange	lfcSE		stat		pvalue		padj
+              		<numeric>	<numeric>	<numeric>	<numeric>	<numeric>	<numeric>
+ENSG00000000003		3.53E+03	-0.427190489	0.0755347	-5.65604739	1.55E-08	4.47E-07
+ENSG00000000005		2.62E+01	0.016159765	0.23735203	0.06584098	9.48E-01	9.74E-01
+ENSG00000000419		1.48E+03	0.362663551	0.10761742	3.36995355	7.52E-04	4.91E-03
+ENSG00000000457		5.19E+02	0.219135591	0.09768842	2.24476439	2.48E-02	8.21E-02
+ENSG00000000460		1.16E+03	-0.261603812	0.07912962	-3.30661411	9.44E-04	5.92E-03
+...			...		...		...		...		...		...
 ```
 
 > **NOTE: on p-values set to NA**
@@ -220,7 +220,7 @@ To summarize the results table, a handy function in DESeq2 is `summary()`. Confu
 
 ```r
 ## Summarize results
-summary(res_tableOE)
+summary(res_tableOE, alpha = 0.05)
 ```
 
 In addition to the number of genes up- and down-regulated at the default threshold, **the function also reports the number of genes that were tested (genes with non-zero total read count), and the number of genes not included in multiple test correction due to a low mean count**.
@@ -228,17 +228,12 @@ In addition to the number of genes up- and down-regulated at the default thresho
 
 ### Extracting significant differentially expressed genes
 
-What we noticed is that the FDR threshold on it's own doesn't appear to be reducing the number of significant genes. With large significant gene lists it can be hard to extract meaningful biological relevance. To help increase stringency, one can also **add a fold change threshold**. _The `summary()` function doesn't have an argument for fold change threshold._
-
 Let's first create variables that contain our threshold criteria:
 
 ```r
 ### Set thresholds
 padj.cutoff <- 0.05
-lfc.cutoff <- 0.58
 ```
-
-The `lfc.cutoff` is set to 0.58; remember that we are working with log2 fold changes so this translates to an actual fold change of 1.5 which is pretty reasonable. 
 
 We can easily subset the results table to only include those that are significant using the `filter()` function, but first we will convert the results table into a tibble:
 
@@ -253,16 +248,15 @@ Now we can subset that table to only keep the significant genes using our pre-de
 
 ```r
 sigOE <- res_tableOE_tb %>%
-        filter(padj < padj.cutoff & abs(log2FoldChange) > lfc.cutoff)
+        filter(padj < padj.cutoff)
 ```
-
-**How many genes are differentially expressed in the Overexpression compared to Control, given our criteria specified above? Does this reduce our results?**
 
 ```r
 sigOE
 ```
-	
-Using the same thresholds as above (`padj.cutoff < 0.05` and `lfc.cutoff = 0.58`), subset `res_tableKD` to report the number of genes that are up- and down-regulated in Mov10_knockdown compared to control.
+
+
+Using the same p-adjusted threshold as above (`padj.cutoff < 0.05`), subset `res_tableKD` to report the number of genes that are up- and down-regulated in Mov10_knockdown compared to control.
 
 ```r
 
@@ -272,7 +266,7 @@ res_tableKD_tb <- res_tableKD %>%
   as_tibble()
   
 sigKD <- res_tableKD_tb %>%
-        filter(padj < padj.cutoff & abs(log2FoldChange) > lfc.cutoff)
+        filter(padj < padj.cutoff)
 ```
 
 **How many genes are differentially expressed in the Knockdown compared to Control?** 
@@ -280,9 +274,18 @@ sigKD <- res_tableKD_tb %>%
 sigKD
 ``` 
 
-Now that we have subsetted our data, we are ready for visualization!
+Now that we have extracted the significant results, we are ready for visualization!
 
-> ### An alternative approach
+> ### Adding a fold change threshold: 
+> With large significant gene lists it can be hard to extract meaningful biological relevance. To help increase stringency, one can also **add a fold change threshold**. _The `summary()` function doesn't have an argument for fold change threshold._
+> 
+> For e.g., we can create a new threshold `lfc.cutoff` and set it to 0.58 (remember that we are working with log2 fold changes so this translates to an actual fold change of 1.5).
+> 
+> `lfc.cutoff <- 0.58`
+> 
+> `sigOE <- res_tableOE_tb %>% filter(padj < padj.cutoff & abs(log2FoldChange) > lfc.cutoff)`
+
+> ### An alternative approach to add the fold change threshold:
 > The `results()` function has an option to add a fold change threshold using the `lfcThrehsold` argument. This method is more statistically motivated, and is recommended when you want a more confident set of genes based on a certain fold-change. It actually performs a statistical test against the desired threshold, by performing a two-tailed test for log2 fold changes greater than the absolute value specified. The user can change the alternative hypothesis using `altHypothesis` and perform two one-tailed tests as well. **This is a more conservative approach, so expect to retrieve a much smaller set of genes!**
 >
 > Test this out using our data:
@@ -290,8 +293,6 @@ Now that we have subsetted our data, we are ready for visualization!
 > `results(dds, contrast = contrast_oe, alpha = 0.05, lfcThreshold = 0.58)`
 >
 > **How do the results differ? How many significant genes do we get using this approach?**
->
-
 
 
 ---
