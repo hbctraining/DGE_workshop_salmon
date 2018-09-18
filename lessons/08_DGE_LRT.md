@@ -117,7 +117,7 @@ head(clusters$df)
 
 While we don't see any clusters with the pattern we are looking for (KD < CTL < OE), we do see a lot of genes that don't change much between control and knockdown sample groups, but increase drastically with the overexpression group (Group 1). 
 
-<img src="../img/degReport_clusters.png" width="600">
+<img src="../img/degReport_clusters2.png" width="600">
 
 Let's explore the set of genes in Group 1 in more detail:
 
