@@ -177,11 +177,9 @@ ggplot(gathered_top20_sigOE) +
 In addition to plotting subsets, we could also extract the normalized values of *all* the significant genes and plot a heatmap of their expression using `pheatmap()`.
 
 ```r
-### Extract normalized expression for significant genes from the OE and control samples (4:9), and set the gene column (1) to row names
-norm_OEsig <- normalized_counts[,c(1,4:9)] %>% 
-              filter(gene %in% sigOE$gene) %>% 
-	      data.frame() %>%
-	      column_to_rownames(var = "gene") 
+### Extract normalized expression for significant genes from the OE and control samples (2:4 and 7:9)
+norm_OEsig <- normalized_counts[,c(1:4,7:9)] %>% 
+              filter(gene %in% sigOE$gene)  
 ```
 
 Now let's draw the heatmap using `pheatmap`:
@@ -196,7 +194,7 @@ annotation <- mov10_meta %>%
 heat_colors <- brewer.pal(6, "YlOrRd")
 
 ### Run pheatmap
-pheatmap(norm_OEsig, 
+pheatmap(norm_OEsig[2:7], 
          color = heat_colors, 
          cluster_rows = T, 
          show_rownames = F,
