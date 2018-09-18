@@ -205,10 +205,10 @@ And now to plot the correlation values as a heatmap:
 library(pheatmap)
 
 ### Plot heatmap
-pheatmap(rld_cor)
+pheatmap(rld_cor, annotation = meta)
 ```
 
-![heatmap1](../img/pheatmap-1.png)
+![heatmap1](../img/pheatmap_salmon.png)
 
 Overall, we observe pretty high correlations across the board ( > 0.999) suggesting no outlying sample(s). Also, similar to the PCA plot you see the samples clustering together by sample group. Together, these plots suggest to us that the data are of good quality and we have the green light to proceed to differential expression analysis.
 
