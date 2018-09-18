@@ -89,9 +89,9 @@ First we will subset our rlog transformed normalized counts to contain only the 
 
 ```r
 # Subset results for faster cluster finding (for classroom demo purposes)
-clustering_sig_genes <- sig_res_LRT %>%
-                  arrange(padj) %>%
-                  head(n=1000)
+clustering_sig_genes <- sigLRT_genes %>%
+  arrange(padj) %>%
+  head(n=1000)
 
 
 # Obtain rlog values for those significant genes
