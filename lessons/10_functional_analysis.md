@@ -161,7 +161,7 @@ emapplot(ego, showCategory = 50)
 
 **To save the figure,** click on the `Export` button in the RStudio `Plots` tab and `Save as PDF...`. In the pop-up window, change the `PDF size` to `24 x 32` to give a figure of appropriate size for the text labels.
 
-<img src="../img/emapplot_salmon.png" width="500">
+<img src="../img/emapplot_salmon.png" width="800">
 
 Finally, the **category netplot** shows the relationships between the genes associated with the top five most significant GO terms and the fold changes of the significant genes associated with these terms (color). The size of the GO terms reflects the pvalues of the terms, with the more significant terms being larger. This plot is particularly useful for hypothesis generation in identifying genes that may be important to several of the most affected processes. 
 
@@ -191,7 +191,7 @@ cnetplot(ego,
 
 **Again, to save the figure,** click on the `Export` button in the RStudio `Plots` tab and `Save as PDF...`. Change the `PDF size` to `48 x 56` to give a figure of appropriate size for the text labels.
 
-<img src="../img/cnetplot1_salmon.png" width="700">
+<img src="../img/cnetplot1_salmon.png" width="800">
 
 If you are interested in significant processes that are **not** among the top five, you can subset your `ego` dataset to only display these processes:
 
@@ -209,7 +209,7 @@ cnetplot(ego2,
          vertex.label.font=6)
 ```
 
-<img src="../img/cnetplot2_salmon.png" width="700">
+<img src="../img/cnetplot2_salmon.png" width="800">
 
 ## Other methods for functional analysis
 
