@@ -104,37 +104,13 @@ library(clusterProfiler)
 library(annotables)
 ```
 
-For the different steps in the functional analysis, we require Ensembl and Entrez IDs. To convert the gene symbols to these IDs, we will use the **annotables** package and merge the IDs with the DE results. 
-
-```r
-## Explore the grch37 table loaded by the annotables library
-grch37
-
-## Return the IDs for the gene symbols in the DE results
-idx <- grch37$symbol %in% rownames(res_tableOE)
-
-ids <- grch37[idx, ]
-
-## The gene names can map to more than one Ensembl ID (some genes change ID over time), 
-## so we need to remove duplicate IDs prior to assessing enriched GO terms
-non_duplicates <- which(duplicated(ids$symbol) == FALSE)
-
-ids <- ids[non_duplicates, ] 
-
-## Merge the IDs with the results 
-res_ids <- inner_join(res_tableOE_tb, ids, by=c("gene"="symbol"))         
-```
-
-To perform the over-representation analysis, we need a list of background genes and a list of significant genes. For our background dataset we will use all genes tested for differential expression (all genes in our results table). For our significant gene list we will use genes with p-adjusted values less than 0.05 (we could include a fold change threshold too if we have many DE genes).
+To perform the over-representation analysis, we need a list of Ensembl or Entrez IDs for the background genes and the significant genes. For our background list we will use all genes tested for differential expression (all genes in our results table). For our significant gene list we will use genes in our `sigOE` results table (genes that are significantly differentially expressed at a padj cutoff of 0.05).
 
 ```r
 ## Create background dataset for hypergeometric testing using all genes tested for significance in the results                 
-allOE_genes <- as.character(res_ids$ensgene)
+allOE_genes <- res_tableOE_tb$gene
 
-## Extract significant results
-sigOE <- filter(res_ids, padj < 0.05)
-
-sigOE_genes <- as.character(sigOE$ensgene)
+sigOE_genes <- sigOE$gene
 ```
 
 Now we can perform the GO enrichment analysis and save the results:
@@ -180,7 +156,7 @@ The next plot is the **enrichment GO plot**, which shows the relationship betwee
 
 ```r
 ## Enrichmap clusters the 50 most significant (by padj) GO terms to visualize relationships between terms
-enrichMap(ego, n=50, vertex.label.font=6)
+emapplot(ego, showCategory = 50)
 ```
 
 **To save the figure,** click on the `Export` button in the RStudio `Plots` tab and `Save as PDF...`. In the pop-up window, change the `PDF size` to `24 x 32` to give a figure of appropriate size for the text labels.
@@ -223,7 +199,7 @@ If you are interested in significant processes that are **not** among the top fi
 ## Subsetting the ego results without overwriting original `ego` variable
 ego2 <- ego
 
-ego2@result <- ego@result[c(1,3,4,8,9),]
+ego2@result <- ego@result[c(1,3,4,6,13),]
 
 ## Plotting terms of interest
 cnetplot(ego2, 
@@ -235,13 +211,7 @@ cnetplot(ego2,
 
 <img src="../img/mov10oe_cnetplot2.png" width="800">
 
-### gProfiler
-
-[gProfileR](http://biit.cs.ut.ee/gprofiler/index.cgi) is another tool for performing ORA, similar to clusterProfiler. gProfileR considers multiple sources of functional evidence, including Gene Ontology terms, biological pathways, regulatory motifs of transcription factors and microRNAs, human disease annotations and protein-protein interactions. The user selects the organism and the sources of evidence to test. There are also additional parameters to change various thresholds and tweak the stringency to the desired level. 
-
-The GO terms output by gprofileR are generally quite similar to those output by clusterProfiler, but there are small differences due to the different algorithms used by the tools. We often use gProfiler with [REVIGO](http://revigo.irb.hr/) to collapse redundant GO terms by semantic similarity and summarize them graphically. If you are interested in exploring gProfileR/REVIGO on your own, we have provided the [instructional materials](functional_analysis_other_methods.md).
-
-<img src="../img/revigo_treemap.png" width="800">
+## Other methods for functional analysis
 
 Over-representation analysis is only a single type of functional analysis method that is available for teasing apart the biological processes important to your condition of interest. Other types of analyses can be equally important or informative, including functional class scoring and pathway topology methods. 
 
@@ -264,22 +234,31 @@ For gene set or pathway analysis using clusterProfiler, coordinated differential
 To perform GSEA analysis of KEGG gene sets, clusterProfiler requires the genes to be identified using Entrez IDs for all genes in our results dataset. We also need to remove the NA values and duplicates (due to gene ID conversion) prior to the analysis:
 
 ```r
+# add the extrez IDs to the results table
+res_tableOE_tb_entrez <- merge(res_tableOE_tb, grch38[, c("ensgene", "entrez")], by.x="gene", by.y="ensgene") %>% as.tibble()
+
+# check the addition of the column
+res_tableOE_tb_entrez
+
 ## Remove any NA values
-res_entrez <- filter(res_ids, entrez != "NA")
+res_tableOE_tb_entrez  <- filter(res_tableOE_tb_entrez, entrez != "NA")
 
 ## Remove any Entrez duplicates
-res_entrez <- res_entrez[which(duplicated(res_entrez$entrez) == F), ]
+res_tableOE_tb_entrez <- res_tableOE_tb_entrez[which(duplicated(res_tableOE_tb_entrez$entrez) == F), ]
 
+## How many genes have you lost relative to the original results table?
+dim(res_tableOE_tb)
+dim(res_tableOE_tb_entrez)
 ```
 
 Finally, extract and name the fold changes:
 
 ```r
 ## Extract the foldchanges
-foldchanges <- res_entrez$log2FoldChange
+foldchanges <- res_tableOE_tb_entrez$log2FoldChange
 
 ## Name each fold change with the corresponding Entrez ID
-names(foldchanges) <- res_entrez$entrez
+names(foldchanges) <- res_tableOE_tb_entrez$entrez
 ```
 
 Next we need to order the fold changes in decreasing order. To do this we'll use the `sort()` function, which takes a vector as input. This is in contrast to Tidyverse's `arrange()`, which requires a data frame.
@@ -320,8 +299,8 @@ write.csv(gseaKEGG_results, "results/gseaOE_kegg.csv", quote=F)
 Explore the GSEA plot of enrichment of the pathway-associated genes in the ranked list:
 
 ```r
-## Plot the GSEA plot for a single enriched pathway, `hsa03040`
-gseaplot(gseaKEGG, geneSetID = 'hsa03040')
+## Plot the GSEA plot for a single enriched pathway, `hsa05016`
+gseaplot(gseaKEGG, geneSetID = 'hsa05016')
 ```
 
 Use the [Pathview R package](http://bioconductor.org/packages/release/bioc/html/pathview.html) to integrate the KEGG pathway data from clusterProfiler into pathway images:
@@ -329,7 +308,7 @@ Use the [Pathview R package](http://bioconductor.org/packages/release/bioc/html/
 ```r
 ## Output images for a single significant KEGG pathway
 pathview(gene.data = foldchanges,
-              pathway.id = "hsa03040",
+              pathway.id = "hsa05016",
               species = "hsa",
               limit = list(gene = 2, # value gives the max/min limit for foldchanges
               cpd = 1))
@@ -361,7 +340,7 @@ gseaGO <- gseGO(geneList = foldchanges,
 
 gseaGO_results <- gseaGO@result
 
-gseaplot(gseaGO, geneSetID = 'GO:0007423')
+gseaplot(gseaGO, geneSetID = 'GO:0007411')
 ```
 There are other gene sets available for GSEA analysis in clusterProfiler (Disease Ontology, Reactome pathways, etc.). In addition, it is possible to supply your own gene set GMT file, such as a GMT for MSigDB using special clusterProfiler functions as shown below:
 
