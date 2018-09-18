@@ -56,7 +56,7 @@ We have detailed the various steps in a differential expression analysis workflo
 		# **Optional step** - Re-create DESeq2 dataset if the design formula has changed after QC analysis in include other sources of variation using "dds <- DESeqDataSetFromTximport(countData = txi, colData = metadata, design = ~ condition)"
 
 	# Run DESeq2 differential expression analysis
-dds <- DESeq(dds)
+	dds <- DESeq(dds)
 
 		# **Optional step** - Output normalized counts to save as a file to access outside RStudio using "normalized_counts <- counts(dds, normalized=TRUE)"
 	```
