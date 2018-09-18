@@ -180,10 +180,14 @@ Bioconductor software packages often define and use a custom class within R for 
 
 Let's start by creating the `DESeqDataSet` object and then we can talk a bit more about what is stored inside it. To create the object we will need the **count matrix** and the **metadata** table as input. We will also need to specify a **design formula**. The design formula specifies the column(s) in the metadata table and how they should be used in the analysis. For our dataset we only have one column we are interested in, that is `~sampletype`. This column has three factor levels, which tells DESeq2 that for each gene we want to evaluate gene expression change with respect to these different levels.
 
+Our count matrix input is stored inside the `txi` list object, and so we pass that in using the `DESeqDataSetFromTximport()` function which will extract the counts component and round the values to the nearest whole number.
+
 ```r
 ## Create DESeq2Dataset object
 dds <- DESeqDataSetFromTximport(countData = txi, colData = meta, design = ~ sampletype)
 ```
+
+> **NOTE:** Since we had created a `data` variable in the last lesson which contains the counts, we could have also used that as input. However, in that case we would want to use the `DESeqDataSetFromMatrix()` function.
 
 ![deseq1](../img/deseq_obj1.png)
 
