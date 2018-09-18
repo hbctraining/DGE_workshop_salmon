@@ -36,19 +36,12 @@ We will be working with three different data objects we have already created in 
 - Normalized expression data for every gene in each of our samples (a matrix): `normalized_counts`
 - Tibble versions of the DESeq2 results we generated in the last lesson: `res_tableOE_tb` and `res_tableKD_tb`
 
-Let's create tibble objects from the `meta` and `normalized_counts` data frames before we start plotting. This will enable us to use the `tidyverse` functionality more easily. 
+Let's create a tibble object from the `normalized_counts` data frame before we start plotting. This will enable us to use the `tidyverse` functionality more easily. 
 
-In addition, let's bring in a column with gene symbols, so we can use them to label our plots. Ensembl IDs are great for many things, but as biologists the gene symbols are much more recognizable.
+Let's also bring in a column with gene symbols to the `normalized_counts` object, so we can use them to label our plots. Ensembl IDs are great for many things, but as biologists the gene symbols are much more recognizable.
 
 
 ```r
-# Create a tibble for the metadata (don't forget to bring in the rownames as a new column)
-mov10_meta <- meta %>% 
-  rownames_to_column(var="samplename") %>% 
-  as_tibble()
-
-mov10_meta
-
 # DESeq2 creates a matrix when you use the counts() function
 ## First convert normalized_counts to a data frame and transfer the row names to a new column called "gene"
 normalized_counts <- normalized_counts %>% 
@@ -185,20 +178,15 @@ norm_OEsig <- normalized_counts[,c(1:4,7:9)] %>%
 Now let's draw the heatmap using `pheatmap`:
 
 ```r
-### Annotate our heatmap (optional)
-annotation <- mov10_meta %>% 
-	select(samplename, sampletype) %>% 
-	data.frame(row.names = "samplename")
-
 ### Set a color palette
 heat_colors <- brewer.pal(6, "YlOrRd")
 
-### Run pheatmap
+### Run pheatmap using the metadata data frame for the annotation
 pheatmap(norm_OEsig[2:7], 
          color = heat_colors, 
          cluster_rows = T, 
          show_rownames = F,
-         annotation = annotation, 
+         annotation = meta, 
          border_color = NA, 
          fontsize = 10, 
          scale = "row", 
