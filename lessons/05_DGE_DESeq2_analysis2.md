@@ -277,7 +277,7 @@ sigKD
 Now that we have extracted the significant results, we are ready for visualization!
 
 > ### Adding a fold change threshold: 
-> With large significant gene lists it can be hard to extract meaningful biological relevance. To help increase stringency, one can also **add a fold change threshold**. _The `summary()` function doesn't have an argument for fold change threshold._
+> With large significant gene lists it can be hard to extract meaningful biological relevance. To help increase stringency, one can also **add a fold change threshold**.
 > 
 > For e.g., we can create a new threshold `lfc.cutoff` and set it to 0.58 (remember that we are working with log2 fold changes so this translates to an actual fold change of 1.5).
 > 
