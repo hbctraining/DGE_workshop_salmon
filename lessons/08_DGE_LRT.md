@@ -49,18 +49,18 @@ res_LRT <- results(dds_lrt)
 You will find that similar columns are reported for the LRT test. One thing to note is, **even though there are fold changes present they are not directly associated with the actual hypothesis test**. Thus, when filtering significant genes from the LRT we use only the FDR as our threshold. *How many genes are significant at `padj < 0.05`?*
 
 ```r
-# Subset the LRT results to return genes with padj < 0.05
-sig_res_LRT <- res_LRT %>%
-               data.frame() %>%
-               rownames_to_column(var="gene") %>% 
-               as_tibble() %>% 
-               filter(padj < padj.cutoff)
- 
-# Get sig gene lists
-sigLRT_genes <- sig_res_LRT %>% 
-                pull(gene)
-                
-length(sigLRT_genes)
+# Create a tibble for LRT results
+res_LRT_tb <- res_LRT %>%
+  data.frame() %>%
+  rownames_to_column(var="gene") %>% 
+  as_tibble()
+
+# Subset to return genes with padj < 0.05
+sigLRT_genes <- res_LRT_tb %>% 
+  filter(padj < padj.cutoff)
+
+# Get number of significant genes
+nrow(sigLRT_genes)
 
 # Compare to numbers we had from Wald test
 nrow(sigOE)
@@ -68,7 +68,7 @@ nrow(sigKD)
 
 ```
 
-How many genes from the Mov10 overexpression Wald test are contained in the LRT gene set? And for the Mov10 knockdown? 
+How many genes from the Mov10 overexpression Wald test are contained in the LRT gene set? How do they compare to the Mov10 knockdown and overexpression? 
 
 The number of significant genes observed from the LRT is quite high. We are **unable to set a fold change criteria here since the statistic is not generated from any one pairwise comparison.** This list includes genes that can be changing in any number of combinations across the three factor levels. It is advisable to instead increase the stringency on our criteria and lower the FDR threshold.
 
