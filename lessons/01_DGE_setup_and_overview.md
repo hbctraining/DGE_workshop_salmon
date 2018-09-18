@@ -68,7 +68,7 @@ To check whether or not you are in the correct working directory, use `getwd()`.
 
 Now we need to grab the files that we will be working with for the analysis. These are the **Salmon results for the full dataset**. Right click on the links below, and choose the "Save link as ..." option to download directly into your project directory:
 
-* [Salmon data](https://www.dropbox.com/s/yakjepoxr8v9x0c/data.zip?dl=1) for the Mov10 full dataset
+* [Salmon data](https://www.dropbox.com/s/oz9yralwbtphw8u/data.zip?dl=1) for the Mov10 full dataset
 
 Once you have the zip file downloaded you will want to decompress it. This will create a `data` directory with sub-directories that correspond to each of the samples in our dataset.
 
