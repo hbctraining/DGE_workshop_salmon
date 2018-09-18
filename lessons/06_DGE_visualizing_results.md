@@ -27,6 +27,7 @@ library(DEGreport)
 library(RColorBrewer)
 library(DESeq2)
 library(pheatmap)
+library(annotables)
 ```
 
 We will be working with three different data objects we have already created in earlier lessons:
@@ -35,18 +36,35 @@ We will be working with three different data objects we have already created in 
 - Normalized expression data for every gene in each of our samples (a matrix): `normalized_counts`
 - Tibble versions of the DESeq2 results we generated in the last lesson: `res_tableOE_tb` and `res_tableKD_tb`
 
-Let's create tibble objects from the `meta` and `normalized_counts` data frames before we start plotting. This will enable us to use the `tidyverse` functionality more easily.
+Let's create tibble objects from the `meta` and `normalized_counts` data frames before we start plotting. This will enable us to use the `tidyverse` functionality more easily. 
+
+In addition, let's bring in a column with gene symbols, so we can use them to label our plots. Ensembl IDs are great for many things, but as biologists the gene symbols are much more recognizable.
+
 
 ```r
-# Create tibbles including row names
+# Create a tibble for the metadata (don't forget to bring in the rownames as a new column)
 mov10_meta <- meta %>% 
   rownames_to_column(var="samplename") %>% 
   as_tibble()
-        
+
+mov10_meta
+
+# DESeq2 creates a matrix when you use the counts() function
+## First convert normalized_counts to a data frame and transfer the row names to a new column called "gene"
 normalized_counts <- normalized_counts %>% 
   data.frame() %>%
-  rownames_to_column(var="gene") %>% 
+  rownames_to_column(var="gene")
+  
+# Next, merge together (ensembl IDs) the normalized counts data frame with 
+#	a subset of the annotables grch38 data frame (only the columns for ensembl gene IDs and gene symbols)
+## This will bring in a column of gene symbols
+normalized_counts <- merge(normalized_counts, grch38[, c("ensgene", "symbol")], by.x="gene", by.y="ensgene")
+
+# Now create a tibble for the normalized counts
+normalized_counts <- normalized_counts %>%
   as_tibble()
+  
+normalized_counts 
 ```
 
 ### Plotting signicant DE genes
@@ -55,11 +73,14 @@ One way to visualize results would be to simply plot the expression data for a h
 
 #### **Using DESeq2 `plotCounts()` to plot expression of a single gene**
 
-To pick out a specific gene of interest to plot, for example Mov10, we can use the `plotCounts()` from DESeq2:
+To pick out a specific gene of interest to plot, for example MOV10, we can use the `plotCounts()` from DESeq2. `plotCounts()` requires that the gene specified matches the original input to DESeq2, which in our case was Ensembl IDs.
 
 ```r
+# Find the Ensembl ID of MOV10
+grch38[grch38$symbol == "MOV10", "ensgene"]
+
 # Plot expression for single gene
-plotCounts(dds, gene="MOV10", intgroup="sampletype") 
+plotCounts(dds, gene="ENSG00000155363", intgroup="sampletype") 
 ```
 ![topgene](../img/topgen_plot.png)
 
@@ -71,7 +92,7 @@ If you wish to change the appearance of this plot, we can save the output of `pl
 
 ```r
 # Save plotcounts to a data frame object
-d <- plotCounts(dds, gene="MOV10", intgroup="sampletype", returnData=TRUE)
+d <- plotCounts(dds, gene="ENSG00000155363", intgroup="sampletype", returnData=TRUE)
 
 # Plotting the MOV10 normalized counts, using the samplenames (rownames of d as labels)
 ggplot(d, aes(x = sampletype, y = count, color = sampletype)) + 
@@ -138,7 +159,7 @@ Now that we have a data frame in a format that can be utilised by ggplot easily,
 ```r
 ## plot using ggplot2
 ggplot(gathered_top20_sigOE) +
-        geom_point(aes(x = gene, y = normalized_counts, color = sampletype)) +
+        geom_point(aes(x = symbol, y = normalized_counts, color = sampletype)) +
         scale_y_log10() +
         xlab("Genes") +
         ylab("log10 Normalized Counts") +
@@ -196,7 +217,7 @@ pheatmap(norm_OEsig,
 
 The above plot would be great to look at the expression levels of a good number of genes, but for more of a global view there are other plots we can draw. A commonly used one is a volcano plot; in which you have the log transformed adjusted p-values plotted on the y-axis and log2 fold change values on the x-axis. 
 
-To generate a volcano plot, we first need to have a column in our results data indicating whether or not the gene is considered differentially expressed based on p-adjusted values.
+To generate a volcano plot, we first need to have a column in our results data indicating whether or not the gene is considered differentially expressed based on p-adjusted values and we will include a log2fold change here.
 
 ```r
 ## Obtain logical vector where TRUE values denote padj values < 0.05 and fold change > 1.5 in either direction
@@ -227,10 +248,16 @@ This is a great way to get an overall picture of what is going on, but what if w
 First, we need to order the res_tableOE tibble by `padj`, and add an additional column to it, to include on those gene names we want to use to label the plot.
  
 ```r
-## Create a column to indicate which genes to label
+## Sort the results tibble by padj values and create a column to indicate which genes to label
 res_tableOE_tb <- res_tableOE_tb %>% arrange(padj) %>% mutate(genelabels = "")
 
-res_tableOE_tb$genelabels[1:10] <- res_tableOE_tb$gene[1:10]
+## Add the gene symbols as a column to the res_tableOE tibble from the grch38 table (annotables)
+res_tableOE_tb <- bind_cols(res_tableOE_tb, symbol=grch38$symbol[match(res_tableOE_tb$gene, grch38$ensgene)])
+
+### In the line above, you could have also used the merge() function as we did before with the normalized counts, but that would have converted the tibble into a data frame.
+
+## Populate the genelables column with information from the new symbol column for only the first 10 rows
+res_tableOE_tb$genelabels[1:10] <- res_tableOE_tb$symbol[1:10]
 
 View(res_tableOE_tb)
 ```
