@@ -237,7 +237,7 @@ Let's take a look at the dispersion estimates for our MOV10 data:
 plotDispEsts(dds)
 ```
 
-<img src="../img/plotDispersion.png">
+<img src="../img/plotDispersion_salmon.png">
  
 **Since we have a small sample size, for many genes we see quite a bit of shrinkage. Do you think our data are a good fit for the model?**
 
