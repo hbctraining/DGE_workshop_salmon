@@ -27,7 +27,7 @@ library(DESeq2)
 library(DEGreport)
 
 # The full model was specified previously with the `design = ~ sampletype`:
-# dds <- DESeqDataSetFromMatrix(countData = data, colData = meta, design = ~ sampletype)
+# dds <- DESeqDataSetFromTximport(txi, colData = meta, ~ sampletype)
 
 # Likelihood ratio test
 dds_lrt <- DESeq(dds, test="LRT", reduced = ~ 1)
