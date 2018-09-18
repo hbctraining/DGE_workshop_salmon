@@ -160,7 +160,7 @@ The function `plotPCA()` requires two arguments as input: an `rlog` object and t
 plotPCA(rld, intgroup="sampletype")
 ```
 
-![pca](../img/PCA_salmon.png)
+![pca](../img/pca_salmon.png)
 
 **What does this plot tell you about the similarity of samples? Does it fit the expectation from the experimental design?** By default the function uses the *top 500 most variable genes*. You can change this by adding the `ntop` argument and specifying how many genes you want to use to draw the plot.
 
