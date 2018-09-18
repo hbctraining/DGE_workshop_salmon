@@ -209,7 +209,7 @@ cnetplot(ego2,
          vertex.label.font=6)
 ```
 
-<img src="../img/cnetplot2_salmon.png" width="800">
+<img src="../img/cnetplot-2_salmon.png" width="800">
 
 ## Other methods for functional analysis
 
