@@ -160,7 +160,7 @@ We should always make sure that we have sample names that match between the two 
 
 ```r
 ### Check that sample names match in both files
-all(colnames(data) %in% rownames(meta))
+all(colnames(txi$counts) %in% rownames(meta))
 all(colnames(data) == rownames(meta))
 ```
 
@@ -184,7 +184,7 @@ Our count matrix input is stored inside the `txi` list object, and so we pass th
 
 ```r
 ## Create DESeq2Dataset object
-dds <- DESeqDataSetFromTximport(countData = txi, colData = meta, design = ~ sampletype)
+dds <- DESeqDataSetFromTximport(txi, colData = meta, design = ~ sampletype)
 ```
 
 > **NOTE:** Since we had created a `data` variable in the last lesson which contains the counts, we could have also used that as input. However, in that case we would want to use the `DESeqDataSetFromMatrix()` function.
