@@ -82,7 +82,8 @@ grch38[grch38$symbol == "MOV10", "ensgene"]
 # Plot expression for single gene
 plotCounts(dds, gene="ENSG00000155363", intgroup="sampletype") 
 ```
-![topgene](../img/topgen_plot_salmon.png)
+
+<img src="../img/topgen_plot_salmon.png" width="500">
 
 **This function only allows for plotting the counts of a single gene at a time.** 
 
