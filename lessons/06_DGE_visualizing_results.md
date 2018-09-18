@@ -105,7 +105,7 @@ ggplot(d, aes(x = sampletype, y = count, color = sampletype)) +
 
 > Note that in the plot below (code above), we are using `geom_text_repel()` from the `ggrepel` package to label our individual points on the plot.
 
-<img src="../img/plotCounts_ggrepel_salmon.png" width="600">
+<img src="../img/plotCounts_ggrepel_salmon.png" width="700">
 
 #### Using `ggplot2` to plot multiple genes (e.g. top 20)
 
