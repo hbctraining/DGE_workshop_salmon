@@ -141,8 +141,10 @@ Let's take a quick look at size factor values we have for each sample:
 ## Check the size factors
 sizeFactors(dds)
 
-Mov10_kd_2 Mov10_kd_3 Mov10_oe_1 Mov10_oe_2 Mov10_oe_3 Irrel_kd_1 Irrel_kd_2 Irrel_kd_3 
- 1.5646728  0.9351760  1.2016082  1.1205912  0.6534987  1.1224020  0.9625632  0.7477715  
+Irrel_kd_1 Irrel_kd_2 Irrel_kd_3 Mov10_kd_2 Mov10_kd_3 Mov10_oe_1 Mov10_oe_2 
+ 1.1149694  0.9606733  0.7492240  1.5633640  0.9359695  1.2262649  1.1405026 
+Mov10_oe_3 
+ 0.6542030 
 ```
  
 These numbers should be identical to those we generated initially when we had run the function `estimateSizeFactors(dds)`. Take a look at the total number of reads for each sample:
