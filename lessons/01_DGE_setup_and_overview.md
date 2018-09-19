@@ -127,19 +127,18 @@ names(files) <- str_replace(samples, "./data/", "") %>%
 Our Salmon index was generated with transcript sequences listed by Ensembl IDs, but `tximport` needs to know **which genes these transcripts came from**. We will use the [`annotables`](https://github.com/stephenturner/annotables) package to extract transcript to gene information. This package has basic annotation information from Ensembl Genes 91 for various organisms and is very helpful for mapping between different IDs. It also has `tx2gene` tables that link Ensembl gene IDs to Ensembl transcript IDs.
 
 ```r
-# Look at the tx2gene table for GrCh37
-grch37_tx2gene
+# Look at the tx2gene table for GrCh38
+grch38_tx2gene
 ```
 
-`grch37_tx2gene` is a two-column dataframe linking transcript ID (column 1) to gene ID (column 2). The column names are not relevant, but this column order must be used.
-
+`grch38_tx2gene` is a two-column dataframe linking transcript ID (column 1) to gene ID (column 2). The column names are not relevant, but this column order must be used.
 
 Now we are ready to **run `tximport`**. Note that although there is a column in our `quant.sf` files that corresponds to the estimated count value for each transcript but they are correlated by effective length. What we want to do is use the `countsFromAbundance=“lengthScaledTPM”` argument. This will use the TPM column, and compute quantities that are on the same scale as original counts, except no longer correlated with transcript length across samples.
 
 ```R
 ?tximport   # let's take a look at the arguments for the tximport function
 
-txi <- tximport(files, type="salmon", tx2gene=grch37_tx2gene, countsFromAbundance=“lengthScaledTPM”)
+txi <- tximport(files, type="salmon", tx2gene=grch38_tx2gene, countsFromAbundance=“lengthScaledTPM”)
 
 ```
 
