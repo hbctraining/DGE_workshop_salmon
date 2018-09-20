@@ -62,11 +62,12 @@ normalized_counts
 
 >**NOTE:** A possible alternative to the above:
 > 
+> ```
 > normalized_counts <- counts(dds, normalized=T) %>% 
 > data.frame() %>%
 > rownames_to_column(var="gene") %>%
 > as_tibble() %>%
-> left_join(grch38[, c("ensgene", "symbol")], by=c("gene" = "ensgene"))
+> left_join(grch38[, c("ensgene", "symbol")], by=c("gene" = "ensgene"))```
 
 ### Plotting signicant DE genes
 
