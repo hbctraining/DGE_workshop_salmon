@@ -44,9 +44,11 @@ Let's also bring in a column with gene symbols to the `normalized_counts` object
 ```r
 # DESeq2 creates a matrix when you use the counts() function
 ## First convert normalized_counts to a data frame and transfer the row names to a new column called "gene"
-normalized_counts <- normalized_counts %>% 
+normalized_counts <- counts(dds, normalized=T) %>% 
   data.frame() %>%
-  rownames_to_column(var="gene")
+  rownames_to_column(var="gene") %>%
+  as_tibble() %>%
+  left_join(grch38[, c("ensgene", "symbol")], by=c("gene" = "ensgene"))
   
 # Next, merge together (ensembl IDs) the normalized counts data frame with 
 #	a subset of the annotables grch38 data frame (only the columns for ensembl gene IDs and gene symbols)
