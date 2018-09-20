@@ -69,6 +69,9 @@ The first step in hypothesis testing is to set up a **null hypothesis** for each
 
 With DESeq2, the Wald test is commonly used for hypothesis testing when comparing two groups. A Wald test statistic is computed along with a probability that a test statistic at least as extreme as the observed value were selected at random. This probability is called the p-value of the test. If the p-value is small we reject the null hypothesis and state that there is evidence against the null (i.e. the gene is differentially expressed).
 
+> ### What if I have more than two sample groups I want to compare?
+> An alternative to pair-wise comparisons is to **analyze all levels of a factor at once**. By default the Wald test is used to generate the results table, but DESeq2 also offers the Likelihood Ratio Test (LRT) which is used to identify any genes that show change in expression across the different levels. This type of test can be especially useful in analyzing time course experiments. If you want more details on the LRT and how you would use it, take a look at the [materials linked here](https://hbctraining.github.io/DGE_workshop_salmon/lessons/08_DGE_LRT.html).
+
 ### Creating contrasts
 
 To indicate to DESeq2 the two groups we want to compare, we can use **contrasts**. Contrasts are then provided to DESeq2 to perform differential expression testing using the Wald test. Contrasts can be provided to DESeq2 a couple of different ways:
