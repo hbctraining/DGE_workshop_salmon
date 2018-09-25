@@ -15,7 +15,7 @@ Approximate time: 1.5 hours
 
 Until this point we have focused on looking for expression changes at the gene-level. However, if you are interested in looking at **splice isoform expression changes between groups** the previous methods (i.e DESeq2) will not work. To demonstrate how to identify transcript-level differential expression we will be using a tool called Sleuth.
 
-<img src="../img/workflow-salmon-sleuth.png" width="500">
+<img src="../img/workflow-salmon-sleuth.png" width="700">
 
 ## What is Sleuth?
 
