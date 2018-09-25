@@ -15,7 +15,7 @@ Approximate time: 1.5 hours
 
 Until this point we have focused on looking for expression changes at the gene-level. However, if you are interested in looking at **splice isoform expression changes between groups** the previous methods (i.e DESeq2) will not work. To demonstrate how to identify transcript-level differential expression we will be using a tool called Sleuth.
 
-<img src="../img/sleuth_fullworkflow_new.png" width="500">
+<img src="../img/workflow-salmon-sleuth.png" width="500">
 
 ## What is Sleuth?
 
@@ -46,16 +46,19 @@ The observed (log) abundance estimates represent the sum of the true counts and 
   <img src="../img/sleuth_formula2.png" width="425"/>
 </p>
 
-In addition to performing differential expression analysis of transcripts, the sleuth tool also provides an html interface allowing exploration of the data and differential expression results interactively. More information about the theory/process for sleuth is available in the [Nature Methods paper](https://www.nature.com/articles/nmeth.4324), this [blogpost](https://liorpachter.wordpress.com/2015/08/17/a-sleuth-for-rna-seq/) and step-by-step tutorials are available on the [sleuth website](https://pachterlab.github.io/sleuth/walkthroughs).
+In addition to performing differential expression analysis of transcripts, the sleuth tool also provides an HTML interface allowing exploration of the data and differential expression results interactively. More information about the theory/process for sleuth is available in the [Nature Methods paper](https://www.nature.com/articles/nmeth.4324), this [blogpost](https://liorpachter.wordpress.com/2015/08/17/a-sleuth-for-rna-seq/) and step-by-step tutorials are available on the [sleuth website](https://pachterlab.github.io/sleuth/walkthroughs).
 
 ***NOTE:*** *Kallisto is distributed under a non-commercial license, while Sailfish and Salmon are distributed under the [GNU General Public License, version 3](http://www.gnu.org/licenses/gpl.html).*
 
 
 ## Set-up for Running Sleuth
 
-Sleuth is a lightweight algorithm that can be quickly run on our personal computers. We can open the `DE_pseudocounts` project we created previously, since we will be using the salmon output files.
+Sleuth is a lightweight algorithm that can be quickly run on our personal computers. Let's open a new project called `DE_sleuth`.
 
-1. Open the RStudio project entitled `DE_pseudocounts`.
+> **NOTE:** We could have used the previous Salmon project, however we did not include the `--numBootstraps 30` parameter in our automation script and so we do not have the approrpriate files.
+
+
+1. Download the Salmon files with bootstraps [from here](). Save it in your working directory and decompress the file. You should now see a `data` directory.
 2. Create a new R script ('File' -> 'New File' -> 'Rscript'), and save it as `sleuth_de.R`
 
 To perform any analysis, we need to load the libraries for `wasabi` and `sleuth`. Sleuth also requires `annotables`, so this package will be loaded as well:
@@ -134,7 +137,7 @@ After performing all analysis steps, we will explore the sample QC plots and plo
 <img src="../img/sleuth_workflow1.png" width="600"/>
 </p>
 
-Similar to DESeq2, we need to tell Sleuth where to find the **metadata** (specifying which samplegroups the samples belong to, and any other metadata we want included in the analysis), **estimated counts** (output from Salmon) and the **design formula**. In addition, we also need a **annotables** to easily convert between transcript IDs and associated gene names. To create this object there is no simple function like in DESeq2 (e.g. DESeqDataSetFromMatrix(countData = data, colData = meta, design = ~ sampletype)). 
+Similar to DESeq2, we need to tell Sleuth where to find the **metadata** (specifying which samplegroups the samples belong to, and any other metadata we want included in the analysis), **estimated counts** (output from Salmon) and the **design formula**. In addition, we also need **annotables** to easily convert between transcript IDs and associated gene names. 
 
 To create this Sleuth object, we need to perform the following steps:
 
@@ -152,26 +155,26 @@ To create this Sleuth object, we need to perform the following steps:
 
 First we need to bring in the metadata file:
 
-- Download the **metadata** associated with the Salmon files by **right-clicking [this link](https://github.com/hbctraining/DGE_workshop/raw/master/data/Mov10_full_meta.txt)** and selecting `Download Linked File` or `Save Linked File As` and saving to the `meta` directory.
-
-- Read in the metadata file and use the `data.frame()` function to ensure it is a dataframe, then combine the metadata with the paths to the transcript abundance files to use as input for the Sleuth analysis. 
-
-```r
-# Read in metadata file
-
-summarydata <- data.frame(read.table("meta/Mov10_full_meta.txt", header=TRUE, row.names=1), check.rows=FALSE)
-
-summarydata
-```
-
-Then we make sure the metadata and count estimate sample names match:
+- Create **metadata** associated with the Salmon files as we did in the DESeq2 lesson using the `data.frame()` function to ensure it is a dataframe. 
+- Then combine the metadata with the paths to the transcript abundance files to use as input for the Sleuth analysis. 
 
 ```r
-# Make sure the order of the `sfdirs` created above matches the order of samples in the `summarydata` rownames
 
+# Get sample names from sfdirs
 sf_dirs_samples <- sf_dirs %>%
   basename() %>% 
   str_replace(pattern = "\\.salmon", "")
+
+## Create a sampletable/metadata
+sampletype <- factor(c(rep("MOV10_knockdown", 2), rep("MOV10_overexpression", 3), rep("control",3) ))
+summarydata <- data.frame(sampletype, row.names = sf_dirs_samples)
+
+```
+
+We make sure the metadata and count estimate sample names match:
+
+```r
+# Make sure the order of the `sfdirs` created above matches the order of samples in the `summarydata` rownames
 
 all(sf_dirs_samples == rownames(summarydata))
 ```
@@ -180,35 +183,27 @@ Now, we can name the vector of directory paths with the corresponding sample nam
 ```r
 # Name the directory paths for the abundance files with their corresponding sample IDs
 
-names(sf_dirs) <- rownames(summarydata)
+names(sf_dirs) <- sf_dirs_samples
 
 sf_dirs
 ```
+`
 
-Finally, we can generate the data frame containing the metadata:
-
-```r
-# Generate the dataframe
-
-sfdata <- summarydata
-```
-
-Sleuth expects the data to be presented in a specific format with specific column and row names; therefore, we will need to name columns based on the sleuth requirements for the analysis. 
+Sleuth expects the data to be presented in a specific format with specific column and row names; therefore, we will need to add columns to `summarydata` and name columns based on the sleuth requirements for the analysis. 
 
 Sleuth requires a column entitled "sample" containing the sample names:
 
 ```r
 # Adding a column named 'sample'
 
-sfdata$sample <- rownames(sfdata)
+summarydata$sample <- rownames(summarydata)
 ```
 
 Now, we can include the path to the count estimate folders. Sleuth requires a column entitled "path" containing the paths to the estimated counts files stored in our `sf_dirs`:
 
 ```r
-sfdata$path <- sf_dirs
+summarydata$path <- sf_dirs
 
-sfdata
 ```
 
 #### Provide the model design
@@ -227,28 +222,21 @@ In addition, [one of the sleuth walk-throughs](https://pachterlab.github.io/sleu
 
 #### Query annotables dataset to obtain the corresponding Ensembl transcript/gene IDs
 
-The last component to include for our analysis is the annotables Ensembl genome dataset to obtain the Ensembl transcript/gene IDs and gene names for annotation of results. There are conversion objects available to us by just loading the annotables library:
+The last component to include for our analysis is the annotables Ensembl genome dataset to obtain the Ensembl transcript/gene IDs and gene names for annotation of results. There are conversion objects available to us by just loading the annotables library.
+
+
+We can use the gene symbols from `grch38` and join this information with the `grch38_tx2gene` dataset for our conversion purposes. Agin, we will need to provide column names that are consistent with what Sleuth is expecting.
 
 ```r
-grch37 %>% head()
+# Inner join the tx2gene so we get gene symbols
 
-grch37_tx2gene %>% head()
-```
+t2g <- grch38 %>% 
+  select(symbol, ensgene) %>% 
+  dplyr::right_join(grch38_tx2gene) %>% 
+  rename(target_id = enstxp, 
+         ens_gene = ensgene, 
+         ext_gene = symbol)
 
-We can use the `grch37_tx2gene` dataset for our conversion purposes:
-
-```r
-# Using annotables
-
-t2g <- grch37_tx2gene
-
-t2g <- merge(x= grch37[, c("symbol", "ensgene")], y = t2g, by.x="ensgene", by.y= "ensgene")
-
-## Rename the columns for use in Sleuth
-
-t2g <- dplyr::rename(t2g, target_id = enstxp , 
-                     ens_gene = ensgene, 
-                     ext_gene = symbol)
 ```
 
 ### Step 2: Fit the sleuth model
@@ -264,7 +252,7 @@ Using the `sleuth_prep()` function, the counts are normalized and filtered, then
 ```r
 # Create sleuth object for analysis 
 
-so <- sleuth_prep(sfdata, 
+so <- sleuth_prep(summarydata, 
                   full_model = design, 
                   target_mapping = t2g, 
                   read_bootstrap_tpm = TRUE,
@@ -282,7 +270,7 @@ so <- sleuth_fit(so)
 
 > **NOTE:** alternatively the two prior steps could have been run as: 
 > ```r
-> so <- sleuth_prep(sfdata, 
+> so <- sleuth_prep(summarydata, 
 >                  full_model = design, 
 >                  target_mapping = t2g, 
 >                  read_bootstrap_tpm = TRUE,
