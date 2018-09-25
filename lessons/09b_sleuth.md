@@ -451,12 +451,12 @@ Sleuth also has some handy functions to plot expression of transcripts with boot
 # Plotting
 
 plot_bootstrap(oe, 
-               target_id = "ENST00000495374.5", 
+               target_id = "ENST00000495374", 
                units = "est_counts", 
                color_by = "sampletype")
 
 plot_bootstrap(oe, 
-               target_id = "ENST00000367412.1", 
+               target_id = "ENST00000367412", 
                units = "est_counts", 
                color_by = "sampletype")
 ```
