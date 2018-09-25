@@ -53,7 +53,7 @@ In addition to performing differential expression analysis of transcripts, the s
 
 ## Set-up for Running Sleuth
 
-Sleuth is a lightweight algorithm that can be quickly run on our personal computers. Let's open a new project called `DE_sleuth`.
+Sleuth is a lightweight algorithm that can be quickly run on our personal computers. Let's **open a new project called `DE_sleuth`**.
 
 > **NOTE:** We could have used the previous Salmon project, however we did not include the `--numBootstraps 30` parameter in our automation script and so we do not have the approrpriate files.
 
