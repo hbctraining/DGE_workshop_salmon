@@ -377,7 +377,7 @@ plot_sample_heatmap(oe)
 ```
 
 <p align="center">
-  <img src="../img/sleuth_cor_heatmap.png" width="400"/>
+  <img src="../img/sleuth_cor_heatmap.png" width="600"/>
 </p>
 
 **Count distributions:** There is a histogram plot to explore count distributions between sample groups, which should be similar to each other when performing DE testing. The count distributions represent the proportion of genes (on the y-axis) associated with the number of counts (designated on the x-axis):
@@ -391,7 +391,7 @@ plot_group_density(oe,
 ```
 
 <p align="center">
-  <img src="../img/plot_density_unfiltered.png" width="400"/>
+  <img src="../img/plot_density_unfiltered.png" width="600"/>
 </p>
 
 As we know, most genes have few counts, but we filter these genes prior to performing DE analysis. If we want to look at the distributions of the filtered genes used for DE analysis, we could change the `use_filtered` argument to `TRUE`.
@@ -405,7 +405,7 @@ plot_group_density(oe,
 ```
 
 <p align="center">
-  <img src="../img/plot_density_filtered.png" width="400"/>
+  <img src="../img/plot_density_filtered.png" width="600"/>
 </p>
 
 #### Results analyses: 
@@ -421,7 +421,7 @@ plot_transcript_heatmap(oe,
 ```
 
 <p align="center">
-  <img src="../img/heatmap_sleuth.png" width="400"/>
+  <img src="../img/heatmap_sleuth.png" width="600"/>
 </p>
 
 Sleuth also has some handy functions to plot expression of transcripts with bootstrap variation to **visualize both biological and technical variation** for selected transcripts:
@@ -441,11 +441,11 @@ plot_bootstrap(oe,
 ```
 
 <p align="center">
-  <img src="../img/sleuth_bootstraps1.png" width="400"/>
+  <img src="../img/sleuth_bootstraps1.png" width="600"/>
 </p>
 
 <p align="center">
-  <img src="../img/sleuth_bootstraps2.png" width="400"/>
+  <img src="../img/sleuth_bootstraps2.png" width="600"/>
 </p>
 
 Sleuth also offers us the option to explore the data and results interactively using a web interface. 
