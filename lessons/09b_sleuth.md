@@ -227,7 +227,7 @@ In addition, [one of the sleuth walk-throughs](https://pachterlab.github.io/sleu
 The last component to include for our analysis is the annotables Ensembl genome dataset to obtain the Ensembl transcript/gene IDs and gene names for annotation of results. There are conversion objects available to us by just loading the annotables library.
 
 
-We can use the gene symbols from `grch38` and join this information with the `grch38_tx2gene` dataset for our conversion purposes. Agin, we will need to provide column names that are consistent with what Sleuth is expecting.
+We can use the gene symbols from `grch38` and join this information with the `grch38_tx2gene` dataset for our conversion purposes. Again, we will need to provide column names that are consistent with what Sleuth is expecting.
 
 ```r
 # Inner join the tx2gene so we get gene symbols
@@ -351,7 +351,7 @@ plot_pca(oe,
 ```
 
 <p align="center">
-  <img src="../img/sleuth_plot_pca.png" width="700"/>
+  <img src="../img/pca_sleuth.png" width="700"/>
 </p>
 
 ```r
@@ -377,7 +377,7 @@ plot_sample_heatmap(oe)
 ```
 
 <p align="center">
-  <img src="../img/sleuth_mov10_heatmap.png" width="400"/>
+  <img src="../img/sleuth_cor_heatmap.png" width="400"/>
 </p>
 
 **Count distributions:** There is a histogram plot to explore count distributions between sample groups, which should be similar to each other when performing DE testing. The count distributions represent the proportion of genes (on the y-axis) associated with the number of counts (designated on the x-axis):
@@ -391,7 +391,7 @@ plot_group_density(oe,
 ```
 
 <p align="center">
-  <img src="../img/sleuth_mov10_density_no_filter.png" width="400"/>
+  <img src="../img/plot_density_unfiltered.png" width="400"/>
 </p>
 
 As we know, most genes have few counts, but we filter these genes prior to performing DE analysis. If we want to look at the distributions of the filtered genes used for DE analysis, we could change the `use_filtered` argument to `TRUE`.
@@ -405,33 +405,12 @@ plot_group_density(oe,
 ```
 
 <p align="center">
-  <img src="../img/sleuth_mov10_density.png" width="400"/>
+  <img src="../img/plot_density_filtered.png" width="400"/>
 </p>
 
 #### Results analyses: 
 
-There are also functions to explore the results, such as the MA plot:
-
-```r
-# Try the plot_ma() function
-plot_ma(oe) # shows that we need to specify the 'test'
-
-?plot_ma
-
-# Check for possible tests
-tests(oe)
-
-# Try the plot_ma() function again
-plot_ma(oe, 
-        test="sampletypeMOV10_overexpression", 
-        sig_level = 0.05)
-```
-
-<p align="center">
-  <img src="../img/sleuth_mov10_ma.png" width="400"/>
-</p>
-
-Also, we can perform an expression heatmap for select transcripts:
+There are also functions to explore the results. For example, we can perform an expression heatmap for select transcripts:
 
 ```r
 sig_transcripts <- sleuth_results_oe %>% 
@@ -442,7 +421,7 @@ plot_transcript_heatmap(oe,
 ```
 
 <p align="center">
-  <img src="../img/sleuth_transcripts_heatmap.png" width="400"/>
+  <img src="../img/heatmap_sleuth.png" width="400"/>
 </p>
 
 Sleuth also has some handy functions to plot expression of transcripts with bootstrap variation to **visualize both biological and technical variation** for selected transcripts:
@@ -462,11 +441,11 @@ plot_bootstrap(oe,
 ```
 
 <p align="center">
-  <img src="../img/mov10_bootstraps.png" width="400"/>
+  <img src="../img/sleuth_bootstraps1.png" width="400"/>
 </p>
 
 <p align="center">
-  <img src="../img/sleuth_mov10_bootstraps2.png" width="400"/>
+  <img src="../img/sleuth_bootstraps2.png" width="400"/>
 </p>
 
 Sleuth also offers us the option to explore the data and results interactively using a web interface. 
