@@ -202,6 +202,8 @@ summarydata$sample <- rownames(summarydata)
 Now, we can include the path to the count estimate folders. Sleuth requires a column entitled "path" containing the paths to the estimated counts files stored in our `sf_dirs`:
 
 ```r
+# Adding a column named 'path'
+
 summarydata$path <- sf_dirs
 
 ```
