@@ -234,7 +234,7 @@ We can use the gene symbols from `grch38` and join this information with the `gr
 
 t2g <- grch38 %>% 
   select(symbol, ensgene) %>% 
-  dplyr::right_join(grch38_tx2gene) %>% 
+  dplyr::inner_join(grch38_tx2gene) %>% 
   rename(target_id = enstxp, 
          ens_gene = ensgene, 
          ext_gene = symbol)
