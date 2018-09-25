@@ -58,7 +58,7 @@ Sleuth is a lightweight algorithm that can be quickly run on our personal comput
 > **NOTE:** We could have used the previous Salmon project, however we did not include the `--numBootstraps 30` parameter in our automation script and so we do not have the approrpriate files.
 
 
-1. Download the Salmon files with bootstraps [from here](). Save it in your working directory and decompress the file. You should now see a `data` directory.
+1. Download the Salmon files with bootstraps [from here](https://www.dropbox.com/s/ntpkgkxikb46b35/data.zip?dl=1). Move it into your working directory and decompress the file. You should now see a `data` directory.
 2. Create a new R script ('File' -> 'New File' -> 'Rscript'), and save it as `sleuth_de.R`
 
 To perform any analysis, we need to load the libraries for `wasabi` and `sleuth`. Sleuth also requires `annotables`, so this package will be loaded as well:
