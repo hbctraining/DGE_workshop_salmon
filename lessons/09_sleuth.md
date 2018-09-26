@@ -55,7 +55,7 @@ In addition to performing differential expression analysis of transcripts, the s
 
 Sleuth is a lightweight algorithm that can be quickly run on our personal computers. Let's **open a new project called `DE_sleuth`**.
 
-> **NOTE:** We could have used the previous Salmon project, however we did not include the `--numBootstraps 30` parameter in our automation script and so we do not have the approrpriate files.
+> **NOTE:** We could have used the previous Salmon project, however we did not include the `--numBootstraps 30` parameter in our automation script and so we do not have the appropriate files.
 
 
 1. Download the Salmon files with bootstraps [from here](https://www.dropbox.com/s/ntpkgkxikb46b35/data.zip?dl=1). Move it into your working directory and decompress the file. You should now see a `data` directory.
