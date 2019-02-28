@@ -13,7 +13,7 @@
 | 13:50 - 15:15 | [Setting up for DGE Analysis: Count Data QC](https://hbctraining.github.io/DGE_workshop_salmon/lessons/03_DGE_QC_analysis.html) | Meeta |
 | 15:15- 15:30 | Coffee  |
 | 15:30 - 16:30 | [Overview of DESeq2 Methods](https://hbctraining.github.io/DGE_workshop_salmon/lessons/04_DGE_DESeq2_analysis.html) | Mary  |
-| 16:30 - 17:00 | DGE Analysis: Pairwise Comparisons (Wald Test)](https://hbctraining.github.io/DGE_workshop_salmon/lessons/05_DGE_DESeq2_analysis2.html)   | Meeta |
+| 16:30 - 17:00 | [DGE Analysis: Pairwise Comparisons (Wald Test)](https://hbctraining.github.io/DGE_workshop_salmon/lessons/05_DGE_DESeq2_analysis2.html)| Meeta |
 
 
 ## Day2
