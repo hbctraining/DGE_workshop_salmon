@@ -246,6 +246,8 @@ The GO terms output by gprofileR are generally quite similar to those output by 
 
 <img src="../img/revigo_treemap.png" width="800">
 
+## Other methods for functional analysis
+
 Over-representation analysis is only a single type of functional analysis method that is available for teasing apart the biological processes important to your condition of interest. Other types of analyses can be equally important or informative, including functional class scoring and pathway topology methods. 
 
 ![Pathway analysis tools](../img/pathway_analysis.png)
