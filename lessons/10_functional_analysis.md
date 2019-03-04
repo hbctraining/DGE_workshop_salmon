@@ -99,9 +99,10 @@ Then load the following libraries:
 library(org.Hs.eg.db)
 library(DOSE)
 library(pathview)
-library(purrr)
 library(clusterProfiler)
-library(annotables)
+library(AnnotationHub)
+library(ensembldb)
+library(tidyverse)
 ```
 
 To perform the over-representation analysis, we need a list of Ensembl or Entrez IDs for the background genes and the significant genes. For our background list we will use all genes tested for differential expression (all genes in our results table). For our significant gene list we will use genes in our `sigOE` results table (genes that are significantly differentially expressed at a padj cutoff of 0.05).
@@ -189,7 +190,7 @@ cnetplot(ego,
          vertex.label.font=6)
 ```
 
-**Again, to save the figure,** click on the `Export` button in the RStudio `Plots` tab and `Save as PDF...`. Change the `PDF size` to `48 x 56` to give a figure of appropriate size for the text labels.
+**Again, to save the figure,** click on the `Export` button in the RStudio `Plots` tab and `Save as PDF...`. Change the `PDF size` to `24 x 32` to give a figure of appropriate size for the text labels.
 
 <img src="../img/cnetplot1_salmon.png" width="800">
 
@@ -307,6 +308,7 @@ Use the [Pathview R package](http://bioconductor.org/packages/release/bioc/html/
 
 ```r
 ## Output images for a single significant KEGG pathway
+detach("package:dplyr", unload=TRUE) # first unload dplyr to avoid conflicts
 pathview(gene.data = foldchanges,
               pathway.id = "hsa05016",
               species = "hsa",
@@ -323,7 +325,7 @@ pathview(gene.data = foldchanges,
 >        limit = list(gene = 2, cpd = 1))
 > }
 >
-> purrr::map(1:length(gsea_results$ID), get_kegg_plots)
+> purrr::map(1:length(gseaKEGG_results$ID), get_kegg_plots)
 > ```
 
 Instead of exploring enrichment of KEGG gene sets, we can also explore the enrichment of BP Gene Ontology terms using gene set enrichment analysis: 
@@ -413,6 +415,7 @@ We can view the significantly dysregulated pathways by viewing the over-represen
 ```r
 plotP(spia_result, threshold=0.05)
 ```
+![perturbed_pathway](../img/spia_plot.png)
 
 In this plot, each pathway is a point and the coordinates are the log of pNDE (using a hypergeometric model) and the p-value from perturbations, pPERT. The oblique lines in the plot show the significance regions based on the combined evidence.
 
