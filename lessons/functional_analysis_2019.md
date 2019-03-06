@@ -94,8 +94,6 @@ We will be using [clusterProfiler](http://bioconductor.org/packages/release/bioc
 
 To run clusterProfiler GO over-representation analysis, we will change our gene names into Ensembl IDs, since the tool works a bit easier with the Ensembl IDs. 
 
-Let's open up our previous **`DEanalysis` project**, and create a **`functional_analysis.R` script**.
-
 Then load the following libraries:
 
 ```r
