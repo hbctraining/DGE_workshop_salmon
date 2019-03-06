@@ -98,7 +98,6 @@ Then load the following libraries:
 
 ```r
 # Load libraries
-library(org.Hs.eg.db)
 library(DOSE)
 library(pathview)
 library(clusterProfiler)
@@ -308,6 +307,8 @@ gseaplot(gseaKEGG, geneSetID = 'hsa03040')
 Use the [Pathview R package](http://bioconductor.org/packages/release/bioc/html/pathview.html) to integrate the KEGG pathway data from clusterProfiler into pathway images:
 
 ```r
+detach("package:dplyr", unload=TRUE) # first unload dplyr to avoid conflicts
+
 ## Output images for a single significant KEGG pathway
 pathview(gene.data = foldchanges,
               pathway.id = "hsa03040",
@@ -415,6 +416,8 @@ We can view the significantly dysregulated pathways by viewing the over-represen
 ```r
 plotP(spia_result, threshold=0.05)
 ```
+
+![perturbed_pathway](../img/spia_plot.png)
 
 In this plot, each pathway is a point and the coordinates are the log of pNDE (using a hypergeometric model) and the p-value from perturbations, pPERT. The oblique lines in the plot show the significance regions based on the combined evidence.
 
