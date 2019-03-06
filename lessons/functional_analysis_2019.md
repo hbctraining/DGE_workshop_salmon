@@ -288,7 +288,7 @@ gseaKEGG_results <- gseaKEGG@result
 
 >**NOTE:** The organisms with KEGG pathway information are listed [here](http://www.genome.jp/kegg/catalog/org_list.html).
 
-View the enriched pathways:
+**How many pathways are enriched?** View the enriched pathways:
 
 ```r
 ## Write GSEA results to file
@@ -297,12 +297,14 @@ View(gseaKEGG_results)
 write.csv(gseaKEGG_results, "results/gseaOE_kegg.csv", quote=F)
 ```
 
-Explore the GSEA plot of enrichment of the pathway-associated genes in the ranked list:
+Explore the GSEA plot of enrichment of one of the pathways in the ranked list:
 
 ```r
 ## Plot the GSEA plot for a single enriched pathway, `hsa03040`
 gseaplot(gseaKEGG, geneSetID = 'hsa03040')
 ```
+
+![gseaKEGG_gseaplot](../img/gsea_kegg_hsa03040.png)
 
 Use the [Pathview R package](http://bioconductor.org/packages/release/bioc/html/pathview.html) to integrate the KEGG pathway data from clusterProfiler into pathway images:
 
@@ -316,6 +318,10 @@ pathview(gene.data = foldchanges,
               limit = list(gene = 2, # value gives the max/min limit for foldchanges
               cpd = 1))
 ```
+
+
+![gseaKEGG_pathview](../img/hsa03040.pathview.png)
+
 
 >**NOTE:** Printing out Pathview images for all significant pathways can be easily performed as follows:
 >
