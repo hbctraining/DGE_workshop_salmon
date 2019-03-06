@@ -102,22 +102,12 @@ Then load the following libraries:
 library(org.Hs.eg.db)
 library(DOSE)
 library(pathview)
-library(purrr)
 library(clusterProfiler)
-library(annotables)
 ```
 
-For the different steps in the functional analysis, we require Ensembl and Entrez IDs. To convert the gene symbols to these IDs, we will use the **annotables** package and merge the IDs with the DE results. 
+For the different steps in the functional analysis, we require Ensembl and Entrez IDs. We will use the gene annotations that we generated previously.
 
 ```r
-## Explore the grch37 table loaded by the annotables library
-grch37
-
-## Return the IDs for the gene symbols in the DE results
-idx <- grch37$symbol %in% rownames(res_tableOE)
-
-ids <- grch37[idx, ]
-
 ## The gene names can map to more than one Ensembl ID (some genes change ID over time), 
 ## so we need to remove duplicate IDs prior to assessing enriched GO terms
 non_duplicates <- which(duplicated(ids$symbol) == FALSE)
