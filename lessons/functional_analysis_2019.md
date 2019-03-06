@@ -97,35 +97,30 @@ To run clusterProfiler GO over-representation analysis, we will change our gene 
 Then load the following libraries:
 
 ```r
+# Load libraries
 library(org.Hs.eg.db)
 library(DOSE)
 library(pathview)
 library(clusterProfiler)
 ```
 
-For the different steps in the functional analysis, we require Ensembl and Entrez IDs. We will use the gene annotations that we generated previously.
+For the different steps in the functional analysis, we require Ensembl and Entrez IDs. We will use the gene annotations that we generated previously to merge with our differential expression results.
 
 ```r
-## The gene names can map to more than one Ensembl ID (some genes change ID over time), 
-## so we need to remove duplicate IDs prior to assessing enriched GO terms
-non_duplicates <- which(duplicated(ids$symbol) == FALSE)
-
-ids <- ids[non_duplicates, ] 
-
-## Merge the IDs with the results 
-res_ids <- inner_join(res_tableOE_tb, ids, by=c("gene"="symbol"))         
+## Merge the annotations with the results 
+res_ids <- inner_join(res_tableOE_tb, annotations_edb, by=c("gene"="SYMBOL"))         
 ```
 
 To perform the over-representation analysis, we need a list of background genes and a list of significant genes. For our background dataset we will use all genes tested for differential expression (all genes in our results table). For our significant gene list we will use genes with p-adjusted values less than 0.05 (we could include a fold change threshold too if we have many DE genes).
 
 ```r
 ## Create background dataset for hypergeometric testing using all genes tested for significance in the results                 
-allOE_genes <- as.character(res_ids$ensgene)
+allOE_genes <- as.character(res_ids$GENEID)
 
 ## Extract significant results
 sigOE <- filter(res_ids, padj < 0.05)
 
-sigOE_genes <- as.character(sigOE$ensgene)
+sigOE_genes <- as.character(sigOE$GENEID)
 ```
 
 Now we can perform the GO enrichment analysis and save the results:
