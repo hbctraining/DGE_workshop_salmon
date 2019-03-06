@@ -246,10 +246,10 @@ To perform GSEA analysis of KEGG gene sets, clusterProfiler requires the genes t
 
 ```r
 ## Remove any NA values
-res_entrez <- filter(res_ids, entrez != "NA")
+res_entrez <- dplyr::filter(res_ids, ENTREZID != "NA")
 
 ## Remove any Entrez duplicates
-res_entrez <- res_entrez[which(duplicated(res_entrez$entrez) == F), ]
+res_entrez <- res_entrez[which(duplicated(res_entrez$ENTREZID) == F), ]
 
 ```
 
@@ -260,7 +260,7 @@ Finally, extract and name the fold changes:
 foldchanges <- res_entrez$log2FoldChange
 
 ## Name each fold change with the corresponding Entrez ID
-names(foldchanges) <- res_entrez$entrez
+names(foldchanges) <- res_entrez$ENTREZID
 ```
 
 Next we need to order the fold changes in decreasing order. To do this we'll use the `sort()` function, which takes a vector as input. This is in contrast to Tidyverse's `arrange()`, which requires a data frame.
@@ -325,7 +325,7 @@ pathview(gene.data = foldchanges,
 >        limit = list(gene = 2, cpd = 1))
 > }
 >
-> purrr::map(1:length(gsea_results$ID), get_kegg_plots)
+> purrr::map(1:length(gseaKEGG_results$ID), get_kegg_plots)
 > ```
 
 Instead of exploring enrichment of KEGG gene sets, we can also explore the enrichment of BP Gene Ontology terms using gene set enrichment analysis: 
@@ -377,13 +377,13 @@ library(SPIA)
 
 ## Significant genes is a vector of fold changes where the names are ENTREZ gene IDs. The background set is a vector of all the genes represented on the platform.
 
-background_entrez <- res_entrez$entrez
+background_entrez <- res_entrez$ENTREZID
 
 sig_res_entrez <- res_entrez[which(res_entrez$padj < 0.05), ]
 
 sig_entrez <- sig_res_entrez$log2FoldChange
 
-names(sig_entrez) <- sig_res_entrez$entrez
+names(sig_entrez) <- sig_res_entrez$ENTREZID
 
 head(sig_entrez)
 ```
