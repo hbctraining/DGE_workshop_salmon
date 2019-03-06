@@ -198,7 +198,7 @@ cnetplot(ego,
          vertex.label.font=6)
 ```
 
-**Again, to save the figure,** click on the `Export` button in the RStudio `Plots` tab and `Save as PDF...`. Change the `PDF size` to `48 x 56` to give a figure of appropriate size for the text labels.
+**Again, to save the figure,** click on the `Export` button in the RStudio `Plots` tab and `Save as PDF...`. Change the `PDF size` to `25 x 30` to give a figure of appropriate size for the text labels.
 
 <img src="../img/cnetplot1_salmon.png" width="800">
 
