@@ -30,7 +30,7 @@
 | 13:45 - 14:30 | [Functional Analysis](https://hbctraining.github.io/DGE_workshop_salmon/lessons/10_functional_analysis.html) | Mary |
 | 14:30- 14:45 | Coffee  |
 | 14:45 - 15:30 | [Functional Analysis (cont'd)](https://hbctraining.github.io/DGE_workshop_salmon/lessons/10_functional_analysis.html) | Mary |
-| 15:30 - 15:45 | [Other workflows]() | Radhika |
-| 15:45 - 16:45 | [Isoform-level ]() | Radhika |
+| 15:30 - 16:45 | [Isoform-level differential expression with Sleuth ]() | Meeta |
+| 15:30 - 16:45 | [Wrap-up ]() | Radhika |
 
 
