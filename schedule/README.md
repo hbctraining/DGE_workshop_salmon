@@ -26,8 +26,8 @@
 | 11:00 - 11:15 | [DGE Analysis: Workflow Summarization](https://hbctraining.github.io/DGE_workshop_salmon/lessons/07_DGE_summarizing_workflow.html) | Meeta |
 | 11:15 - 12:00 | [DGE Analysis: Likelihood Ratio Test](https://hbctraining.github.io/DGE_workshop_salmon/lessons/08_DGE_LRT.html) | Meeta |
 | 12:00 - 13:00 | Lunch |  |
-| 13:00 - 13:45 | [Annotations]() | Meeta |
-| 13:45 - 14:30 | [Functional Analysis](https://hbctraining.github.io/DGE_workshop_salmon/lessons/10_functional_analysis.html) | Mary |
+| 13:00 - 13:45 | [Gene Annotations]() | Meeta |
+| 13:45 - 14:30 | [Functional Analysis](https://hbctraining.github.io/DGE_workshop_salmon/lessons/10_functional_analysis.html) | Radhika |
 | 14:30- 14:45 | Coffee  |
 | 14:45 - 15:30 | [Functional Analysis (cont'd)](https://hbctraining.github.io/DGE_workshop_salmon/lessons/10_functional_analysis.html) | Mary |
 | 15:30 - 16:30 | [Isoform-level differential expression with Sleuth ]() | Meeta |
