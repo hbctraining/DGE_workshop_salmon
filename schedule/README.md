@@ -29,8 +29,7 @@
 | 13:00 - 14:00 | [Gene Annotations]() | Meeta |
 | 14:00 - 14:30 | [Functional Analysis]() | Radhika |
 | 14:30- 14:45 | Coffee  |
-| 14:45 - 16:00 | [Functional Analysis (cont'd)]() | Mary |
-| 16:00 - 16:30 | [Other workflows]() | Meeta |
-| 16:30 - 17:00 | [Wrap-up ]() | Radhika |
+| 14:45 - 16:15 | [Functional Analysis (cont'd)]() | Mary |
+| 16:15 - 17:00 | [Wrap-up ]() | Radhika |
 
 
