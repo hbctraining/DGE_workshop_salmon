@@ -23,7 +23,7 @@ This repository has teaching materials for a **1.5-day**, hands-on **Introductio
 
 Below are links to the lessons and suggested schedules:
 
-* [Click here for schedule](schedule/)
+* [Click here for schedule](https://hbctraining.github.io/DGE_workshop_salmon/schedule)
 
 
 
