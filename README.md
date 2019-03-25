@@ -2,11 +2,11 @@
 
 | Audience | Computational skills required| Duration |
 :----------|:----------|:----------|
-| Biologists | [Introduction to R](https://hbctraining.github.io/Intro-to-R/) | 1.5-day workshop (~10 hours of trainer-led time)|
+| Biologists | [Introduction to R](https://hbctraining.github.io/Intro-to-R/) | 2-day workshop (~10 hours of trainer-led time)|
 
 ### Description
 
-This repository has teaching materials for a **1.5-day**, hands-on **Introduction to differential gene expression (DGE) analysis** workshop. The workshop will lead participants through performing a differential gene expression analysis workflow on RNA-seq count data using R/RStudio. Working knowledge of R is required or completion of the [Introduction to R workshop](https://hbctraining.github.io/Intro-to-R/). 
+This repository has teaching materials for a **2-day**, hands-on **Introduction to differential gene expression (DGE) analysis** workshop. The workshop will lead participants through performing a differential gene expression analysis workflow on RNA-seq count data using R/RStudio. Working knowledge of R is required or completion of the [Introduction to R workshop](https://hbctraining.github.io/Intro-to-R/). 
 
 > **NOTE:** Materials in this repo are very similar to those presented in the [DGE workshop](https://hbctraining.github.io/DGE_workshop/). The slight difference is due to the use of 'pseudocounts' generated from transcriptome mapping, rather than raw counts obtained from the typical workflow.
 
@@ -32,7 +32,7 @@ Below are links to the lessons and suggested schedules:
 
 | Audience | Computational Skills | Prerequisites | Duration |
 :----------|:----------|:----------|:----------|
-| Biologists | Intermediate R | Introduction to R | 2-day workshop (~10 hours of trainer-led time)|
+| Biologists | Intermediate R | Introduction to R | 2-day workshop (~12 hours of trainer-led time)|
 
 This repository has teaching materials for a **2-day**, hands-on **Introduction to differential gene expression (DGE) analysis** workshop. The workshop will lead participants through performing a differential gene expression analysis workflow on RNA-seq count data using R/RStudio. Working knowledge of R is required or completion of the [Introduction to R workshop](https://github.com/hbctraining/Intro-to-R).
 
