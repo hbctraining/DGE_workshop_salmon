@@ -26,8 +26,6 @@ Below are links to the lessons and suggested schedules:
 * [Click here for schedule](https://hbctraining.github.io/DGE_workshop_salmon/schedule)
 
 
-
-
 # Differential gene expression workshop
 
 | Audience | Computational Skills | Prerequisites | Duration |
@@ -50,12 +48,13 @@ This repository has teaching materials for a **2-day**, hands-on **Introduction 
 
 Download the most recent versions of R and RStudio for your laptop:
 
- - [R](http://lib.stat.cmu.edu/R/CRAN/) 
+ - [R](http://lib.stat.cmu.edu/R/CRAN/) (version 3.5.0 or above)
  - [RStudio](https://www.rstudio.com/products/rstudio/download/#download)
  
 Note:  When installing the following packages, if you are asked to select (a/s/n) or (y/n), please select “a” or "y" as applicable.
 
 (1) Install the below packages on your laptop from CRAN. You DO NOT have to go to the CRAN webpage; you can use the following function to install them one by one:
+
 
 ```r
 install.packages("insert_package_name_in_quotations")
@@ -66,19 +65,21 @@ install.packages("insert_package_name_in_quotations")
 Note that these package names are case sensitive!
 
 ```r
+BiocManager
+devtools
+tidyverse
 RColorBrewer
 pheatmap
 ggrepel
-devtools
 cowplot
 ```
 
-(2) Install the below packages from Bioconductor. Run the `source()` function once, followed by the `biocLite()` function 9 times for the 9 packages:
+(2) Install the below packages from Bioconductor. Load BiocManager, then run BiocManager's `install()` function 10 times for the 10 packages:
 
 ```r
-source("http://bioconductor.org/biocLite.R") 
-biocLite("insert_first_package_name_in_quotations")
-biocLite("insert_second_package_name_in_quotations")
+library(BiocManager)
+install("insert_first_package_name_in_quotations")
+install("insert_second_package_name_in_quotations")
 & so on ...
 ```
 
@@ -93,24 +94,17 @@ pathview
 DEGreport
 rhdf5
 tximport
+AnnotationDbi
+EnsDb.Hsapiens.v75
 ```
 
-(3) Use a new method of installation from GitHub to install the below packages using the following code:
+> **NOTE:** The library used for the annotations associated with genes (here we are using `org.Hs.eg.db`) will change based on organism (e.g. if studying mouse, would need to install and load `org.Mm.eg.db`). The list of different organism packages are given [here](https://github.com/hbctraining/Training-modules/raw/master/DGE-functional-analysis/img/available_annotations.png).
 
-```r
-devtools::install_github("insert_package_name_in_quotations")
-```
-```r
-stephenturner/annotables
-pachterlab/sleuth
-COMBINE-lab/wasabi
-```
-
-(4) Finally, please check that all the packages were installed successfully by loading them one at a time using the library() function.  
+(3) Finally, please check that all the packages were installed successfully by loading them one at a time using the `library()` function.  
 
 ```r
 library(DESeq2)
-library(ggplot2)
+library(tidyverse)
 library(RColorBrewer)
 library(pheatmap)
 library(ggrepel)
@@ -120,15 +114,13 @@ library(DEGreport)
 library(org.Hs.eg.db)
 library(DOSE)
 library(pathview)
-library(purrr)
 library(rhdf5)
 library(tximport)
-library(annotables)
-library(wasabi)
-library(sleuth)
+library(AnnotationDbi)
+library(EnsDb.Hsapiens.v75)
 ```
 
-(5) Once all packages have been loaded, run sessionInfo().  
+(4) Once all packages have been loaded, run sessionInfo().  
 
 ```r
 sessionInfo()
