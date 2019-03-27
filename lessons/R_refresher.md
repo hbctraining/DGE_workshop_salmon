@@ -13,9 +13,7 @@ Approximate time: 45 minutes
 * Use the pipe (%>%) from the dplyr package
 * Describe the syntax used by ggplot2 for making plots
 
-## Getting started
-
-**Exercise:**
+## Refresher exercises!
 
 1. Create a new project called `R_refresher`
 1. Create a new R script called `reviewing_R.R`
@@ -28,6 +26,9 @@ Approximate time: 45 minutes
 1. Create a data frame called `meta` that looks like the table shown below:
  
 1. Add row names to the `meta` data frame, and have them be identical to the column names in `counts`
-1. Create a list called `project1` with the `meta` and `counts` objects
-1. 
+1. Create a list called `project1` with the `meta` and `counts` objects, as well as a vector with all the samplenames extracted from one of the 2 data frames.
+1. Use `%>%` to selectively display only columns `` and `` from the metadata data frame.
+1. Create a tibble of the `meta` object and call it `meta_tb` (make sure you don't lose the rownames!)
+1. Add the `meta_tb` object to the list `project1`
+
 
