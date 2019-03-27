@@ -18,7 +18,7 @@ Approximate time: 45 minutes
 **Exercise:**
 
 1 Create a new project called `R_refresher`
-1 Create a new R script called `reviewing_R.R`
+2 Create a new R script called `reviewing_R.R`
 1 Load the tidyverse and ggplot2 libraries
 1 Create the following folders in the project directory - `data`, `figures`
 1 Download a counts file to the `data` folder by [right-clicking here]()
