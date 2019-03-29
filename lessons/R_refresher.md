@@ -86,6 +86,6 @@ Now that we have created our metadata data frame, it's often a good idea to get 
 
 6. Many different statistical tools or analytical packages expect all data needed as input to be in the structure of a list. Let's create a list of our count and metadata in preparation for a downstream analysis.
 
-  - Create a list called `project1` with the `meta` and `counts` objects, as well as a new vector with all the sample names extracted from one of the 2 data frames.
+    - Create a list called `project1` with the `meta` and `counts` objects, as well as a new vector with all the sample names extracted from one of the 2 data frames.
 
 
