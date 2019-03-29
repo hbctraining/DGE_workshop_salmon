@@ -24,6 +24,7 @@ Approximate time: 45 minutes
 1. What is the data structure of `counts`?
 1. Create a data frame called `meta` that looks like the one shown below:
 <img src="../img/refresher_meta.png" >
+
 1. Summarize the contents of the `meta` object, how many data types are represented?
 1. Add row names to the `meta` data frame, and have them be identical to the column names in `counts`
 1. Convert the existing `replicate` column into a factor data type
