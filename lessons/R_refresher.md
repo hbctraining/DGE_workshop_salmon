@@ -26,6 +26,8 @@ Approximate time: 45 minutes
 
     - Load the tidyverse library
     - Use `read.csv()` to read in the downloaded file and save it in the object/variable `counts`
+      - What is the syntax for a function?
+      - How do we get help for using a function?
     - What is the data structure of `counts`?
 
 ## Creating vectors/factors and dataframes
