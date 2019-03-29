@@ -22,7 +22,7 @@ Approximate time: 45 minutes
     - Create the following folders in the project directory - `data`, `figures`
     - Download a counts file to the `data` folder by [right-clicking here](https://github.com/hbctraining/DGE_workshop_salmon/blob/master/data/raw_counts_mouseKO.csv?raw=true)
 
-2. Now that we have our directory structure set-up, let's load our libraries and read in our data:
+2. Now that we have our directory structure setup, let's load our libraries and read in our data:
 
     - Load the tidyverse library
     - Use `read.csv()` to read in the downloaded file and save it in the object/variable `counts`
