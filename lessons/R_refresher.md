@@ -22,9 +22,9 @@ Approximate time: 45 minutes
 1. Download a counts file to the `data` folder by [right-clicking here](hhttps://www.dropbox.com/s/b7n7fs453pgsy20/raw_counts_mouseKO.csv?dl=0)
 1. Use `read.csv()` to read in the downloaded file and save it in the object/variable `counts`
 1. What is the data structure of `counts`?
-1. Create a data frame called `meta` that looks like the one shown below:  <img src="../img/refresher_meta.png">
+1. Create a data frame called `meta` that looks like the one shown below:  <img src="../img/refresher_meta1.png">
 1. Summarize the contents of the `meta` object, how many data types are represented?
-1. Add row names to the `meta` data frame, and have them be identical to the column names in `counts`
+1. Check that the row names in the `meta` data frame are identical to the column names in `counts` (content and order)
 1. Convert the existing `replicate` column into a factor data type
 1. Create a list called `project1` with the `meta` and `counts` objects, as well as a vector with all the samplenames extracted from one of the 2 data frames.
 1. Use `%>%` to selectively display only columns " " and " " from the metadata data frame
