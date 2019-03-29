@@ -35,7 +35,7 @@ Approximate time: 45 minutes
       
 ## Creating vectors/factors and dataframes
 
-3. We are performing RNA-Seq on cancer samples being with genotypes of p53 WT and KO. You have 8 samples total, with 4 replicates per genotype. Write the R code you would use to construct your metadata table as described below.  
+3. We are performing RNA-Seq on cancer samples with genotypes of p53 wildtype (WT) and knock-down (KO). You have 8 samples total, with 4 replicates per genotype. Write the R code you would use to construct your metadata table as described below.  
 
      - Create the vectors/factors for each column (Hint: you can type out each vector/factor, or if you want the process go faster try exploring the `rep()` function).
      - Put them together into a dataframe called `meta`.
