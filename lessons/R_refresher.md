@@ -71,6 +71,7 @@ Now that we have created our metadata data frame, it's often a good idea to get 
      - use `filter()` to return all data for those samples receiving treatment `P`:
      - use `filter()`/`select()`to return only the `stage` and `genotype` columns for those samples with `myc` > 50:
      - add a column called `pre_treatment` to the beginning of the dataframe with the values T, F, T, F, T, F, T, F 
+      - why might this design be problematic?
      - change the names of the columns to: "A", "B", "C", "D":
      - Use `%>%` to get the average of the `myc` column from `meta`
      - Using `%>%` create a tibble of the `meta` object and call it `meta_tb` (make sure you don't lose the rownames!)
