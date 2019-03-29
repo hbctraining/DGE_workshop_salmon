@@ -15,14 +15,14 @@ Approximate time: 45 minutes
 
 ## Setting up
 
-Let’s create a new project directory for our "R refresher lesson:
+1. Let’s create a new project directory for our "R refresher lesson:
   
   - Create a new project called `R_refresher`
   - Create a new R script called `reviewing_R.R`
   - Create the following folders in the project directory - `data`, `figures`
   - Download a counts file to the `data` folder by [right-clicking here](https://github.com/hbctraining/DGE_workshop_salmon/blob/master/data/raw_counts_mouseKO.csv?raw=true)
 
-Now that we have our directory structure set-up, let's load our libraries and read in our data:
+2. Now that we have our directory structure set-up, let's load our libraries and read in our data:
 
   - Load the tidyverse library
   - Use `read.csv()` to read in the downloaded file and save it in the object/variable `counts`
@@ -30,8 +30,9 @@ Now that we have our directory structure set-up, let's load our libraries and re
 
 ## Creating vectors/factors and dataframes
 
-We are performing RNA-Seq on cancer samples being with genotypes of p53 WT and KO. You have 8 samples total, with 4 replicates per genotype. Write the R code you would use to construct your metadata table as described below.  
-     - Create the vectors/factors for each column (Hint: you can type out each vector/factor, or if you want the process go faster try exploring the `rep()` function).
+3. We are performing RNA-Seq on cancer samples being with genotypes of p53 WT and KO. You have 8 samples total, with 4 replicates per genotype. Write the R code you would use to construct your metadata table as described below.  
+
+       - Create the vectors/factors for each column (Hint: you can type out each vector/factor, or if you want the process go faster try exploring the `rep()` function).
      - Put them together into a dataframe called `meta`.
      - Use the `rownames()` function to assign row names to the dataframe (Hint: you can type out the row names as a vector, or if you want the process go faster try exploring the `paste0()` function).
      
@@ -50,7 +51,7 @@ Your finished metadata table should have information for the variables `sex`, `s
 
 ## Subsetting vectors/factors and dataframes
 
-2. Using the `meta` data frame from question #1, write out the R code you would use to perform the following operations (questions **DO NOT** build upon each other):
+4. Using the `meta` data frame from question #1, write out the R code you would use to perform the following operations (questions **DO NOT** build upon each other):
 
      - return only the `genotype` and `sex` columns using `[]`:
      - return the `genotype` values for samples 5, 7, 9, and 10 using `[]`:
