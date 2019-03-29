@@ -16,20 +16,6 @@ Approximate time: 75 minutes
 
 When we are working with large amounts of data it can be useful to display that information graphically to gain more insight. During this lesson, we will get you started with some basic and more advanced plots commonly used when exploring differential gene expression data, however, many of these plots can be helpful in visualizing other types of data as well.
 
-Let's start by loading a few libraries (if not already loaded):
-
-```r
-# load libraries
-library(tidyverse)
-library(ggplot2)
-library(ggrepel)
-library(DEGreport)
-library(RColorBrewer)
-library(DESeq2)
-library(pheatmap)
-library(annotables)
-```
-
 We will be working with three different data objects we have already created in earlier lessons:
 
 - Metadata for our samples (a dataframe): `meta`
@@ -48,10 +34,13 @@ normalized_counts <- counts(dds, normalized=T) %>%
   data.frame() %>%
   rownames_to_column(var="gene") 
   
-# Next, merge together (ensembl IDs) the normalized counts data frame with 
-#	a subset of the annotables grch38 data frame (only the columns for ensembl gene IDs and gene symbols)
+# Next, merge together (ensembl IDs) the normalized counts data frame with a subset of the annotations in the tx2gene data frame (only the columns for ensembl gene IDs and gene symbols)
+grch38annot <- tx2gene %>% 
+  dplyr::select(ensgene, symbol) %>% 
+  dplyr::distinct()
+
 ## This will bring in a column of gene symbols
-normalized_counts <- merge(normalized_counts, grch38[, c("ensgene", "symbol")], by.x="gene", by.y="ensgene")
+normalized_counts <- merge(normalized_counts, grch38annot[, c("ensgene", "symbol")], by.x="gene", by.y="ensgene")
 
 # Now create a tibble for the normalized counts
 normalized_counts <- normalized_counts %>%
@@ -67,7 +56,7 @@ normalized_counts
 > data.frame() %>%
 > rownames_to_column(var="gene") %>%
 > as_tibble() %>%
-> left_join(grch38[, c("ensgene", "symbol")], by=c("gene" = "ensgene"))
+> left_join(grch38annot[, c("ensgene", "symbol")], by=c("gene" = "ensgene"))
 > ```
 
 ### Plotting signicant DE genes
@@ -80,7 +69,7 @@ To pick out a specific gene of interest to plot, for example MOV10, we can use t
 
 ```r
 # Find the Ensembl ID of MOV10
-grch38[grch38$symbol == "MOV10", "ensgene"]
+grch38annot[grch38annot$symbol == "MOV10", "ensgene"]
 
 # Plot expression for single gene
 plotCounts(dds, gene="ENSG00000155363", intgroup="sampletype") 
