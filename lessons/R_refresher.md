@@ -41,18 +41,18 @@ Approximate time: 45 minutes
      - Put them together into a dataframe called `meta`.
      - Use the `rownames()` function to assign row names to the dataframe (Hint: you can type out the row names as a vector, or if you want the process go faster try exploring the `paste0()` function).
      
-  Your finished metadata table should have information for the variables `sex`, `stage`, `genotype`, and `myc` levels: 
+    Your finished metadata table should have information for the variables `sex`, `stage`, `genotype`, and `myc` levels: 
 
-  | |sex	| stage	| genotype	| myc |
-  |:--:|:--: | :--:	| :------:	| :--: |
-  |KO1 |	M	|1	|KO	|23|
-  |KO2|	F	|2	|KO	|4|
-  |KO3	|M	|2	|KO	|45|
-  |KO4	|F	|1	|KO	|90|
-  |WT1|	M	|2	|WT	|34|
-  |WT2|	F|	2|	WT|	35|
-  |WT3|	M|	1|	WT|	9|
-  |WT4|	F|	2|	WT|	10|
+    | |sex	| stage	| genotype	| myc |
+    |:--:|:--: | :--:	| :------:	| :--: |
+    |KO1 |	M	|1	|KO	|23|
+    |KO2|	F	|2	|KO	|4|
+    |KO3	|M	|2	|KO	|45|
+    |KO4	|F	|1	|KO	|90|
+    |WT1|	M	|2	|WT	|34|
+    |WT2|	F|	2|	WT|	35|
+    |WT3|	M|	1|	WT|	9|
+    |WT4|	F|	2|	WT|	10|
   
 ## Exploring data
 
