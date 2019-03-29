@@ -76,7 +76,7 @@ Once you have the zip file downloaded you will want to decompress it. This will 
 
 2. Next, we need the **annotation file** which maps our transcript identifiers to gene identifiers. We have created this file for you using the R Bioconductor package [AnnotationHub](https://bioconductor.org/packages/release/bioc/html/AnnotationHub.html). For now, we will use it as is but later in the workshop we will spend some time showing you how to create one for yourself. **Right click on the links below, and choose the "Save link as ..." option to download directly into your project directory.**
 
-* [Annotation file]()
+* [Annotation file](https://github.com/hbctraining/DGE_workshop_salmon/raw/master/data/tx2gene_grch38_ens94.txt)
 
 Finally, go to the `File` menu and select `New File`, then select `R Script`. This should open up a script editor in the top left hand corner. This is where we will be typing and saving all commands required for this analysis. In the script editor type in header lines:
 
