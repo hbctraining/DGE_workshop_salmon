@@ -66,11 +66,17 @@ Before we get into the details of the analysis, let's get started by opening up 
 
 To check whether or not you are in the correct working directory, use `getwd()`. The path `Desktop/DEanalysis` should be returned to you in the console. Within your working directory use the `New folder` button in the bottom right panel to create two new directories:  `meta` and `results`. Remember the key to a good analysis is keeping organized from the start! (*NOTE: we will be downloading our `data` folder`*)
 
-Now we need to grab the files that we will be working with for the analysis. These are the **Salmon results for the full dataset**. Right click on the links below, and choose the "Save link as ..." option to download directly into your project directory:
+Now we need to grab the files that we will be working with for the analysis. There are two things we need to donwload. 
+
+1. First we need the **Salmon results for the full dataset**. Right click on the links below, and choose the "Save link as ..." option to download directly into your project directory:
 
 * [Salmon data](https://www.dropbox.com/s/oz9yralwbtphw8u/data.zip?dl=1) for the Mov10 full dataset
 
 Once you have the zip file downloaded you will want to decompress it. This will create a `data` directory with sub-directories that correspond to each of the samples in our dataset.
+
+2. Next, we need the **annotation file** which maps our transcript identifiers to gene identifiers. We have created this file for you using the R Bioconductor package [AnnotationHub](https://bioconductor.org/packages/release/bioc/html/AnnotationHub.html). For now, we will use it as is but later in the workshop we will spend some time showing you how to create one for yourself. **Right click on the links below, and choose the "Save link as ..." option to download directly into your project directory.**
+
+* [Annotation file]()
 
 Finally, go to the `File` menu and select `New File`, then select `R Script`. This should open up a script editor in the top left hand corner. This is where we will be typing and saving all commands required for this analysis. In the script editor type in header lines:
 
@@ -97,8 +103,8 @@ library(RColorBrewer)
 library(pheatmap)
 library(DEGreport)
 library(tximport)
-library(annotables)
 library(ggplot2)
+library(ggrepel)
 ```
 
 ### Loading data
@@ -127,19 +133,22 @@ names(files) <- str_replace(samples, "./data/", "") %>%
 Our Salmon index was generated with transcript sequences listed by Ensembl IDs, but `tximport` needs to know **which genes these transcripts came from**. We will use the [`annotables`](https://github.com/stephenturner/annotables) package to extract transcript to gene information. This package has basic annotation information from Ensembl Genes 91 for various organisms and is very helpful for mapping between different IDs. It also has `tx2gene` tables that link Ensembl gene IDs to Ensembl transcript IDs.
 
 ```r
-# Look at the tx2gene table for GrCh38
-grch38_tx2gene
+# Load the annotation table for GrCh38
+tx2gene <- read.delim("tx2gene_grch38_ens94.txt")
+
+# Take a look at it 
+tx2gene %>% View()
 ```
 
-`grch38_tx2gene` is a two-column dataframe linking transcript ID (column 1) to gene ID (column 2). The column names are not relevant, but this column order must be used.
+`tx2gene` is a three-column dataframe linking transcript ID (column 1) to gene ID (column 2) to gene symbol (column 3). We will take the first two columns as input to `tximport`. The column names are not relevant, but the column order is (i.e trasncript ID must be first).
 
 Now we are ready to **run `tximport`**. Note that although there is a column in our `quant.sf` files that corresponds to the estimated count value for each transcript but they are correlated by effective length. What we want to do is use the `countsFromAbundance=“lengthScaledTPM”` argument. This will use the TPM column, and compute quantities that are on the same scale as original counts, except no longer correlated with transcript length across samples.
 
 ```R
 ?tximport   # let's take a look at the arguments for the tximport function
 
-txi <- tximport(files, type="salmon", tx2gene=grch38_tx2gene, countsFromAbundance=“lengthScaledTPM”)
-
+# Run tximport
+txi <- tximport(files, type="salmon", tx2gene=tx2gene[,c("tx_id", "ensgene")], countsFromAbundance="lengthScaledTPM")
 ```
 
 ### Viewing data
