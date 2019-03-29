@@ -32,5 +32,6 @@ Approximate time: 45 minutes
 1. Display only those rows in `meta` that correspond to "..."
 1. Create a tibble of the `meta` object and call it `meta_tb` (make sure you don't lose the rownames!)
 1. Add the `meta_tb` object to the list `project1`
+1. Plot a histogram of the counts in "sample1", give it a title that is centered and give the axes sensible names.
 
 
