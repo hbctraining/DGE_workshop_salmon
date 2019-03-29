@@ -5,7 +5,7 @@
 | Time |  Topic  | Instructor |
 |:-----------:|:----------:|:--------:|
 | 09:00 - 9:15 | [Introduction to Workshop]() | Radhika |
-| 09:15 - 10:15 | [R Refresher Session]() | Mary |
+| 09:15 - 10:15 | [R Refresher Session](https://hbctraining.github.io/DGE_workshop_salmon/lessons/R_refresher.html) | Mary |
 | 10:15 - 10:30 | Coffee  |  |
 | 10:30 - 12:00 | [Overview of DGE Analysis Workflow](https://hbctraining.github.io/DGE_workshop_salmon/lessons/01_DGE_setup_and_overview.html) | Meeta |
 | 12:00 - 13:00 | Lunch |  |
