@@ -26,11 +26,11 @@ Approximate time: 45 minutes
 1. Summarize the contents of the `meta` object, how many data types are represented?
 1. Check that the row names in the `meta` data frame are identical to the column names in `counts` (content and order)
 1. Convert the existing `replicate` column into a factor data type
-1. Create a list called `project1` with the `meta` and `counts` objects, as well as a vector with all the samplenames extracted from one of the 2 data frames.
-1. Use `%>%` to selectively display only columns " " and " " from the metadata data frame
-1. Display only those rows in `meta` that correspond to "..."
-1. Create a tibble of the `meta` object and call it `meta_tb` (make sure you don't lose the rownames!)
+1. Create a list called `project1` with the `meta` and `counts` objects, as well as a new vector with all the sample names extracted from one of the 2 data frames.
+1. Use `%>%` to get the average of the age_in_days column from `meta`
+1. Display only the metadata for those samples which have an age of 17 days or older
+1. Using `%>%` create a tibble of the `meta` object and call it `meta_tb` (make sure you don't lose the rownames!)
 1. Add the `meta_tb` object to the list `project1`
-1. Plot a histogram of the counts in "sample1", give it a title that is centered and give the axes sensible names.
+1. Plot a histogram of the counts in "KO1", give it a title that is centered and give the axes sensible names.
 
 
