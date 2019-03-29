@@ -31,6 +31,6 @@ Approximate time: 45 minutes
 1. Display only the metadata for those samples which have an age of 17 days or older
 1. Using `%>%` create a tibble of the `meta` object and call it `meta_tb` (make sure you don't lose the rownames!)
 1. Add the `meta_tb` object to the list `project1`
-1. Plot a histogram of the counts in "KO1", give it a title that is centered and give the axes sensible names.
+1. Plot a boxplot of the mean_expression of the KO and WT samples, give it a title that is centered and give the axes new names.
 
 
