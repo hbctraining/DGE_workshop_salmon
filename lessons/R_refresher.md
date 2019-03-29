@@ -29,7 +29,10 @@ Approximate time: 45 minutes
       - What is the syntax for a function?
       - How do we get help for using a function?
     - What is the data structure of `counts`?
-
+      - What main data structures are available in R?
+    - What are the data types of the columns?
+      - What data types are available in R?
+      
 ## Creating vectors/factors and dataframes
 
 3. We are performing RNA-Seq on cancer samples being with genotypes of p53 WT and KO. You have 8 samples total, with 4 replicates per genotype. Write the R code you would use to construct your metadata table as described below.  
