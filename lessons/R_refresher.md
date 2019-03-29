@@ -19,7 +19,7 @@ Approximate time: 45 minutes
 1. Create a new R script called `reviewing_R.R`
 1. Load the tidyverse and ggplot2 libraries
 1. Create the following folders in the project directory - `data`, `figures`
-1. Download a counts file to the `data` folder by [right-clicking here](hhttps://www.dropbox.com/s/b7n7fs453pgsy20/raw_counts_mouseKO.csv?dl=0)
+1. Download a counts file to the `data` folder by [right-clicking here](https://www.dropbox.com/s/b7n7fs453pgsy20/raw_counts_mouseKO.csv?dl=0)
 1. Use `read.csv()` to read in the downloaded file and save it in the object/variable `counts`
 1. What is the data structure of `counts`?
 1. Create a data frame called `meta` that looks like the one shown below:  <img src="../img/refresher_meta1.png">
