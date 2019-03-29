@@ -17,22 +17,22 @@ Approximate time: 45 minutes
 
 1. Let’s create a new project directory for our "R refresher lesson:
   
-  - Create a new project called `R_refresher`
-  - Create a new R script called `reviewing_R.R`
-  - Create the following folders in the project directory - `data`, `figures`
-  - Download a counts file to the `data` folder by [right-clicking here](https://github.com/hbctraining/DGE_workshop_salmon/blob/master/data/raw_counts_mouseKO.csv?raw=true)
+    - Create a new project called `R_refresher`
+    - Create a new R script called `reviewing_R.R`
+    - Create the following folders in the project directory - `data`, `figures`
+    - Download a counts file to the `data` folder by [right-clicking here](https://github.com/hbctraining/DGE_workshop_salmon/blob/master/data/raw_counts_mouseKO.csv?raw=true)
 
 2. Now that we have our directory structure set-up, let's load our libraries and read in our data:
 
-  - Load the tidyverse library
-  - Use `read.csv()` to read in the downloaded file and save it in the object/variable `counts`
-  - What is the data structure of `counts`?
+    - Load the tidyverse library
+    - Use `read.csv()` to read in the downloaded file and save it in the object/variable `counts`
+    - What is the data structure of `counts`?
 
 ## Creating vectors/factors and dataframes
 
 3. We are performing RNA-Seq on cancer samples being with genotypes of p53 WT and KO. You have 8 samples total, with 4 replicates per genotype. Write the R code you would use to construct your metadata table as described below.  
 
-       - Create the vectors/factors for each column (Hint: you can type out each vector/factor, or if you want the process go faster try exploring the `rep()` function).
+     - Create the vectors/factors for each column (Hint: you can type out each vector/factor, or if you want the process go faster try exploring the `rep()` function).
      - Put them together into a dataframe called `meta`.
      - Use the `rownames()` function to assign row names to the dataframe (Hint: you can type out the row names as a vector, or if you want the process go faster try exploring the `paste0()` function).
      
