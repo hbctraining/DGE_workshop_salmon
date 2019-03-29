@@ -34,6 +34,12 @@ normalized_counts <- counts(dds, normalized=T) %>%
   data.frame() %>%
   rownames_to_column(var="gene") 
   
+# Do the same for metadata
+# Create tibbles including row names
+mov10_meta <- meta %>% 
+  rownames_to_column(var="samplename") %>% 
+  as_tibble()
+  
 # Next, merge together (ensembl IDs) the normalized counts data frame with a subset of the annotations in the tx2gene data frame (only the columns for ensembl gene IDs and gene symbols)
 grch38annot <- tx2gene %>% 
   dplyr::select(ensgene, symbol) %>% 
