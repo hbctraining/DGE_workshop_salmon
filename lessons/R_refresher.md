@@ -50,7 +50,7 @@ Approximate time: 45 minutes
     |KO3	|M	|2	|KO	|45|
     |KO4	|F	|1	|KO	|90|
     |WT1|	M	|2	|WT	|34|
-    |WT2|	F|	2|	WT|	35|
+    |WT2|	F|	1|	WT|	35|
     |WT3|	M|	1|	WT|	9|
     |WT4|	F|	2|	WT|	10|
   
