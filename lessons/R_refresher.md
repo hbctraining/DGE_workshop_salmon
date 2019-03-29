@@ -38,16 +38,16 @@ Approximate time: 45 minutes
      
 Your finished metadata table should have information for the variables `sex`, `stage`, `genotype`, and `myc` levels: 
 
-     | |sex	| stage	| genotype	| myc |
-     |:--:|:--: | :--:	| :------:	| :--: |
-     |KO1 |	M	|I	|KO	|23|
-     |KO2|	F	|II	|KO	|4|
-     |KO3	|M	|II	|KO	|45|
-     |KO4	|F	|I	|KO	|90|
-     |WT1|	M	|II	|WT	|34|
-     |WT2|	F|	II|	WT|	35|
-     |WT3|	M|	I|	WT|	9|
-     |WT4|	F|	II|	WT|	10|
+| |sex	| stage	| genotype	| myc |
+|:--:|:--: | :--:	| :------:	| :--: |
+|KO1 |	M	|I	|KO	|23|
+|KO2|	F	|II	|KO	|4|
+|KO3	|M	|II	|KO	|45|
+|KO4	|F	|I	|KO	|90|
+|WT1|	M	|II	|WT	|34|
+|WT2|	F|	II|	WT|	35|
+|WT3|	M|	I|	WT|	9|
+|WT4|	F|	II|	WT|	10|
 
 ## Subsetting vectors/factors and dataframes
 
