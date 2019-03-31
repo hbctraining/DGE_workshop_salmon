@@ -135,8 +135,8 @@ We can easily extract information from this database using *AnnotationDbi* with 
 # Return the Ensembl IDs for a set of genes
 annotations_orgDb <- AnnotationDbi::select(org.Hs.eg.db, # database
                                      keys = res_tableOE_tb$gene,  # data to use for retrieval
-                                     columns = c("ENSEMBL", "ENTREZID","GENENAME"), # information to retreive for given data
-                                     keytype = "SYMBOL") # type of data given in 'keys' argument
+                                     columns = c("SYMBOL", "ENTREZID","GENENAME"), # information to retreive for given data
+                                     keytype = "ENSEMBL") # type of data given in 'keys' argument
 ```
 
 This easily returned to us the information that we desired, but note the *warning* returned: *'select()' returned 1:many mapping between keys and columns*. This is always going to happen with converting between different gene IDs. Unless we would like to keep multiple mappings for a single gene, then we probably want to de-duplicate our data before using it.
@@ -149,7 +149,7 @@ non_duplicates_idx <- which(duplicated(annotations_orgDb$SYMBOL) == FALSE)
 annotations_orgDb <- annotations_orgDb[non_duplicates_idx, ]
 ```
 
-Note that some genes were not annotated. Our dataset was created based on the GRCh37/hg19 build of the human genome, and we are annotating with the most recent build. It is possible that some of the genes have changed names, so are not present in this version of the database. We can check the number of NAs returned:
+Note that some genes were not annotated. Our dataset was created based on the GRCh38 build of the human genome, using a specific version of Ensembl as our reference. It is possible that some of the genes have changed names in between versions (due to updates and patches), so are not present in this version of the database. We can check the number of NAs returned:
 
 ```r
 # Check number of NAs returned
@@ -158,33 +158,32 @@ is.na(annotations_orgDb$ENSEMBL) %>%
   length()
 ```
 
-Although there will always be some attrition, using a different genome build will increase the number of genes not found. We could download the version of `org.Hs.eg.db` that corresponds to the last genome build, but that is a pain, especially when there are other annotation packages that make this process much easier.
 
-### EnsDb.Hsapiens.v75
+### EnsDb.Hsapiens.v86
 
-To generate the Ensembl annotations, the *EnsDb* database can also be easily queried using AnnotationDbi. You will need to decide the release of Ensembl you would like to query. All Ensembl releases are listed [here](http://useast.ensembl.org/info/website/archives/index.html). We know that our data is for GRCh37, which corresponds to release 75, so we can install this release of the *EnsDb* database.
+To generate the Ensembl annotations, the *EnsDb* database can also be easily queried using AnnotationDbi. You will need to decide the release of Ensembl you would like to query. All Ensembl releases are listed [here](http://useast.ensembl.org/info/website/archives/index.html). We know that our data is for GRCh38, and the reference corresponds to release 86, so we can install this release of the *EnsDb* database.
 
 Since we are using *AnnotationDbi* to query the database, we can use the same functions that we used previously:
 
 ```r
 # Load the library
-library(EnsDb.Hsapiens.v75)
+library(EnsDb.Hsapiens.v87)
 
 # Check object metadata
-EnsDb.Hsapiens.v75
+EnsDb.Hsapiens.v86
 
 # Explore the fields that can be used as keys
-keytypes(EnsDb.Hsapiens.v75)
+keytypes(EnsDb.Hsapiens.v86)
 ```
 
 Now we can return all gene IDs for our gene list:
 
 ```r
 # Return the Ensembl IDs for a set of genes
-annotations_edb <- AnnotationDbi::select(EnsDb.Hsapiens.v75,
+annotations_edb <- AnnotationDbi::select(EnsDb.Hsapiens.v86,
                                            keys = res_tableOE_tb$gene,
-                                           columns = c("GENEID", "ENTREZID","GENEBIOTYPE"),
-                                           keytype = "SYMBOL")
+                                           columns = c("SYMBOL", "ENTREZID","GENEBIOTYPE"),
+                                           keytype = "GENEID")
 ```
 
 Then we can again deduplicate and check for NA values:
@@ -204,14 +203,14 @@ is.na(annotations_edb$GENEID) %>%
 
 While we were using *AnnotationDbi* to query the Ensembl database, `AnnotationHub` and/or `ensembldb` package can also be quite helpful for extracting or filtering content from the database. Nice documentation for using [`AnnotationHub`](https://github.com/hbctraining/Training-modules/blob/master/DGE-functional-analysis/lessons/AnnotationHub.md) and [`ensembldb`](https://bioconductor.org/packages/release/bioc/vignettes/ensembldb/inst/doc/ensembldb.html) is available for more complex queries.
 
-> **NOTE:** If using the previous genome build for human (GRCh37/hg19), the *annotables* package is a super easy annotation package to use. It is not updated frequently, so it's not great for getting the most up-to-date information for the current builds and does not have information for other organisms than human and mouse. However, it's super easy to use:
+> **NOTE:** If using the previous genome build for human (GRCh37/hg19), the *annotables* package is a super easy annotation package to use. It is not updated frequently, so it's not great for getting the most up-to-date information for the current builds and does not have information for other organisms than human and mouse. 
 >
 >```r
 ># Load library
 >library(annotables)
 >
 ># Access previous build of annotations
->grch37
+>grch38
 >```
 
 Many of the annotation packages have much more information than what we need for functional analysis, and we will be the information extracted mainly just for gene ID conversion for the different tools that we use. However, it's good to know the capabilities of the tools we use, and we encourage greater exploration of these packages as you become more familiar with them.
