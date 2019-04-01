@@ -22,10 +22,15 @@ We will be working with three different data objects we have already created in 
 - Normalized expression data for every gene in each of our samples (a matrix): `normalized_counts`
 - Tibble versions of the DESeq2 results we generated in the last lesson: `res_tableOE_tb` and `res_tableKD_tb`
 
-Let's create a tibble object from the `normalized_counts` data frame before we start plotting. This will enable us to use the `tidyverse` functionality more easily. 
+First, let's create a metadata tibble from the data frame (don't lose the row names!)
 
-Let's also bring in a column with gene symbols to the `normalized_counts` object, so we can use them to label our plots. Ensembl IDs are great for many things, but as biologists the gene symbols are much more recognizable.
+```r
+mov10_meta <- meta %>% 
+  rownames_to_column(var="samplename") %>% 
+  as_tibble()
+```
 
+Next, let's bring in a column with gene symbols to the `normalized_counts` object, so we can use them to label our plots. Ensembl IDs are great for many things, but as biologists the gene symbols are much more recognizable.
 
 ```r
 # DESeq2 creates a matrix when you use the counts() function
@@ -34,12 +39,6 @@ normalized_counts <- counts(dds, normalized=T) %>%
   data.frame() %>%
   rownames_to_column(var="gene") 
   
-# Do the same for metadata
-# Create tibbles including row names
-mov10_meta <- meta %>% 
-  rownames_to_column(var="samplename") %>% 
-  as_tibble()
-  
 # Next, merge together (ensembl IDs) the normalized counts data frame with a subset of the annotations in the tx2gene data frame (only the columns for ensembl gene IDs and gene symbols)
 grch38annot <- tx2gene %>% 
   dplyr::select(ensgene, symbol) %>% 
@@ -47,7 +46,11 @@ grch38annot <- tx2gene %>%
 
 ## This will bring in a column of gene symbols
 normalized_counts <- merge(normalized_counts, grch38annot[, c("ensgene", "symbol")], by.x="gene", by.y="ensgene")
+```
 
+Once we have the gene names column, we can now convert `normalized_counts` into a tibble.
+
+```r
 # Now create a tibble for the normalized counts
 normalized_counts <- normalized_counts %>%
   as_tibble()
