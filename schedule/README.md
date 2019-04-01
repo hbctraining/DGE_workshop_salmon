@@ -1,5 +1,9 @@
 # Workshop schedule
 
+**Note 1:** The *Basic Data Skills* [Introduction to R](https://hbctraining.github.io/Intro-to-R/schedules/1.5-day.html) workshop is a prerequisite.
+
+**Note 2:** In this workshop we use expression data generated using Salmon; the training materials for that portion of the workflow was covered in the *Advanced Topics* [Introduction to (bulk) RNA-seq using High-Performance Computing](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/schedule/) workshop.
+
 ## Day1
 
 | Time |  Topic  | Instructor |
