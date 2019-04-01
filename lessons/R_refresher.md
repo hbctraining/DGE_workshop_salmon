@@ -68,7 +68,7 @@ Now that we have created our metadata data frame, it's often a good idea to get 
 
      - return only the `genotype` and `sex` columns using `[]`:
      - return the `genotype` values for samples 1, 7, and 8 using `[]`:
-     - use `filter()` to return all data for those samples receiving treatment `P`:
+     - use `filter()` to return all data for those samples with genotype `WT`:
      - use `filter()`/`select()`to return only the `stage` and `genotype` columns for those samples with `myc` > 50:
      - add a column called `pre_treatment` to the beginning of the dataframe with the values T, F, T, F, T, F, T, F 
         - why might this design be problematic?
