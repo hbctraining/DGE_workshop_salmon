@@ -132,7 +132,7 @@ names(files) <- str_replace(samples, "./data/", "") %>%
                 str_replace(".salmon", "")
 ```
 
-Our Salmon index was generated with transcript sequences listed by Ensembl IDs, but `tximport` needs to know **which genes these transcripts came from**. We will use the [`annotables`](https://github.com/stephenturner/annotables) package to extract transcript to gene information. This package has basic annotation information from Ensembl Genes 91 for various organisms and is very helpful for mapping between different IDs. It also has `tx2gene` tables that link Ensembl gene IDs to Ensembl transcript IDs.
+Our Salmon index was generated with transcript sequences listed by Ensembl IDs, but `tximport` needs to know **which genes these transcripts came from**. We will use the annotation table that we downloaded to extract transcript to gene information. 
 
 ```r
 # Load the annotation table for GrCh38
@@ -144,7 +144,7 @@ tx2gene %>% View()
 
 **`tx2gene` is a three-column dataframe** linking transcript ID (column 1) to gene ID (column 2) to gene symbol (column 3). We will take the first two columns as input to `tximport`. The column names are not relevant, but the column order is (i.e trasncript ID must be first).
 
-Now we are ready to **run `tximport`**. Note that although there is a column in our `quant.sf` files that corresponds to the estimated count value for each transcript but they are correlated by effective length. What we want to do is use the `countsFromAbundance=“lengthScaledTPM”` argument. This will use the TPM column, and compute quantities that are on the same scale as original counts, except no longer correlated with transcript length across samples.
+Now we are ready to **run `tximport`**. Note that although there is a column in our `quant.sf` files that corresponds to the estimated count value for each transcript, those valuse are correlated by effective length. What we want to do is use the `countsFromAbundance=“lengthScaledTPM”` argument. This will use the TPM column, and compute quantities that are on the same scale as original counts, except no longer correlated with transcript length across samples.
 
 ```R
 ?tximport   # let's take a look at the arguments for the tximport function
