@@ -73,7 +73,7 @@ Now that we have created our metadata data frame, it's often a good idea to get 
      - add a column called `pre_treatment` to the beginning of the dataframe with the values T, F, T, F, T, F, T, F 
         - why might this design be problematic?
      - Using `%>%` create a tibble of the `meta` object and call it `meta_tb` (make sure you don't lose the rownames!)
-     - change the names of the columns to: "A", "B", "C", "D":
+     - change the names of the columns to: "A", "B", "C", "D", "E":
      
 ## Visualizing data
 
