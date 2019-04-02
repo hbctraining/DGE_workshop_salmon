@@ -41,6 +41,6 @@
 | 14:00 - 14:30 | [Functional Analysis](https://hbctraining.github.io/DGE_workshop_salmon/lessons/functional_analysis_2019.html) | Radhika |
 | 14:30- 14:45 | Coffee  |
 | 14:45 - 16:15 | [Functional Analysis (cont'd)](https://hbctraining.github.io/DGE_workshop_salmon/lessons/functional_analysis_2019.html) | Mary |
-| 16:15 - 17:00 | [Wrap-up ]() | Radhika |
+| 16:15 - 17:00 | [Wrap-up ](../lectures/Workshop_wrapup.pdf) | Radhika |
 
 
