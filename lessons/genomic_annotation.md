@@ -15,7 +15,7 @@ Learning Objectives:
 
 # Genomic annotations
 
-The analysis of next-generation sequencing results requires associating genes, transcripts, proteins, etc. with functional or regulatory information. To perform functional analysis on gene lists, we often need to obtain gene identifiers that are compatible with the tools we wish to use and this is not always trivial. Here, we discuss ways in which you can obtain gene annotation information and some of advantages and disadvantages of each method.
+The analysis of next-generation sequencing results requires associating genes, transcripts, proteins, etc. with functional or regulatory information. To perform functional analysis on gene lists, we often need to obtain gene identifiers that are compatible with the tools we wish to use and this is not always trivial. Here, we discuss **ways in which you can obtain gene annotation information and some of advantages and disadvantages of each method**.
 
 ## Genome builds
 
@@ -25,7 +25,7 @@ For example, if we used the GRCh38 build of the human genome to quantify gene ex
 
 ## Databases
 
-To access the processes, pathways, etc. for which a gene is involved, requires extracting the information from the necessary database where the information is stored. The database you query will depend on the information desired for annotations. Examples of databases that are often queried, include:
+We retrieve information on the processes, pathways, etc. for which a gene is involved, from the necessary database where the information is stored. The database you choose will be dependent on what type of information you are trying to obtain. Examples of databases that are often queried, include:
 
 **General databases** 
 
@@ -48,7 +48,7 @@ Provide annotations related to a specific topic:
 - **CORUM:** database of protein complexes for human, mouse, rat
 - **...**
 
-This is by no means an exhaustive list, there are many other databases that are also queried depending on the information desired. 
+This is by no means an exhaustive list, there are many other databases available that are not listed here.
 
 
 ## Tools
@@ -59,6 +59,8 @@ When performing functional analysis, the tools will take the list of genes you p
 
 - **AnnotationDbi:** queries the *OrgDb*, *TxDb*, *Go.db*, *EnsDb*, and *BioMart* annotations.  
 - **AnnotationHub:** queries large collection of whole genome resources, including ENSEMBL, UCSC, ENCODE, Broad Institute, KEGG, NIH Pathway Interaction Database, etc.
+
+> **NOTE:** These are both packages that can be used to create the `tx2gene` files we had you download at the beginning of this workshop.
 
 **Annotation tools:** for accessing/querying annotations from a specific database
 
@@ -149,7 +151,7 @@ non_duplicates_idx <- which(duplicated(annotations_orgDb$SYMBOL) == FALSE)
 annotations_orgDb <- annotations_orgDb[non_duplicates_idx, ]
 ```
 
-Note that some genes were not annotated. Our dataset was created based on the GRCh38 build of the human genome, using a specific version of Ensembl as our reference. It is possible that some of the genes have changed names in between versions (due to updates and patches), so are not present in this version of the database. We can check the number of NAs returned:
+Note that some genes may not annotated. Our dataset was created based on the GRCh38 build of the human genome, using a specific version of Ensembl as our reference. It is possible that some of the genes have changed names in between versions (due to updates and patches), so are not present in this version of the database. We can check the number of NAs returned:
 
 ```r
 # Check number of NAs returned
@@ -161,7 +163,7 @@ is.na(annotations_orgDb$ENSEMBL) %>%
 
 ### EnsDb.Hsapiens.v86
 
-To generate the Ensembl annotations, the *EnsDb* database can also be easily queried using AnnotationDbi. You will need to decide the release of Ensembl you would like to query. All Ensembl releases are listed [here](http://useast.ensembl.org/info/website/archives/index.html). We know that our data is for GRCh38, and the reference corresponds to release 86, so we can install this release of the *EnsDb* database.
+To generate the Ensembl annotations, the *EnsDb* database can also be easily queried using AnnotationDbi. You will need to decide the release of Ensembl you would like to query. All Ensembl releases are listed [here](http://useast.ensembl.org/info/website/archives/index.html). We know that our data is for GRCh38, and the reference corresponds to release 86, so we can install this release of the *EnsDb* database. **NOTE: this is not the most current release, yet it is the latest release available through AnnotationDbi.**
 
 Since we are using *AnnotationDbi* to query the database, we can use the same functions that we used previously:
 
@@ -201,7 +203,110 @@ is.na(annotations_edb$GENEID) %>%
   length()
 ```
 
-While we were using *AnnotationDbi* to query the Ensembl database, `AnnotationHub` and/or `ensembldb` package can also be quite helpful for extracting or filtering content from the database. Nice documentation for using [`AnnotationHub`](https://github.com/hbctraining/Training-modules/blob/master/DGE-functional-analysis/lessons/AnnotationHub.md) and [`ensembldb`](https://bioconductor.org/packages/release/bioc/vignettes/ensembldb/inst/doc/ensembldb.html) is available for more complex queries.
+## AnnotationHub
+
+AnnotationHub is a wonderful resource for accessing genomic data or querying large collection of whole genome resources, including ENSEMBL, UCSC, ENCODE, Broad Institute, KEGG, NIH Pathway Interaction Database, etc. All of this information is stored and easily accessible by directly connecting to the database.
+
+To get started with AnnotationHub, we can load the library and connect:
+
+```r
+# Load libraries
+library(AnnotationHub)
+library(ensembldb)
+
+# Connect to AnnotationHub
+ah <- AnnotationHub()
+```
+
+To see the types of information stored inside, we can just type the name of the object:
+
+```r
+# Explore the AnnotationHub object
+ah
+```
+
+Using the output, you can get an idea of the information that you can query within the AnnotationHub object:
+
+```
+AnnotationHub with 47474 records
+# snapshotDate(): 2018-10-24 
+# $dataprovider: BroadInstitute, Ensembl, UCSC, ftp://ftp.ncbi.nlm.nih.gov/gene/DATA/, Haemcode, Inparanoid8, FungiDB, ...
+# $species: Homo sapiens, Mus musculus, Drosophila melanogaster, Bos taurus, Pan troglodytes, Rattus norvegicus, Danio ...
+# $rdataclass: GRanges, BigWigFile, FaFile, TwoBitFile, OrgDb, Rle, ChainFile, EnsDb, Inparanoid8Db, TxDb
+# additional mcols(): taxonomyid, genome, description, coordinate_1_based, maintainer, rdatadateadded,
+#   preparerclass, tags, rdatapath, sourceurl, sourcetype 
+# retrieve records with, e.g., 'object[["AH2"]]' 
+
+            title                                               
+  AH2     | Ailuropoda_melanoleuca.ailMel1.69.dna.toplevel.fa   
+  AH3     | Ailuropoda_melanoleuca.ailMel1.69.dna_rm.toplevel.fa
+  AH4     | Ailuropoda_melanoleuca.ailMel1.69.dna_sm.toplevel.fa
+  AH5     | Ailuropoda_melanoleuca.ailMel1.69.ncrna.fa          
+  AH6     | Ailuropoda_melanoleuca.ailMel1.69.pep.all.fa        
+  ...       ...                                                 
+  AH67895 | org.Vibrio_vulnificus.eg.sqlite                     
+  AH67896 | org.Achromobacter_group_B.eg.sqlite                 
+  AH67897 | org.Achromobacter_group_E.eg.sqlite                 
+  AH67898 | org.Pannonibacter_phragmitetus.eg.sqlite            
+  AH67899 | org.Salinispora_arenicola_CNS-205.eg.sqlite
+  ```
+  
+Notice the note on retrieving records with `object[[AH2]]` - this will be how we can extract a single record from the AnnotationHub object.
+  
+If you would like to see more information about any of the classes of data you can extract that information as well. For example, if you wanted to determine all species information available, you could subset the AnnotationHub object:
+  
+```r
+# Explore all species information available
+unique(ah$species)
+```
+  
+Now that we know the types of information available from AnnotationHub we can query it for the information we want using the `query()` function. Let's say we would like to return the Ensembl `EnsDb` information for human. To return the records available, we need to use the terms as they are output from the `ah` object to extract the desired data.
+  
+```r
+# Query AnnotationHub
+human_ens <- query(ah, c("Homo sapiens", "EnsDb"))
+```
+
+The output for the `EnsDb` objects only goes back in time to Ensembl release 87, corresponding to 2016 and GRCh38. If you needed an older build like hg19, you might need to load the `EnsDb` package if available for that release, or you might need to build your own with `ensembldb`.
+
+Often we are looking for the latest Ensembl release so that the annotations are the most up-to-date. To extract this information from AnnotationHub, we can use the AnnotationHub ID to subset the object:
+
+```r
+# Extract annotations of interest
+human_ens <- human_ens[["AH64923"]]
+```
+
+Now we can use `ensembldb` functions to extract the information at the gene, transcript, or exon levels. We are interested in the gene-level annotations, so we can extract that information as follows:
+
+```r
+# Extract gene-level information
+genes(mouse_ens, return.type = "data.frame")
+```
+But note that it is just as easy to get the transcript- or exon-level information:
+
+```r
+# Extract transcript-level information
+transcripts(mouse_ens)
+
+# Extract exon-level information
+exons(mouse_ens)
+```
+To create our `tx2gene` file, we would need to use a combination of the methods above and merge two dataframes together. For example:
+
+```r
+ txdb <- transcripts(human_ens, return.type = "data.frame") %>%
+   dplyr::select(tx_id, gene_id)
+ txdb <- txdb[grep("ENST", txdb$tx_id),]
+ 
+ genedb <- genes(human_ens, return.type = "data.frame")  %>%
+   dplyr::select(gene_id, symbol)
+ 
+ annotations <- inner_join(txdb, genedb)
+
+```
+
+Many of the annotation packages have much more information than what we need for functional analysis, and we will be the information extracted mainly just for gene ID conversion for the different tools that we use. However, it's good to know the capabilities of the tools we use, and we encourage greater exploration of these packages as you become more familiar with them.
+
 
 > **NOTE:** The *annotables* package is a super easy annotation package to use. It is not updated frequently, so it's not great for getting the most up-to-date information for the current builds and does not have information for other organisms than human and mouse, but is a quick way to get annotatio information. 
 >
@@ -213,7 +318,7 @@ While we were using *AnnotationDbi* to query the Ensembl database, `AnnotationHu
 >grch38
 >```
 
-Many of the annotation packages have much more information than what we need for functional analysis, and we will be the information extracted mainly just for gene ID conversion for the different tools that we use. However, it's good to know the capabilities of the tools we use, and we encourage greater exploration of these packages as you become more familiar with them.
+
 
 ---
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
