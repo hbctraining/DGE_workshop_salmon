@@ -209,7 +209,7 @@ is.na(annotations_edb$GENEID) %>%
 
 AnnotationHub is a wonderful resource for accessing genomic data or querying large collection of whole genome resources, including ENSEMBL, UCSC, ENCODE, Broad Institute, KEGG, NIH Pathway Interaction Database, etc. All of this information is stored and easily accessible by directly connecting to the database.
 
-> **NOTE:*** For the packages below, the installation instructions were not included in the preparation materials. Therefore, the code below as is will not work. To use the code you will need to first:
+> **NOTE:** For the packages below, the installation instructions were not included in the preparation materials. Therefore, the code below as is will not work. To use the code you will need to first:
 >
 > ```
 > # DO NOT RUN 
