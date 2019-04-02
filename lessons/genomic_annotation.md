@@ -151,7 +151,7 @@ non_duplicates_idx <- which(duplicated(annotations_orgDb$SYMBOL) == FALSE)
 annotations_orgDb <- annotations_orgDb[non_duplicates_idx, ]
 ```
 
-Note that some genes may not annotated. Our dataset was created based on the GRCh38 build of the human genome, using a specific version of Ensembl as our reference. It is possible that some of the genes have changed names in between versions (due to updates and patches), so are not present in this version of the database. We can check the number of NAs returned:
+Now, we can check to see how many genes do not have any annotation by counting the number of NAs returned:
 
 ```r
 # Check number of NAs returned
@@ -160,16 +160,18 @@ is.na(annotations_orgDb$ENSEMBL) %>%
   length()
 ```
 
+Note that if your analysis was conducted using an older genome (i.e hg19) some genes maybe found to be not annotated (NA), since orgDB is always the most recent release. It is likely that some of the genes have changed names in between versions (due to updates and patches), so may not be present in this version of the database. Our dataset was created based on the GRCh38 build of the human genome, using a recent release of Ensembl as our reference and so we should not see much of a discrepancy. 
+
 
 ### EnsDb.Hsapiens.v86
 
-To generate the Ensembl annotations, the *EnsDb* database can also be easily queried using AnnotationDbi. You will need to decide the release of Ensembl you would like to query. All Ensembl releases are listed [here](http://useast.ensembl.org/info/website/archives/index.html). We know that our data is for GRCh38, and the reference corresponds to release 86, so we can install this release of the *EnsDb* database. **NOTE: this is not the most current release, yet it is the latest release available through AnnotationDbi.**
+To generate the Ensembl annotations, the *EnsDb* database can also be easily queried using AnnotationDbi. You will need to decide the release of Ensembl you would like to query. All Ensembl releases are listed [here](http://useast.ensembl.org/info/website/archives/index.html). We know that our data is for GRCh38, and the most current release for GRCh38 in Bioconductor is release 86, so we can install this release of the *EnsDb* database. **NOTE: this is not the most current release, yet it is the latest release available through AnnotationDbi.**
 
 Since we are using *AnnotationDbi* to query the database, we can use the same functions that we used previously:
 
 ```r
 # Load the library
-library(EnsDb.Hsapiens.v87)
+library(EnsDb.Hsapiens.v86)
 
 # Check object metadata
 EnsDb.Hsapiens.v86
@@ -207,7 +209,13 @@ is.na(annotations_edb$GENEID) %>%
 
 AnnotationHub is a wonderful resource for accessing genomic data or querying large collection of whole genome resources, including ENSEMBL, UCSC, ENCODE, Broad Institute, KEGG, NIH Pathway Interaction Database, etc. All of this information is stored and easily accessible by directly connecting to the database.
 
-To get started with AnnotationHub, we can load the library and connect:
+> **NOTE:*** For the packages below, the installation instructions were not included in the preparation materials. Therefore, the code below as is will not work. To use the code you will need to first:
+>
+> # DO NOT RUN #
+> `BiocManager::install(c('AnnotationHub', 'ensembldb'))
+
+
+To get started with AnnotationHub, we first load the library and connect to the database:
 
 ```r
 # Load libraries
@@ -267,9 +275,9 @@ Now that we know the types of information available from AnnotationHub we can qu
 human_ens <- query(ah, c("Homo sapiens", "EnsDb"))
 ```
 
-The output for the `EnsDb` objects only goes back in time to Ensembl release 87, corresponding to 2016 and GRCh38. If you needed an older build like hg19, you might need to load the `EnsDb` package if available for that release, or you might need to build your own with `ensembldb`.
+The output for the `EnsDb` objects is much more recent than what we encountered with AnnotationDbi (most current release is Ensembl 94), however for Homo sapiens the releases only go back as far as Ensembl 87. This is fine if you are using GRCh38, however if you were using an older genome build like hg19, you would need to load the `EnsDb` package if available for that release or you might need to build your own with `ensembldb`.
 
-Often we are looking for the latest Ensembl release so that the annotations are the most up-to-date. To extract this information from AnnotationHub, we can use the AnnotationHub ID to subset the object:
+In our case, we are looking for the latest Ensembl release so that the annotations are the most up-to-date. To extract this information from AnnotationHub, we can use the AnnotationHub ID to subset the object:
 
 ```r
 # Extract annotations of interest
@@ -291,21 +299,27 @@ transcripts(mouse_ens)
 # Extract exon-level information
 exons(mouse_ens)
 ```
+
+### Using AnnotationHub to create our tx2gene file
+
 To create our `tx2gene` file, we would need to use a combination of the methods above and merge two dataframes together. For example:
 
 ```r
+# Create a transcript dataframe
  txdb <- transcripts(human_ens, return.type = "data.frame") %>%
    dplyr::select(tx_id, gene_id)
  txdb <- txdb[grep("ENST", txdb$tx_id),]
  
+ # Create a gene-level dataframe
  genedb <- genes(human_ens, return.type = "data.frame")  %>%
    dplyr::select(gene_id, symbol)
  
+ # Merge the two dataframes together
  annotations <- inner_join(txdb, genedb)
 
 ```
 
-Many of the annotation packages have much more information than what we need for functional analysis, and we will be the information extracted mainly just for gene ID conversion for the different tools that we use. However, it's good to know the capabilities of the tools we use, and we encourage greater exploration of these packages as you become more familiar with them.
+In this lesson our focus has been using annotation packages to extract information mainly just for gene ID conversion for the different tools that we use downstream. Many of the annotation packages we have presented have much more information than what we need for functional analysis and we have only just scratched the surface here. It's good to know the capabilities of the tools we use, so we encourage you to spend some time exploring these packages to become more familiar with them.
 
 
 > **NOTE:** The *annotables* package is a super easy annotation package to use. It is not updated frequently, so it's not great for getting the most up-to-date information for the current builds and does not have information for other organisms than human and mouse, but is a quick way to get annotatio information. 
