@@ -30,7 +30,7 @@
 | 11:00 - 11:15 | [DGE Analysis: Workflow Summarization](https://hbctraining.github.io/DGE_workshop_salmon/lessons/07_DGE_summarizing_workflow.html) | Mary |
 | 11:15 - 12:00 | [DGE Analysis: Likelihood Ratio Test](https://hbctraining.github.io/DGE_workshop_salmon/lessons/08_DGE_LRT.html) | Meeta |
 | 12:00 - 13:00 | Lunch |  |
-| 13:00 - 14:00 | [Gene Annotations]() | Meeta |
+| 13:00 - 14:00 | [Gene Annotations](https://hbctraining.github.io/DGE_workshop_salmon/lessons/genomic_annotation.html) | Meeta |
 | 14:00 - 14:30 | [Functional Analysis](https://hbctraining.github.io/DGE_workshop_salmon/lessons/functional_analysis_2019.html) | Radhika |
 | 14:30- 14:45 | Coffee  |
 | 14:45 - 16:15 | [Functional Analysis (cont'd)](https://hbctraining.github.io/DGE_workshop_salmon/lessons/functional_analysis_2019.html) | Mary |
