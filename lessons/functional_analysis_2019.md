@@ -107,19 +107,19 @@ For the different steps in the functional analysis, we require Ensembl and Entre
 
 ```r
 ## Merge the annotations with the results 
-res_ids <- inner_join(res_tableOE_tb, annotations_edb, by=c("gene"="SYMBOL"))         
+res_ids <- inner_join(res_tableOE_tb, annotations_edb, by=c("gene"="GENEID"))         
 ```
 
 To perform the over-representation analysis, we need a list of background genes and a list of significant genes. For our background dataset we will use all genes tested for differential expression (all genes in our results table). For our significant gene list we will use genes with p-adjusted values less than 0.05 (we could include a fold change threshold too if we have many DE genes).
 
 ```r
 ## Create background dataset for hypergeometric testing using all genes tested for significance in the results                 
-allOE_genes <- as.character(res_ids$GENEID)
+allOE_genes <- as.character(res_ids$gene)
 
 ## Extract significant results
-sigOE <- filter(res_ids, padj < 0.05)
+sigOE <- dplyr::filter(res_ids, padj < 0.05)
 
-sigOE_genes <- as.character(sigOE$GENEID)
+sigOE_genes <- as.character(sigOE$gene)
 ```
 
 Now we can perform the GO enrichment analysis and save the results:
@@ -168,7 +168,7 @@ The next plot is the **enrichment GO plot**, which shows the relationship betwee
 emapplot(ego, showCategory = 50)
 ```
 
-**To save the figure,** click on the `Export` button in the RStudio `Plots` tab and `Save as PDF...`. In the pop-up window, change the `PDF size` to `24 x 32` to give a figure of appropriate size for the text labels.
+**To save the figure,** click on the `Export` button in the RStudio `Plots` tab and `Save as PDF...`. In the pop-up window, change the `PDF size` to `12 x 14` to give a figure of appropriate size for the text labels.
 
 <img src="../img/emapplot_salmon.png" width="800">
 
@@ -198,7 +198,7 @@ cnetplot(ego,
          vertex.label.font=6)
 ```
 
-**Again, to save the figure,** click on the `Export` button in the RStudio `Plots` tab and `Save as PDF...`. Change the `PDF size` to `25 x 30` to give a figure of appropriate size for the text labels.
+**Again, to save the figure,** click on the `Export` button in the RStudio `Plots` tab and `Save as PDF...`. Change the `PDF size` to `12 x 14` to give a figure of appropriate size for the text labels.
 
 <img src="../img/cnetplot1_salmon.png" width="800">
 
