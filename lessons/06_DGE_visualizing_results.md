@@ -252,10 +252,7 @@ res_tableOE_tb <- bind_cols(res_tableOE_tb, symbol=grch38annot$symbol[match(res_
 ### In the line above, you could have also used the merge() function as we did before with the normalized counts, but that would have converted the tibble into a data frame.
 
 ## Populate the genelables column with information from the new symbol column for only the first 10 rows
-res_tableOE_tb$genelabels[1:10] <- res_tableOE_tb$symbol[1:10]
-
-## Convert the genelabels column into a character vector
-res_tableOE_tb$genelabels <- as.character(res_tableOE_tb$genelabels)
+res_tableOE_tb$genelabels[1:10] <- as.character(res_tableOE_tb$symbol[1:10])
 
 View(res_tableOE_tb)
 ```
