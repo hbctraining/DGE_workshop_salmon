@@ -254,6 +254,9 @@ res_tableOE_tb <- bind_cols(res_tableOE_tb, symbol=grch38annot$symbol[match(res_
 ## Populate the genelables column with information from the new symbol column for only the first 10 rows
 res_tableOE_tb$genelabels[1:10] <- res_tableOE_tb$symbol[1:10]
 
+## Convert the genelabels column into a character vector
+res_tableOE_tb$genelabels <- as.character(res_tableOE_tb$genelabels)
+
 View(res_tableOE_tb)
 ```
 
