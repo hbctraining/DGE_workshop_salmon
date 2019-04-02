@@ -247,12 +247,12 @@ First, we need to order the res_tableOE tibble by `padj`, and add an additional 
 res_tableOE_tb <- res_tableOE_tb %>% arrange(padj) %>% mutate(genelabels = "")
 
 ## Add the gene symbols as a column to the res_tableOE tibble from the grch38 table (annotables)
-res_tableOE_tb <- bind_cols(res_tableOE_tb, symbol=grch38$symbol[match(res_tableOE_tb$gene, grch38$ensgene)])
+res_tableOE_tb <- bind_cols(res_tableOE_tb, symbol=grch38annot$symbol[match(res_tableOE_tb$gene, grch38annot$ensgene)])
 
 ### In the line above, you could have also used the merge() function as we did before with the normalized counts, but that would have converted the tibble into a data frame.
 
 ## Populate the genelables column with information from the new symbol column for only the first 10 rows
-res_tableOE_tb$genelabels[1:10] <- res_tableOE_tb$symbol[1:10]
+res_tableOE_tb$genelabels[1:10] <- res_tableOE_tb$gene[1:10]
 
 View(res_tableOE_tb)
 ```
