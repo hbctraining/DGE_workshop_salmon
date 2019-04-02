@@ -95,7 +95,7 @@ DEGreport
 rhdf5
 tximport
 AnnotationDbi
-EnsDb.Hsapiens.v75
+EnsDb.Hsapiens.v86
 ```
 
 > **NOTE:** The library used for the annotations associated with genes (here we are using `org.Hs.eg.db`) will change based on organism (e.g. if studying mouse, would need to install and load `org.Mm.eg.db`). The list of different organism packages are given [here](https://github.com/hbctraining/Training-modules/raw/master/DGE-functional-analysis/img/available_annotations.png).
@@ -117,7 +117,7 @@ library(pathview)
 library(rhdf5)
 library(tximport)
 library(AnnotationDbi)
-library(EnsDb.Hsapiens.v75)
+library(EnsDb.Hsapiens.v86)
 ```
 
 (4) Once all packages have been loaded, run sessionInfo().  
