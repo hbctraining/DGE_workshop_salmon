@@ -211,8 +211,10 @@ AnnotationHub is a wonderful resource for accessing genomic data or querying lar
 
 > **NOTE:*** For the packages below, the installation instructions were not included in the preparation materials. Therefore, the code below as is will not work. To use the code you will need to first:
 >
-> # DO NOT RUN #
-> `BiocManager::install(c('AnnotationHub', 'ensembldb'))
+> ```
+> # DO NOT RUN 
+> BiocManager::install(c('AnnotationHub', 'ensembldb'))
+> ```
 
 
 To get started with AnnotationHub, we first load the library and connect to the database:
