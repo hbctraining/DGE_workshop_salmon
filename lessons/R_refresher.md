@@ -15,7 +15,7 @@ Approximate time: 45 minutes
 
 ## Setting up
 
-1. Let’s create a new project directory for our "R refresher lesson:
+1. Let’s create a new project directory for this review:
   
     - Create a new project called `R_refresher`
     - Create a new R script called `reviewing_R.R`
