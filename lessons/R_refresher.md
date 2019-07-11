@@ -24,7 +24,7 @@ Approximate time: 45 minutes
 
 2. Now that we have our directory structure setup, let's load our libraries and read in our data:
 
-    - Load the tidyverse library
+    - Load the `tidyverse` library
     - Use `read.csv()` to read in the downloaded file and save it in the object/variable `counts`
       - What is the syntax for a function?
       - How do we get help for using a function?
