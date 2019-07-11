@@ -64,7 +64,7 @@ Now that we have created our metadata data frame, it's often a good idea to get 
 
 ## Extracting data
 
-4. Using the `meta` data frame created in the previous question, write out the R code you would use to perform the following operations (questions **DO NOT** build upon each other):
+4. Using the `meta` data frame created in the previous question, perform the following exercises (questions **DO NOT** build upon each other):
 
      - return only the `genotype` and `sex` columns using `[]`:
      - return the `genotype` values for samples 1, 7, and 8 using `[]`:
@@ -77,7 +77,7 @@ Now that we have created our metadata data frame, it's often a good idea to get 
      
 ## Visualizing data
 
-5. Oftentimes, it is easier to see the patterns or nature of our data when we explore it visually with a variety of graphics. Let's ggplot2 to explore differences in the average expression of the Myc gene based on genotype.
+5. Often it is easier to see the patterns or nature of our data when we explore it visually with a variety of graphics. Let's ggplot2 to explore differences in the average expression of the Myc gene based on genotype.
 
      - Plot a boxplot of the mean expression of Myc for the KO and WT samples using `theme_minimal()` and give the plot new axes names and a centered title.
 
