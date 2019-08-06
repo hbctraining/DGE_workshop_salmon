@@ -65,17 +65,9 @@ DESeq2 also allows for the analysis of complex designs. You can explore interact
 
 `design <- ~ sex + age + treatment + sex:treatment`
 
-Since the interaction term `sex:treatment` is last in the formula, the results output from DESeq2 will output results for this term. Alternatively, as recommended in the [DESeq2 vignette](https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#interactions), we could create a new factor variable in our metadata based on the two interaction factors as shown in the table below:
+Since the interaction term `sex:treatment` is last in the formula, the results output from DESeq2 will output results for this term. 
 
-<img src="../img/meta_example2.png" width="300">
-
-The design formula would be:
-
-`design <- ~ age + treat_sex`
-
-> **NOTE:** The design `~ sex + age + treatment + treat_sex` won't work (because the model can't be fit) because `treatment` and `treat_sex` are confounded (same goes for `sex`). Therefore, we drop the terms that went into `treat_sex` from the design formula.
->
-> The testing method for using the combined `treat_sex` factor column will be slightly different, using the LRT method, which we will discuss later.
+There are additional recommendations for complex designs in the [DESeq2 vignette](https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#interactions). In addition, [Limma documentation](http://bioconductor.org/packages/release/bioc/vignettes/limma/inst/doc/usersguide.pdf) offers additional insight into creating more complex design formulas.
 
 ### MOV10 DE analysis 
 
