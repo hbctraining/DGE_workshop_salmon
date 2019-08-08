@@ -74,7 +74,7 @@ ggrepel
 cowplot
 ```
 
-(2) Install the below packages from Bioconductor. Load BiocManager, then run BiocManager's `install()` function 10 times for the 10 packages:
+(2) Install the below packages from Bioconductor. Load BiocManager, then run BiocManager's `install()` function 12 times for the 12 packages:
 
 ```r
 library(BiocManager)
