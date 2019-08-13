@@ -16,15 +16,16 @@
 | Time |  Topic  | Instructor |
 |:-----------:|:----------:|:--------:|
 | 09:00 - 9:15 | [Introduction to Workshop](../lectures/Intro_to_workshop.pdf) | Radhika |
-| 09:15 - 10:15 | [R Refresher Session](https://hbctraining.github.io/DGE_workshop_salmon/lessons/R_refresher.html) | Mary |
-| 10:15 - 10:30 | Coffee  |  |
-| 10:30 - 12:00 | [Overview of DGE Analysis Workflow](https://hbctraining.github.io/DGE_workshop_salmon/lessons/01_DGE_setup_and_overview.html) | Meeta |
-| 12:00 - 13:00 | Lunch |  |
-| 13:00 - 13:50 |[Setting up for DGE Analysis: Count Normalization](https://hbctraining.github.io/DGE_workshop_salmon/lessons/02_DGE_count_normalization.html) | Mary |
-| 13:50 - 15:15 | [Setting up for DGE Analysis: Count Data QC](https://hbctraining.github.io/DGE_workshop_salmon/lessons/03_DGE_QC_analysis.html) | Radhika |
-| 15:15- 15:30 | Coffee  |
-| 15:30 - 16:30 | [Overview of DESeq2 Methods](https://hbctraining.github.io/DGE_workshop_salmon/lessons/04_DGE_DESeq2_analysis.html) | Mary  |
-| 16:30 - 17:00 | [DGE Analysis: Pairwise Comparisons (Wald Test)](https://hbctraining.github.io/DGE_workshop_salmon/lessons/05_DGE_DESeq2_analysis2.html)| Meeta |
+| 09:15 - 10:00 | [R Refresher Session](https://hbctraining.github.io/DGE_workshop_salmon/lessons/R_refresher.html) | Mary |
+| 10:00 - 10:15 | Coffee  |  |
+| 10:15 - 11:25 | [Overview of DGE Analysis Workflow](https://hbctraining.github.io/DGE_workshop_salmon/lessons/01_DGE_setup_and_overview.html) | Meeta |
+| 11:25 - 12:15 |[Setting up for DGE Analysis: Count Normalization](https://hbctraining.github.io/DGE_workshop_salmon/lessons/02_DGE_count_normalization.html) | Mary |
+| 12:15 - 13:15 | Lunch |  |
+| 13:15 - 14:40 | [Setting up for DGE Analysis: Count Data QC](https://hbctraining.github.io/DGE_workshop_salmon/lessons/03_DGE_QC_analysis.html) | Radhika |
+| 14:40 - 15:10 | [Overview of DESeq2 Methods](https://hbctraining.github.io/DGE_workshop_salmon/lessons/04_DGE_DESeq2_analysis.html) | Mary  |
+| 15:10- 15:25 | Coffee  |
+| 15:25 - 15:55 | [Overview of DESeq2 Methods](https://hbctraining.github.io/DGE_workshop_salmon/lessons/04_DGE_DESeq2_analysis.html) | Mary  |
+| 15:55 - 17:00 | [DGE Analysis: Pairwise Comparisons (Wald Test)](https://hbctraining.github.io/DGE_workshop_salmon/lessons/05_DGE_DESeq2_analysis2.html)| Meeta |
 
 
 ## Day2
