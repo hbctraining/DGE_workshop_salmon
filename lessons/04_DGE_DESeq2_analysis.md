@@ -182,7 +182,7 @@ To accurately identify DE genes, DESeq2 needs to account for the relationship be
 | Mean expression increases | Dispersion decreases |
 
 
-For genes with moderate to high count values, the square root of dispersion will be equal to the coefficient of variation (`Var / μ`). So 0.01 dispersion means 10% variation around the mean expected across biological replicates. The dispersion estimates for genes with the same mean will differ only based on their variance. **Therefore, the dispersion estimates reflect the variance in gene expression for a given mean value.** 
+For genes with moderate to high count values, the square root of dispersion will be equal to the coefficient of variation (`Var / μ`). So 0.01 dispersion means 10% variation around the mean expected across biological replicates. The dispersion estimates for genes with the same mean will differ only based on their variance. **Therefore, the dispersion estimates reflect the variance in gene expression for a given mean value (given as black dots in image below).** 
 
 <img src="../img/deseq_dispersion1.png" width="400">
 
