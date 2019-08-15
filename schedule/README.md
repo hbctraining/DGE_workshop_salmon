@@ -4,12 +4,6 @@
 
 **Note 2:** In this workshop we use expression data generated using Salmon; the training materials for that portion of the workflow was covered in the *Advanced Topics* [Introduction to (bulk) RNA-seq using High-Performance Computing](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/schedule/) workshop.
 
-**Note 3:** We have updated our annotation lesson to use a more recent version of the Ensembl database. If you can please install the package below to prepare for this afternoon:
-
-> ```
-> library(BiocManager)
-> install("EnsDb.Hsapiens.v86")
-> ```
 
 ## Day1
 
