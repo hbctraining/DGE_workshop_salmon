@@ -30,7 +30,7 @@
 | 9:15 - 10:15 | [DGE Analysis: Visualization](../lessons/06_DGE_visualizing_results.md) | Radhika |
 | 10:15 - 10:30 | Coffee  |  |
 | 10:30 - 11:00 | [DGE Analysis: Visualization (cont'd)](../lessons/06_DGE_visualizing_results.md) | Mary | 
-| 11:15 - 12:00 | [DGE Analysis: Likelihood Ratio Test](../lessons/08_DGE_LRT.md) | Meeta |
+| 11:00 - 12:00 | [DGE Analysis: Likelihood Ratio Test](../lessons/08_DGE_LRT.md) | Meeta |
 | 12:00 - 13:00 | Lunch |  |
 | 13:00 - 14:00 | [Gene Annotations](../lessons/genomic_annotation.md) | Meeta |
 | 14:00 - 14:30 | [Functional Analysis](../lessons/functional_analysis_2019.md) | Radhika |
