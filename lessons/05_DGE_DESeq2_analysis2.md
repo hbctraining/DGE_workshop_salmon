@@ -25,9 +25,7 @@ As discussed [earlier](https://hbctraining.github.io/DGE_workshop/lessons/01_DGE
 
  <img src="../img/NB_model_formula.png" width="600">
  
-Modeling is a mathematically formalized way to approximate how the data behaves given a set of parameters (i.e. size factor, dispersion). DESeq2 will use this formula as our model for each gene, and fit the normalized count data to it. After the model is fit, coefficients are estimated for each sample group along with their standard error using the formula:
-
- <img src="../img/NB_model_formula_betas.png" width="600">
+Modeling is a mathematically formalized way to approximate how the data behaves given a set of parameters (i.e. size factor, dispersion). DESeq2 will use this formula as our model for each gene, and fit the normalized count data to it. After the model is fit, coefficients are estimated for each sample group along with their standard error.
 
 The coefficents are the estimates for the **log2 foldchanges** for each sample group. However, these estimates do not account for the large dispersion we observe with low read counts. To avoid this, the **log2 fold changes calculated by the model need to be adjusted**. 
 
@@ -56,11 +54,6 @@ To generate the shrunken log2 fold change estimates, you have to run an addition
 
 > **NOTE: Shrinking the log2 fold changes will not change the total number of genes that are identified as significantly differentially expressed.** The shrinkage of fold change is to help with downstream assessment of results. For example, if you wanted to subset your significant genes based on fold change for further evaluation, you may want to use shruken values. Additionally, for functional analysis tools such as GSEA which require fold change values as input you would want to provide shrunken values.
 
->**NOTE:** Older versions of DESeq2 (< 1.16.0) shrink the fold changes by default, so if you are using an older version of the tool and very large expected fold changes for a number of individual genes are expected, but not enough such that the prior would not include such large fold changes, then you may want to turn off LFC shrinkage.
-> 
->For these older versions of DESeq2, you can turn off the beta prior when calling the `DESeq()` function: `DESeq(dds, betaPrior=FALSE)`. By turning off the prior, the log2 foldchanges would be the same as those calculated by:
->
->`log2 (normalized_counts_group1 / normalized_counts_group2)`
 
 
 ## Hypothesis testing using the Wald test
@@ -69,8 +62,6 @@ The first step in hypothesis testing is to set up a **null hypothesis** for each
 
 With DESeq2, the Wald test is commonly used for hypothesis testing when comparing two groups. A Wald test statistic is computed along with a probability that a test statistic at least as extreme as the observed value were selected at random. This probability is called the p-value of the test. If the p-value is small we reject the null hypothesis and state that there is evidence against the null (i.e. the gene is differentially expressed).
 
-> ### What if I have more than two sample groups I want to compare?
-> An alternative to pair-wise comparisons is to **analyze all levels of a factor at once**. By default the Wald test is used to generate the results table, but DESeq2 also offers the Likelihood Ratio Test (LRT) which is used to identify any genes that show change in expression across the different levels. This type of test can be especially useful in analyzing time course experiments. If you want more details on the LRT and how you would use it, take a look at the [materials linked here](https://hbctraining.github.io/DGE_workshop_salmon/lessons/08_DGE_LRT.html).
 
 ### Creating contrasts
 
