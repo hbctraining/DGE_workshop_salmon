@@ -297,7 +297,7 @@ The variance or scatter tends to reduce as we increase the number of biological 
 
 The figure below illustrates the relationship between sequencing depth and number of replicates on the number of differentially expressed genes identified [[1](https://academic.oup.com/bioinformatics/article/30/3/301/228651/RNA-seq-differential-expression-studies-more)]. Note that an **increase in the number of replicates tends to return more DE genes than increasing the sequencing depth**. Therefore, generally more replicates are better than higher sequencing depth, with the caveat that higher depth is required for detection of lowly expressed DE genes and for performing isoform-level differential expression. Generally, the minimum sequencing depth recommended is 20-30 million reads per sample, but we have seen good RNA-seq experiments with 10 million reads if there are a good number of replicates.
 
-<img src="../img/de_replicates_img.png" width="500">
+<img src="../img/de_replicates_img2.png" width="500">
 
 ### Differential expression analysis workflow
 
