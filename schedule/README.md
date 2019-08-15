@@ -26,10 +26,10 @@
 
 | Time |  Topic  | Instructor |
 |:-----------:|:----------:|:--------:|
-| 9:00 - 10:15 | [DGE Analysis: Visualization](../lessons/06_DGE_visualizing_results.md) | Radhika |
+| 9:00 - 9:15 | [DGE Analysis: Workflow Summarization](../lessons/07_DGE_summarizing_workflow.md) | Mary |
+| 9:15 - 10:15 | [DGE Analysis: Visualization](../lessons/06_DGE_visualizing_results.md) | Radhika |
 | 10:15 - 10:30 | Coffee  |  |
-| 10:30 - 11:00 | [DGE Analysis: Visualization (cont'd)](../lessons/06_DGE_visualizing_results.md) | Mary |
-| 11:00 - 11:15 | [DGE Analysis: Workflow Summarization](../lessons/07_DGE_summarizing_workflow.md) | Mary |
+| 10:30 - 11:00 | [DGE Analysis: Visualization (cont'd)](../lessons/06_DGE_visualizing_results.md) | Mary | 
 | 11:15 - 12:00 | [DGE Analysis: Likelihood Ratio Test](../lessons/08_DGE_LRT.md) | Meeta |
 | 12:00 - 13:00 | Lunch |  |
 | 13:00 - 14:00 | [Gene Annotations](../lessons/genomic_annotation.md) | Meeta |
