@@ -209,14 +209,6 @@ is.na(annotations_edb$GENEID) %>%
 
 AnnotationHub is a wonderful resource for accessing genomic data or querying large collection of whole genome resources, including ENSEMBL, UCSC, ENCODE, Broad Institute, KEGG, NIH Pathway Interaction Database, etc. All of this information is stored and easily accessible by directly connecting to the database.
 
-> **NOTE:** For the packages below, the installation instructions were not included in the preparation materials. Therefore, the code below as is will not work. To use the code you will need to first:
->
-> ```
-> # DO NOT RUN 
-> BiocManager::install(c('AnnotationHub', 'ensembldb'))
-> ```
-
-
 To get started with AnnotationHub, we first load the library and connect to the database:
 
 ```r
@@ -290,16 +282,16 @@ Now we can use `ensembldb` functions to extract the information at the gene, tra
 
 ```r
 # Extract gene-level information
-genes(mouse_ens, return.type = "data.frame")
+genes(human_ens, return.type = "data.frame") %>% View()
 ```
 But note that it is just as easy to get the transcript- or exon-level information:
 
 ```r
 # Extract transcript-level information
-transcripts(mouse_ens)
+transcripts(human_ens, return.type = "data.frame") %>% View()
 
 # Extract exon-level information
-exons(mouse_ens)
+exons(human_ens, return.type = "data.frame") %>% View()
 ```
 
 ### Using AnnotationHub to create our tx2gene file
