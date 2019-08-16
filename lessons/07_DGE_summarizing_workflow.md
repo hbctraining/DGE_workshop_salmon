@@ -74,7 +74,7 @@ We have detailed the various steps in a differential expression analysis workflo
 	```r
 	# Output results of Wald test for contrast
 	contrast <- c("condition", "level_to_compare", "base_level")
-	res <- results(dds, contrast = contrast)
+	res <- results(dds, contrast = contrast, alpha = 0.05)
 	res <- lfcShrink(dds, contrast = contrast, res=res)
 	```
 
