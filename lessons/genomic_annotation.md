@@ -151,15 +151,6 @@ non_duplicates_idx <- which(duplicated(annotations_orgDb$SYMBOL) == FALSE)
 annotations_orgDb <- annotations_orgDb[non_duplicates_idx, ]
 ```
 
-Now, we can check to see how many genes do not have any annotation by counting the number of NAs returned:
-
-```r
-# Check number of NAs returned
-is.na(annotations_orgDb$ENSEMBL) %>%
-  which() %>%
-  length()
-```
-
 Note that if your analysis was conducted using an older genome (i.e hg19) some genes maybe found to be not annotated (NA), since orgDB is always the most recent release. It is likely that some of the genes have changed names in between versions (due to updates and patches), so may not be present in this version of the database. Our dataset was created based on the GRCh38 build of the human genome, using a recent release of Ensembl as our reference and so we should not see much of a discrepancy. 
 
 
@@ -190,7 +181,7 @@ annotations_edb <- AnnotationDbi::select(EnsDb.Hsapiens.v86,
                                            keytype = "GENEID")
 ```
 
-Then we can again deduplicate and check for NA values:
+Then we can again deduplicate:
 
 ```r
 # Determine the indices for the non-duplicated genes
@@ -198,11 +189,6 @@ non_duplicates_idx <- which(duplicated(annotations_edb$SYMBOL) == FALSE)
 
 # Return only the non-duplicated genes using indices
 annotations_edb <- annotations_edb[non_duplicates_idx, ]
-
-# Check number of NAs returned
-is.na(annotations_edb$GENEID) %>%
-  which() %>%
-  length()
 ```
 
 ## AnnotationHub
