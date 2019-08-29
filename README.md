@@ -20,11 +20,7 @@ This repository has teaching materials for a **2-day**, hands-on **Introduction 
 > These materials are developed for a trainer-led workshop, but also amenable to self-guided learning.
 
 ### Lessons
-
-Below are links to the lessons and suggested schedules:
-
-* [Click here for schedule](https://hbctraining.github.io/DGE_workshop_salmon/schedule)
-
+**[Click here](schedule) for links to lessons and the suggested schedule**
 
 # Differential gene expression workshop
 
