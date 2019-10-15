@@ -122,7 +122,7 @@ The first thing we need to do is create a variable that contains the paths to ea
 
 ```R
 ## List all directories containing data  
-samples <- list.files(path = "./data", full.names = T, pattern="\\.salmon$")
+samples <- list.files(path = "./data", full.names = T, pattern="salmon$")
 
 ## Obtain a vector of all filenames including the path
 files <- file.path(samples, "quant.sf")
