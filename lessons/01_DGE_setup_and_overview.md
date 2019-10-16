@@ -276,18 +276,18 @@ If it's count data, it should fit the negative binomial, as discussed previously
 Run the following code to plot the *mean versus variance* for the 'Mov10 overexpression' replicates:
 
 ```r
-mean_counts <- apply(data[,6:8], 1, mean)        #The 2nd argument '1' indicates the function being applied to rows. Use '2' if applied to columns 
+mean_counts <- apply(data[,6:8], 1, mean)        #The second argument '1' of 'apply' function indicates the function being applied to rows. Use '2' if applied to columns 
 variance_counts <- apply(data[,6:8], 1, var)
 df <- data.frame(mean_counts, variance_counts)
 
 ggplot(df) +
         geom_point(aes(x=mean_counts, y=variance_counts)) + 
-        geom_line(aes(x=mean_counts, y=mean_counts, color="red")) +
-        scale_y_log10() +
-        scale_x_log10()
+        scale_y_log10(limits = c(1,1e9)) +
+        scale_x_log10(limits = c(1,1e9)) +
+        geom_abline(intercept = 0, slope = 1, color="red")
 ```
 
-<img src="../img/deseq_mean_vs_variance.png" width="600">
+<img src="../img/deseq_mean_vs_variance2.png" width="600">
 
 Note that in the above figure, the variance across replicates tends to be greater than the mean (red line), especially for genes with large mean expression levels. *This is a good indication that our data do not fit the Poisson distribution and we need to account for this increase in variance using the Negative Binomial model (i.e. Poisson will underestimate variability leading to an increase in false positive DE genes).*
 
