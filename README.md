@@ -88,7 +88,6 @@ DOSE
 org.Hs.eg.db
 pathview
 DEGreport
-rhdf5
 tximport
 AnnotationDbi
 EnsDb.Hsapiens.v86
@@ -112,7 +111,6 @@ library(DEGreport)
 library(org.Hs.eg.db)
 library(DOSE)
 library(pathview)
-library(rhdf5)
 library(tximport)
 library(AnnotationDbi)
 library(EnsDb.Hsapiens.v86)
