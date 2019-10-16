@@ -287,7 +287,7 @@ ggplot(df) +
         geom_abline(intercept = 0, slope = 1, color="red")
 ```
 
-<img src="../img/deseq_mean_vs_variance2.png" width="600">
+<img src="../img/deseq_mean_variance2.png" width="600">
 
 Note that in the above figure, the variance across replicates tends to be greater than the mean (red line), especially for genes with large mean expression levels. *This is a good indication that our data do not fit the Poisson distribution and we need to account for this increase in variance using the Negative Binomial model (i.e. Poisson will underestimate variability leading to an increase in false positive DE genes).*
 
