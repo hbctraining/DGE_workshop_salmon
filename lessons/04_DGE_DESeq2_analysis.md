@@ -168,13 +168,11 @@ The next step in the differential expression analysis is the estimation of gene-
 In RNA-seq count data, we know:
 
 1. To determine differentially expressed genes, we need to identify genes that have significantly different mean expression between groups **given the variation within the groups** (between replicates). 
-2. The variation between replicates increases with the mean expression, as shown in the plot below (each black dot is a gene)
+2. The variation between replicates increases with the mean expression, as shown in the plot below (each black dot is a gene).
 
 <img src="../img/deseq_mean_vs_variance.png" width="600">
 
-The relationship between mean and variance is linear on the log scale, and for higher means, we could predict the variance relatively accurately given the mean. However, **for low mean counts, the variance estimates have a much larger spread; therefore, the estimates of variation will differ much more between genes with small means**. 
-
-To accurately identify DE genes, DESeq2 needs to account for the relationship between the variance and mean. Instead of using variance as the measure of variation in the data, it uses a measure of variation called dispersion, given by `Var = μ + α*μ^2`, where `α` represents the dispersion (`Var` = variance, and `μ` = mean) with the relationship:
+**To accurately identify DE genes, DESeq2 needs to account for the relationship between the variance and mean.** Instead of using variance as the measure of variation in the data (since variance corresponds to gene expression level), it uses a measure of variation called dispersion, which accounts for a gene's variance for a given mean expression level. Dispersion is calculated by `Var = μ + α*μ^2`, where `α` represents the dispersion (`Var` = variance, and `μ` = mean) with the relationship:
 
 | | Effect on dispersion |
 |:---:|:---:|
@@ -194,11 +192,11 @@ To address this problem, DESeq2 **shares information across genes** to generate 
 
 **Estimating the dispersion for each gene separately:**
 
-To model the dispersion based on expression level (mean counts of replicates), the dispersion for each gene is estimated using maximum likelihood estimation. In other words, **given the count values of the replicates, the most likely estimate of dispersion is calculated**.
+DESeq2 estimates the dispersion for each gene based on the gene's expression level (mean counts of replicates) and variance. 
 
 ### Step 3: Fit curve to gene-wise dispersion estimates
 
-The next step in the workflow is to fit a curve to the dispersion estimates for each gene. The idea behind fitting a curve to the data is that different genes will have different scales of biological variability, but, over all genes, there will be a distribution of reasonable estimates of dispersion. 
+The next step in the workflow is to fit a curve to the gene-wise dispersion estimates. The idea behind fitting a curve to the data is that different genes will have different scales of biological variability, but, across all genes, there will be a distribution of reasonable estimates of dispersion. 
 
 <img src="../img/deseq2_workflow_separate_fit.png" width="200">
 
