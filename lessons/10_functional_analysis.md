@@ -132,10 +132,16 @@ cluster_summary <- data.frame(ego)
 
 write.csv(cluster_summary, "results/clusterProfiler_Mov10oe.csv")
 ```
->**NOTE:** The different organisms with annotation databases available to use with clusterProfiler can be found [here](../img/orgdb_annotation_databases.png)
+
+> **NOTE:** The different organisms with annotation databases available to use with clusterProfiler can be found [here](../img/orgdb_annotation_databases.png)
 > Also, the `keyType` argument may be coded as `keytype` in different versions of clusterProfiler.
 
 ![cluster_summary](../img/cluster_summary.png)                
+
+> **NOTE:** Instead of saving just the results summary from the `ego` object, it might also be beneficial to save the object itself. The `save()` function enables you to save it as a `.rda` file, e.g. `save(ego, file="results/ego.rda")`. 
+> The complementary function to `save()` is the function `load()`, e.g. `ego <- load(file="results/ego.rda")`.
+>
+> *This is a useful set of functions to know, since it enables one to preserve analyses at specific stages and reload them when needed.* More information about these functions can be found [here](https://www.r-bloggers.com/load-save-and-rda-files/) & [here](http://rpubs.com/euclid/387778).
 
 ### Visualizing clusterProfiler results
 clusterProfiler has a variety of options for viewing the over-represented GO terms. We will explore the dotplot, enrichment plot, and the category netplot.
