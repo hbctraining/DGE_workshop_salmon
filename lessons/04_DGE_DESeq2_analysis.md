@@ -1,7 +1,7 @@
 ---
 title: "Gene-level differential expression analysis with DESeq2"
 author: "Meeta Mistry, Radhika Khetani, Mary Piper"
-date: "August 6, 2019"
+date: "October 18th, 2019"
 ---
 
 Approximate time: 60 minutes
@@ -172,7 +172,9 @@ In RNA-seq count data, we know:
 
 <img src="../img/deseq_mean_vs_variance.png" width="600">
 
-**To accurately identify DE genes, DESeq2 needs to account for the relationship between the variance and mean.** Instead of using variance as the measure of variation in the data (since variance corresponds to gene expression level), it uses a measure of variation called dispersion, which accounts for a gene's variance for a given mean expression level. Dispersion is calculated by `Var = μ + α*μ^2`, where `α` represents the dispersion (`Var` = variance, and `μ` = mean) with the relationship:
+**To accurately identify DE genes, DESeq2 needs to account for the relationship between the variance and mean.** 
+
+Instead of using variance as the measure of variation in the data (*since variance corresponds to the gene expression level*), it uses a measure of variation called **dispersion, which accounts for a gene's variance and mean expression level**. Dispersion is calculated by `Var = μ + α*μ^2`, where `α` represents the dispersion (`Var` = variance, and `μ` = mean) with the relationship:
 
 | | Effect on dispersion |
 |:---:|:---:|
