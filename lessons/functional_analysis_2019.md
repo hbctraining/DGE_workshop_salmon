@@ -296,6 +296,7 @@ View(gseaKEGG_results)
 
 write.csv(gseaKEGG_results, "results/gseaOE_kegg.csv", quote=F)
 ```
+> _**NOTE:** We will all get different results for the GSEA because the permutations performed use random reordering. If we would like to use the same permutations every time we run a function (i.e. we would like the same results every time we run the function), then we could use the `set.seed(123456)` function prior to running. The input to `set.seed()` could be any number, but if you would want the same results, then you would need to use the same number as input._
 
 Explore the GSEA plot of enrichment of one of the pathways in the ranked list:
 
