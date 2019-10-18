@@ -136,7 +136,7 @@ ego <- enrichGO(gene = sigOE_genes,
                 readable = TRUE)
 ```
 
->**NOTE:** The different organisms with annotation databases available to use with for the `OrgDb` argument can be found [here](../img/orgdb_annotation_databases.png.
+>**NOTE:** The different organisms with annotation databases available to use with for the `OrgDb` argument can be found [here](../img/orgdb_annotation_databases.png).
 >
 > Also, the `keyType` argument may be coded as `keytype` in different versions of clusterProfiler.
 >
