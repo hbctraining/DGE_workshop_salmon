@@ -171,7 +171,7 @@ We will be using the `txi` object as is, for input into DESeq2 but will save it 
 # Look at the counts
 txi$counts %>% View()
 
-# Write the counts to file
+# Write the counts to an object
 data <- txi$counts %>% 
   round() %>% 
   data.frame()
