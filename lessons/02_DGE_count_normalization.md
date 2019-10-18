@@ -1,7 +1,7 @@
 ---
 title: "Count normalization with DESeq2"
 author: "Meeta Mistry, Radhika Khetani, Mary Piper"
-date: "April 26, 2017"
+date: "October 18, 2019"
 ---
 
 Approximate time: 60 minutes
