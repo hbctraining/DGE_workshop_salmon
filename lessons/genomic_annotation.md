@@ -55,7 +55,7 @@ For example, if we used the GRCh38 build of the human genome to quantify gene ex
 
 Within R, there are many popular packages used for gene/transcript-level annotation. These packages provide tools that take the list of genes you provide and retrieve information for each gene using one or more of the databases listed above.
 
-**Annotation tools:** for accessing/querying annotations from a specific databases
+### Annotation tools: for accessing/querying annotations from a specific databases
 
 
 | Tool | Description | Pros | Cons |
@@ -67,7 +67,7 @@ Within R, there are many popular packages used for gene/transcript-level annotat
 |**[biomaRt](https://bioconductor.org/packages/release/bioc/vignettes/biomaRt/inst/doc/biomaRt.html)** | An R package version of the Ensembl [BioMart online tool](http://www.ensembl.org/biomart/martview/70dbbbe3f1c5389418b5ea1e02d89af3)  | all Ensembl database information available, all organisms on Ensembl, wealth of information | being deprecated (?) |
 
 
-**Interface tools:** for accessing/querying annotations from multiple different annotation databases
+### Interface tools: for accessing/querying annotations from multiple different annotation sources
 
 - **AnnotationDbi:** queries the *OrgDb*, *TxDb*, *Go.db*, *EnsDb*, and *BioMart* annotations.  
 - **AnnotationHub:** queries large collection of whole genome resources, including ENSEMBL, UCSC, ENCODE, Broad Institute, KEGG, NIH Pathway Interaction Database, etc.
@@ -91,7 +91,7 @@ library(AnnotationDbi)
 org.Hs.eg.db
 ```
 
-We can see the metadata for the database by just typing the name of the database, including the species, last updates for the different source information, and the source urls. Note the KEGG data from this database was last updated in 2011, so may not be the best site for that information.
+We can see the metadata for the database by just typing the name of the database, including the species, last updates for the different source information, and the source urls. Note the KEGG data from this database was last updated in 2011, so may not be the best site for KEGG pathway information.
 
 ```r
 OrgDb object:
@@ -136,7 +136,7 @@ annotations_orgDb <- AnnotationDbi::select(org.Hs.eg.db, # database
                                      keytype = "ENSEMBL") # type of data given in 'keys' argument
 ```
 
-This easily returned to us the information that we desired, but note the *warning* returned: *'select()' returned 1:many mapping between keys and columns*. This is always going to happen with converting between different gene IDs. Unless we would like to keep multiple mappings for a single gene, then we probably want to de-duplicate our data before using it.
+This returned to us the information that we desired, but note the *warning* returned: *'select()' returned 1:many mapping between keys and columns*. This is always going to happen with converting between different gene IDs. Unless we would like to keep multiple mappings for a single gene, then we probably want to de-duplicate our data before using it.
 
 ```r
 # Determine the indices for the non-duplicated genes
@@ -146,7 +146,7 @@ non_duplicates_idx <- which(duplicated(annotations_orgDb$SYMBOL) == FALSE)
 annotations_orgDb <- annotations_orgDb[non_duplicates_idx, ]
 ```
 
-Note that if your analysis was conducted using an older genome (i.e hg19) some genes maybe found to be not annotated (NA), since orgDB is always the most recent release. It is likely that some of the genes have changed names in between versions (due to updates and patches), so may not be present in this version of the database. Our dataset was created based on the GRCh38 build of the human genome, using a recent release of Ensembl as our reference and so we should not see much of a discrepancy. 
+Note that if your analysis was conducted using an older genome (i.e hg19) some genes may be found to be not annotated (NA), since orgDB is always the most recent release. Also some of the genes have changed names in between versions (due to updates and patches), so may not be present in this version of the database. Our dataset was created based on the GRCh38 build of the human genome, using a recent release of Ensembl as our reference and so we should not see much of a discrepancy. 
 
 
 ### EnsDb.Hsapiens.v86
