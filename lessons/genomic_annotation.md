@@ -136,7 +136,23 @@ annotations_orgDb <- AnnotationDbi::select(org.Hs.eg.db, # database
                                      keytype = "ENSEMBL") # type of data given in 'keys' argument
 ```
 
-This returned to us the information that we desired, but note the *warning* returned: *'select()' returned 1:many mapping between keys and columns*. This is always going to happen with converting between different gene IDs. Unless we would like to keep multiple mappings for a single gene, then we probably want to de-duplicate our data before using it.
+We started from at about 57K genes in our results table, and the dimensions of our resulting annotation data frame also look quite similar. Let's take a peek to see if we actually returned annotations for each individual Ensembl gene ID that went in to the query:
+
+```r
+length(which(is.na(annotations_orgDb$SYMBOL)))
+```
+
+Looks like more than half of the input genes did not return any annotations. This is because the OrgDb family of database are primarily based on mapping using Entrez Gene identifiers. If you look at some of the Ensembl IDs from our query that returned NA, these map to pseudogenes (i.e [ENSG00000265439](https://useast.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000265439;r=6:44209766-44210063;t=ENST00000580735)) or non-coding RNAs (i.e. [ENSG00000265425](http://useast.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000265425;r=18:68427030-68436918;t=ENST00000577835)). The difference is due to the fact that each database implements different computational approaches for generating the gene builds. Let's get rid of those NA entries:
+
+```r
+# Determine the indices for the non-NA genes
+non_na_idx <- which(is.na(annotations_orgDb$SYMBOL) == FALSE)
+
+# Return only the genes with annotations using indices
+annotations_orgDb <- annotations_orgDb[non_na_idx, ]
+```
+
+You may have also noted the *warning* returned: *'select()' returned 1:many mapping between keys and columns*. This is always going to happen with converting between different gene IDs (i.e. one geneID can map to more than one identifier in another databse) . Unless we would like to keep multiple mappings for a single gene, then we probably want to de-duplicate our data before using it.
 
 ```r
 # Determine the indices for the non-duplicated genes
@@ -145,9 +161,6 @@ non_duplicates_idx <- which(duplicated(annotations_orgDb$SYMBOL) == FALSE)
 # Return only the non-duplicated genes using indices
 annotations_orgDb <- annotations_orgDb[non_duplicates_idx, ]
 ```
-
-Note that if your analysis was conducted using an older genome (i.e hg19) some genes may be found to be not annotated (NA), since orgDB is always the most recent release. Also some of the genes have changed names in between versions (due to updates and patches), so may not be present in this version of the database. Our dataset was created based on the GRCh38 build of the human genome, using a recent release of Ensembl as our reference and so we should not see much of a discrepancy. 
-
 
 ### EnsDb.Hsapiens.v86
 
@@ -185,6 +198,10 @@ non_duplicates_idx <- which(duplicated(annotations_edb$SYMBOL) == FALSE)
 # Return only the non-duplicated genes using indices
 annotations_edb <- annotations_edb[non_duplicates_idx, ]
 ```
+
+
+> **NOTE:** If your analysis was conducted using an older genome (i.e hg19) some genes may be found to be not annotated (NA), since orgDB is always the most recent release. Also some of the genes have changed names in between versions (due to updates and patches), so may not be present in this version of the database. Our dataset was created based on the GRCh38 build of the human genome, using a recent release of Ensembl as our reference and so we should not see much of a discrepancy. 
+
 
 ## AnnotationHub
 
