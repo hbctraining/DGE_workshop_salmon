@@ -61,7 +61,7 @@ Within R, there are many popular packages used for gene/transcript-level annotat
 | Tool | Description | Pros | Cons |
 |:---:|:---|:---|:---:|
 |**[org.Xx.eg.db](https://bioconductor.org/packages/release/bioc/vignettes/AnnotationDbi/inst/doc/IntroToAnnotationPackages.pdf)** | Query gene feature information for the organism of interest | gene ID conversion, biotype and coordinate information | only latest genome build available |
-|**[EnsDb.Xx.vxx](http://bioconductor.org/packages/devel/bioc/vignettes/ensembldb/inst/doc/ensembldb.html)**| Transcript and gene-level information directly fetched from Ensembl API (similar to TxDb, but with filtering ability and versioned by Ensembl release) | most up-to-date annotations, easy functions to extract features, direct filtering | more difficult to use than some packages |
+|**[EnsDb.Xx.vxx](http://bioconductor.org/packages/devel/bioc/vignettes/ensembldb/inst/doc/ensembldb.html)**| Transcript and gene-level information directly fetched from Ensembl API (similar to TxDb, but with filtering ability and versioned by Ensembl release) | easy functions to extract features, direct filtering | Not the most up-to-date annotations, more difficult to use than some packages |
 |**[TxDb.Xx.UCSC.hgxx.knownGene](https://bioconductor.org/packages/release/bioc/vignettes/GenomicFeatures/inst/doc/GenomicFeatures.pdf)** | UCSC database for transcript and gene-level information or can create own *TxDb* from an SQLite database file using the *GenomicFeatures* package | feature information, easy functions to extract features | only available current and recent genome builds - can create your own, less up-to-date with annotations than Ensembl |
 |**[annotables](https://github.com/stephenturner/annotables)** | Gene-level feature information immediately available for the human and model organisms | super quick and easy gene ID conversion, biotype and coordinate information | not updated regularly | 
 |**[biomaRt](https://bioconductor.org/packages/release/bioc/vignettes/biomaRt/inst/doc/biomaRt.html)** | An R package version of the Ensembl [BioMart online tool](http://www.ensembl.org/biomart/martview/70dbbbe3f1c5389418b5ea1e02d89af3)  | all Ensembl database information available, all organisms on Ensembl, wealth of information | being deprecated (?) |
@@ -164,7 +164,7 @@ annotations_orgDb <- annotations_orgDb[non_duplicates_idx, ]
 
 ### EnsDb.Hsapiens.v86
 
-To generate the Ensembl annotations, the *EnsDb* database can also be easily queried using AnnotationDbi. You will need to decide the release of Ensembl you would like to query. All Ensembl releases are listed [here](http://useast.ensembl.org/info/website/archives/index.html). We know that our data is for GRCh38, and the most current release for GRCh38 in Bioconductor is release 86, so we can install this release of the *EnsDb* database. **NOTE: this is not the most current release, yet it is the latest release available through AnnotationDbi.**
+To generate the Ensembl annotations, the *EnsDb* database can also be easily queried using AnnotationDbi. You will need to decide the release of Ensembl you would like to query. We know that our data is for GRCh38, and the most current *EnsDb* release for GRCh38 in Bioconductor is release 86, so we can install this database. All Ensembl releases are listed [here](http://useast.ensembl.org/info/website/archives/index.html). **NOTE: this is not the most current release of GRCh38 in the Ensembl database, but it's as current as we can obtain through AnnotationDbi.**
 
 Since we are using *AnnotationDbi* to query the database, we can use the same functions that we used previously:
 
@@ -189,7 +189,13 @@ annotations_edb <- AnnotationDbi::select(EnsDb.Hsapiens.v86,
                                            keytype = "GENEID")
 ```
 
-Then we can again deduplicate:
+We can check for NA entries, and find that there are none:
+
+```r
+length(which(is.na(annotations_edb$SYMBOL) == FALSE))
+```
+
+Then we can again deduplicate, to remove the gene symbols which appear more than once:
 
 ```r
 # Determine the indices for the non-duplicated genes
@@ -199,8 +205,7 @@ non_duplicates_idx <- which(duplicated(annotations_edb$SYMBOL) == FALSE)
 annotations_edb <- annotations_edb[non_duplicates_idx, ]
 ```
 
-
-> **NOTE:** If your analysis was conducted using an older genome (i.e hg19) some genes may be found to be not annotated (NA), since orgDB is always the most recent release. Also some of the genes have changed names in between versions (due to updates and patches), so may not be present in this version of the database. Our dataset was created based on the GRCh38 build of the human genome, using a recent release of Ensembl as our reference and so we should not see much of a discrepancy. 
+> **NOTE:** In this case we used the same build but a slightly older release, and we found little discrepancy. If your analysis was conducted using an older genome build (i.e hg19), but used a newer build for annotation some genes may be found to be not annotated (NA). Some of the genes have changed names in between versions (due to updates and patches), so may not be present in the newer version of the database. 
 
 
 ## AnnotationHub
