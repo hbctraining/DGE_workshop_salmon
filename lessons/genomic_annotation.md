@@ -297,6 +297,39 @@ transcripts(human_ens, return.type = "data.frame") %>% View()
 exons(human_ens, return.type = "data.frame") %>% View()
 ```
 
+To obtain an annotation data frame using AnnotationHub, we'll use the `genes()` function, but only keep selected columns and filter out rows to keep those corresponding to our gene identifiers in our results file:
+
+```r
+# Create a gene-level dataframe 
+annotations_ahb <- genes(human_ens, return.type = "data.frame")  %>%
+  dplyr::select(gene_id, symbol, entrezid, gene_biotype) %>% 
+  dplyr::filter(gene_id %in% res_tableOE_tb$gene)
+```
+
+This dataframe looks like it should be fine as it is, but we look a little closer we will notice that the column containing Entrez identifiers is a list, and in fact there are many Ensembl identifiers that map to more than one Entrez identifier!
+
+```r
+# Wait a second, we don't have one-to-one mappings!
+class(annotations_ahb$entrezid)
+which(map(annotations_ahb$entrezid, length) > 1)
+```
+
+So what do we do here? And why do we have this problem? An answer from the [Ensembl Help Desk](https://www.biostars.org/p/16505/) is that this occurs when we cannot choose a perfect match; ie when we have two good matches, but one does not appear to match with a better percentage than the other. In that case, we assign both matches. What we will do is choose to **keep the first identifier for these multiple mapping cases**.
+
+```r
+annotations_ahb$entrezid <- map(annotations_ahb$entrezid,1) %>%  unlist()
+```
+
+Then we would remove any duplicaet gene symbol entries:
+
+```r
+# Determine the indices for the non-duplicated genes
+non_duplicates_idx <- which(duplicated(annotations_ahb$symbol) == FALSE)
+
+# Return only the non-duplicated genes using indices
+annotations_ahb<- annotations_ahb[non_duplicates_idx, ]
+```
+
 ### Using AnnotationHub to create our tx2gene file
 
 To create our `tx2gene` file, we would need to use a combination of the methods above and merge two dataframes together. For example:
