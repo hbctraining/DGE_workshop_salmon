@@ -59,7 +59,7 @@ The tilde (`~`) should always proceed your factors and tells DESeq2 to model the
 
 ***
 
-> _**NOTE:** We have [additional materials](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/experimental_planning_considerations.html) highlighting bulk RNA-seq design consideration._
+> _**NOTE:** We have [additional materials](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/experimental_planning_considerations.html) highlighting bulk RNA-seq design considerations. Please take a look before starting on an experiment._
 
 #### Complex designs
 
