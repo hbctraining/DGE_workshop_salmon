@@ -170,7 +170,7 @@ In RNA-seq count data, we know:
 1. To determine differentially expressed genes, we need to identify genes that have significantly different mean expression between groups **given the variation within the groups** (between replicates). 
 2. The variation within group (between replicates) needs to account for the fact that variance increases with the mean expression, as shown in the plot below (each black dot is a gene).
 
-<img src="../img/deseq_mean_vs_variance.png" width="600">
+<img src="../img/deseq_mean_variance2.png" width="600">
 
 **To accurately identify DE genes, DESeq2 needs to account for the relationship between the variance and mean.** We don't want all of our DE genes to be genes with low counts because the variance is lower for lowly expressed genes.
 
