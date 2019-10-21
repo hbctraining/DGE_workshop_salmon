@@ -167,13 +167,13 @@ The next step in the differential expression analysis is the estimation of gene-
 In RNA-seq count data, we know:
 
 1. To determine differentially expressed genes, we need to identify genes that have significantly different mean expression between groups **given the variation within the groups** (between replicates). 
-2. The variation between replicates increases with the mean expression, as shown in the plot below (each black dot is a gene).
+2. The variation within group (between replicates) needs to account for the fact that variance increases with the mean expression, as shown in the plot below (each black dot is a gene).
 
 <img src="../img/deseq_mean_vs_variance.png" width="600">
 
-**To accurately identify DE genes, DESeq2 needs to account for the relationship between the variance and mean.** 
+**To accurately identify DE genes, DESeq2 needs to account for the relationship between the variance and mean.** We don't want all of our DE genes to be genes with low counts because the variance is lower for lowly expressed genes.
 
-Instead of using variance as the measure of variation in the data (*since variance corresponds to the gene expression level*), it uses a measure of variation called **dispersion, which accounts for a gene's variance and mean expression level**. Dispersion is calculated by `Var = μ + α*μ^2`, where `α` represents the dispersion (`Var` = variance, and `μ` = mean) with the relationship:
+Instead of using variance as the measure of variation in the data (*since variance correlates with gene expression level*), it uses a measure of variation called **dispersion, which accounts for a gene's variance and mean expression level**. Dispersion is calculated by `Var = μ + α*μ^2`, where `α` represents the dispersion (`Var` = variance, and `μ` = mean) with the relationship:
 
 | | Effect on dispersion |
 |:---:|:---:|
