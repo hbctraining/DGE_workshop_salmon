@@ -59,8 +59,6 @@ The tilde (`~`) should always proceed your factors and tells DESeq2 to model the
 
 ***
 
-> _**NOTE:** We have [additional materials](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/experimental_planning_considerations.html) highlighting bulk RNA-seq design considerations. Please take a look before starting on an experiment._
-
 #### Complex designs
 
 DESeq2 also allows for the analysis of complex designs. You can explore interactions or 'the difference of differences' by specifying for it in the design formula. For example, if you wanted to explore the effect of sex on the treatment effect, you could specify for it in the design formula as follows: 
@@ -70,6 +68,8 @@ DESeq2 also allows for the analysis of complex designs. You can explore interact
 Since the interaction term `sex:treatment` is last in the formula, the results output from DESeq2 will output results for this term. 
 
 There are additional recommendations for complex designs in the [DESeq2 vignette](https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#interactions). In addition, [Limma documentation](http://bioconductor.org/packages/release/bioc/vignettes/limma/inst/doc/usersguide.pdf) offers additional insight into creating more complex design formulas.
+
+> _**NOTE:** We have [additional materials](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/experimental_planning_considerations.html) highlighting bulk RNA-seq design considerations. Please take a look before starting on an experiment._
 
 ### MOV10 DE analysis 
 
