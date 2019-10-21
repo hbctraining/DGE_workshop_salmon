@@ -158,7 +158,7 @@ colSums(counts(dds, normalized=T))
 
 How do the values across samples compare with the total counts taken for each sample?
 
-> **NOTE:** It can be advantageous to calculate gene-specific normalization factors (size factors) to account for further sources of technical biases such as differing dependence on GC content, gene length or the like, and these can be supplied to DESeq2 instead of using the median of ratios method.
+> **NOTE:** Sometimes it can be advantageous to calculate gene-specific normalization factors (size factors) to account for further sources of technical biases such as differing dependence on GC content, gene length or the like, and these can be supplied to DESeq2 instead of using the median of ratios method.
 
 ### Step 2: Estimate gene-wise dispersion
 
