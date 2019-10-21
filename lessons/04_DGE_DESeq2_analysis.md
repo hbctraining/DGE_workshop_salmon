@@ -69,7 +69,7 @@ Since the interaction term `sex:treatment` is last in the formula, the results o
 
 There are additional recommendations for complex designs in the [DESeq2 vignette](https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#interactions). In addition, [Limma documentation](http://bioconductor.org/packages/release/bioc/vignettes/limma/inst/doc/usersguide.pdf) offers additional insight into creating more complex design formulas.
 
-> _**NOTE:** We have [additional materials](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/experimental_planning_considerations.html) highlighting bulk RNA-seq design considerations. Please take a look before starting on an experiment._
+> _**NOTE:** Need help figuring out what information should be present in your metadata? We have [additional materials](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/experimental_planning_considerations.html) highlighting bulk RNA-seq planning considerations. Please take a look at these materials before starting an experiment to help with proper experimental design._
 
 ### MOV10 DE analysis 
 
