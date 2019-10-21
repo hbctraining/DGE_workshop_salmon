@@ -59,6 +59,8 @@ The tilde (`~`) should always proceed your factors and tells DESeq2 to model the
 
 ***
 
+> _**NOTE:** We have [additional materials](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/experimental_planning_considerations.html) highlighting bulk RNA-seq design consideration._
+
 #### Complex designs
 
 DESeq2 also allows for the analysis of complex designs. You can explore interactions or 'the difference of differences' by specifying for it in the design formula. For example, if you wanted to explore the effect of sex on the treatment effect, you could specify for it in the design formula as follows: 
