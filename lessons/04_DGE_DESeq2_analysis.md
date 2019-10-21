@@ -173,7 +173,7 @@ In RNA-seq count data, we know:
 
 **To accurately identify DE genes, DESeq2 needs to account for the relationship between the variance and mean.** We don't want all of our DE genes to be genes with low counts because the variance is lower for lowly expressed genes.
 
-Instead of using variance as the measure of variation in the data (*since variance correlates with gene expression level*), it uses a measure of variation called **dispersion, which accounts for a gene's variance and mean expression level**. Dispersion is calculated by `Var = μ + α*μ^2`, where `α` represents the dispersion (`Var` = variance, and `μ` = mean) with the relationship:
+Instead of using variance as the measure of variation in the data (*since variance correlates with gene expression level*), it uses a measure of variation called **dispersion, which accounts for a gene's variance and mean expression level**. Dispersion is calculated by `Var = μ + α*μ^2`, where `α` represents the dispersion (`Var` = variance, and `μ` = mean) giving the relationship:
 
 | | Effect on dispersion |
 |:---:|:---:|
