@@ -320,7 +320,7 @@ So what do we do here? And why do we have this problem? An answer from the [Ense
 annotations_ahb$entrezid <- map(annotations_ahb$entrezid,1) %>%  unlist()
 ```
 
-Then we would remove any duplicaet gene symbol entries:
+Then we would remove any duplicate gene symbol entries:
 
 ```r
 # Determine the indices for the non-duplicated genes
