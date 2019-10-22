@@ -30,7 +30,7 @@ mov10_meta <- meta %>%
   as_tibble()
 ```
 
-Next, let's bring in a column with gene symbols to the `normalized_counts` object, so we can use them to label our plots. Ensembl IDs are great for many things, but as biologists the gene symbols are much more recognizable.
+Next, let's bring in a column with gene symbols to the `normalized_counts` object, so we can use them to label our plots. Ensembl IDs are great for many things, but as biologists the gene symbols are much more recognizable. 
 
 ```r
 # DESeq2 creates a matrix when you use the counts() function
@@ -46,11 +46,7 @@ grch38annot <- tx2gene %>%
 
 ## This will bring in a column of gene symbols
 normalized_counts <- merge(normalized_counts, grch38annot[, c("ensgene", "symbol")], by.x="gene", by.y="ensgene")
-```
 
-Once we have the gene names column, we can now convert `normalized_counts` into a tibble.
-
-```r
 # Now create a tibble for the normalized counts
 normalized_counts <- normalized_counts %>%
   as_tibble()
