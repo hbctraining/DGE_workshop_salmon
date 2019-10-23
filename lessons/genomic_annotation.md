@@ -222,6 +222,7 @@ library(ensembldb)
 # Connect to AnnotationHub
 ah <- AnnotationHub()
 ```
+> **NOTE:** The `AnnotationHub()` command create a client manages a local cache of files retrieved by the user, helping with quick and reproducible access. When encountering question `AnnotationHub does not exist, create directory?`, you can anwser either `yes` (create a permanant location to store cache) or `no` (create a temporary location to store cache). `hubCache(ah)` gets the file system location of the local AnnotationHub cache. `hubUrl(ah)` gets the URL for the online hub. 
 
 To see the types of information stored inside, we can just type the name of the object:
 
