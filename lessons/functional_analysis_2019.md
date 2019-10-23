@@ -330,7 +330,7 @@ pathview(gene.data = foldchanges,
               limit = list(gene = 2, # value gives the max/min limit for foldchanges
               cpd = 1))
 ```
-
+>**NOTE:** If the below error message occurs: `Error in detach("package:dplyr", unload = T) : invalid 'name' argument`, that means the dplyr package is not currently loaded. Ignore the message and continue to run pathview command.
 
 ![gseaKEGG_pathview](../img/hsa03040.pathview.png)
 
