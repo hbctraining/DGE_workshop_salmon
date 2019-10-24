@@ -106,8 +106,9 @@ library(clusterProfiler)
 For the different steps in the functional analysis, we require Ensembl and Entrez IDs. We will use the gene annotations that we generated previously to merge with our differential expression results.
 
 ```r
-## Merge the annotations with the results 
-res_ids <- inner_join(res_tableOE_tb, annotations_edb, by=c("gene"="GENEID"))         
+## Merge the AnnotationHub dataframe with the results 
+res_ids <- inner_join(res_tableOE_tb, annotations_ahb, by=c("gene"="gene_id"))
+        
 ```
 
 To perform the over-representation analysis, we need a list of background genes and a list of significant genes. For our background dataset we will use all genes tested for differential expression (all genes in our results table). For our significant gene list we will use genes with p-adjusted values less than 0.05 (we could include a fold change threshold too if we have many DE genes).
@@ -255,12 +256,11 @@ For gene set or pathway analysis using clusterProfiler, coordinated differential
 To perform GSEA analysis of KEGG gene sets, clusterProfiler requires the genes to be identified using Entrez IDs for all genes in our results dataset. We also need to remove the NA values and duplicates (due to gene ID conversion) prior to the analysis:
 
 ```r
-## Remove any NA values
-res_entrez <- dplyr::filter(res_ids, ENTREZID != "NA")
+## Remove any NA values (reduces the data by quite a bit)
+res_entrez <- dplyr::filter(res_ids, entrezid != "NA")
 
 ## Remove any Entrez duplicates
-res_entrez <- res_entrez[which(duplicated(res_entrez$ENTREZID) == F), ]
-
+res_entrez <- res_entrez[which(duplicated(res_entrez$entrezid) == F), ]
 ```
 
 Finally, extract and name the fold changes:
@@ -270,7 +270,7 @@ Finally, extract and name the fold changes:
 foldchanges <- res_entrez$log2FoldChange
 
 ## Name each fold change with the corresponding Entrez ID
-names(foldchanges) <- res_entrez$ENTREZID
+names(foldchanges) <- res_entrez$entrezid
 ```
 
 Next we need to order the fold changes in decreasing order. To do this we'll use the `sort()` function, which takes a vector as input. This is in contrast to Tidyverse's `arrange()`, which requires a data frame.
@@ -396,13 +396,13 @@ library(SPIA)
 
 ## Significant genes is a vector of fold changes where the names are ENTREZ gene IDs. The background set is a vector of all the genes represented on the platform.
 
-background_entrez <- res_entrez$ENTREZID
+background_entrez <- res_entrez$entrezid
 
 sig_res_entrez <- res_entrez[which(res_entrez$padj < 0.05), ]
 
 sig_entrez <- sig_res_entrez$log2FoldChange
 
-names(sig_entrez) <- sig_res_entrez$ENTREZID
+names(sig_entrez) <- sig_res_entrez$entrezid
 
 head(sig_entrez)
 ```
