@@ -32,7 +32,7 @@ This repository has teaching materials for a **2-day**, hands-on **Introduction 
 
 ### Learning Objectives
 
-- QC on count data using Principal Component Analysis (PCA) and heirarchical clustering
+- QC on count data using Principal Component Analysis (PCA) and hierarchical clustering
 - Using DESeq2 to obtain a list of significantly different genes
 - Visualizing expression patterns of differentially expressed genes
 - Performing functional analysis on gene lists with R-based tools
