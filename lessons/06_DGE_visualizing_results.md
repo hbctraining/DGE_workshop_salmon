@@ -1,7 +1,7 @@
 ---
 title: "Advanced visualizations"
 author: "Meeta Mistry, Mary Piper, Radhika Khetani"
-date: "March 27th, 2018"
+date: "December 4th, 2019"
 ---
 
 Approximate time: 75 minutes
