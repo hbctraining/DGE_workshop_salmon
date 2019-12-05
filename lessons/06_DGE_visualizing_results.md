@@ -180,14 +180,14 @@ This is a great way to get an overall picture of what is going on, but what if w
 First, we need to order the res_tableOE tibble by `padj`, and add an additional column to it, to include on those gene names we want to use to label the plot.
  
 ```r
-## Sort the results tibble by padj values 
-res_tableOE_tb <- res_tableOE_tb %>% arrange(padj)
-
-## Add all the gene symbols as a column from the grch38 table using bind_cols(), which works with tibbles
+## Add all the gene symbols as a column from the grch38 table using bind_cols()
 res_tableOE_tb <- bind_cols(res_tableOE_tb, symbol=grch38annot$symbol[match(res_tableOE_tb$gene, grch38annot$ensgene)])
 
 ## Create an empty column to indicate which genes to label
 res_tableOE_tb <- res_tableOE_tb %>% mutate(genelabels = "")
+
+## Sort by padj values 
+res_tableOE_tb <- res_tableOE_tb %>% arrange(padj)
 
 ## Populate the genelabels column with contents of the gene symbols column for the first 10 rows, i.e. the top 10 most significantly expressed genes
 res_tableOE_tb$genelabels[1:10] <- as.character(res_tableOE_tb$symbol[1:10])
