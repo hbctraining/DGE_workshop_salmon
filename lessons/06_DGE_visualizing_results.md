@@ -26,42 +26,42 @@ First, let's create a metadata tibble from the data frame (don't lose the row na
 
 ```r
 mov10_meta <- meta %>% 
-  rownames_to_column(var="samplename") %>% 
-  as_tibble()
+              rownames_to_column(var="samplename") %>% 
+              as_tibble()
 ```
 
-Next, let's bring in a column with gene symbols to the `normalized_counts` object, so we can use them to label our plots. Ensembl IDs are great for many things, but as biologists the gene symbols are much more recognizable. 
+Next, let's bring in a column with gene symbols to the `normalized_counts` object, so we can use them to label our plots. Ensembl IDs are great for many things, but the gene symbols are much more recognizable to us, as biologists. 
 
 ```r
 # DESeq2 creates a matrix when you use the counts() function
 ## First convert normalized_counts to a data frame and transfer the row names to a new column called "gene"
 normalized_counts <- counts(dds, normalized=T) %>% 
-  data.frame() %>%
-  rownames_to_column(var="gene") 
+                     data.frame() %>%
+                     rownames_to_column(var="gene") 
   
 # Next, merge together (ensembl IDs) the normalized counts data frame with a subset of the annotations in the tx2gene data frame (only the columns for ensembl gene IDs and gene symbols)
 grch38annot <- tx2gene %>% 
-  dplyr::select(ensgene, symbol) %>% 
-  dplyr::distinct()
+               dplyr::select(ensgene, symbol) %>% 
+               dplyr::distinct()
 
 ## This will bring in a column of gene symbols
 normalized_counts <- merge(normalized_counts, grch38annot[, c("ensgene", "symbol")], by.x="gene", by.y="ensgene")
 
 # Now create a tibble for the normalized counts
 normalized_counts <- normalized_counts %>%
-  as_tibble()
+                     as_tibble()
   
 normalized_counts 
 ```
 
 >**NOTE:** A possible alternative to the above:
 > 
-> ```
+> ```r
 > normalized_counts <- counts(dds, normalized=T) %>% 
-> data.frame() %>%
-> rownames_to_column(var="gene") %>%
-> as_tibble() %>%
-> left_join(grch38annot[, c("ensgene", "symbol")], by=c("gene" = "ensgene"))
+>                      data.frame() %>%
+>                      rownames_to_column(var="gene") %>%
+>                      as_tibble() %>%
+>                      left_join(grch38annot[, c("ensgene", "symbol")], by=c("gene" = "ensgene"))
 > ```
 
 ### Plotting signicant DE genes
@@ -92,13 +92,16 @@ If you wish to change the appearance of this plot, we can save the output of `pl
 # Save plotcounts to a data frame object
 d <- plotCounts(dds, gene="ENSG00000155363", intgroup="sampletype", returnData=TRUE)
 
-# Plotting the MOV10 normalized counts, using the samplenames (rownames of d as labels)
+# What is the data output of plotCounts()?
+d %>% View()
+
+# Plot the MOV10 normalized counts, using the samplenames (rownames(d) as labels)
 ggplot(d, aes(x = sampletype, y = count, color = sampletype)) + 
-  geom_point(position=position_jitter(w = 0.1,h = 0)) +
-  geom_text_repel(aes(label = rownames(d))) + 
-  theme_bw() +
-  ggtitle("MOV10") +
-  theme(plot.title = element_text(hjust = 0.5))
+    geom_point(position=position_jitter(w = 0.1,h = 0)) +
+    geom_text_repel(aes(label = rownames(d))) + 
+    theme_bw() +
+    ggtitle("MOV10") +
+    theme(plot.title = element_text(hjust = 0.5))
 ```
 
 > Note that in the plot below (code above), we are using `geom_text_repel()` from the `ggrepel` package to label our individual points on the plot.
@@ -125,15 +128,15 @@ heat_colors <- brewer.pal(6, "YlOrRd")
 
 ### Run pheatmap using the metadata data frame for the annotation
 pheatmap(norm_OEsig[2:7], 
-         color = heat_colors, 
-         cluster_rows = T, 
-         show_rownames = F,
-         annotation = meta, 
-         border_color = NA, 
-         fontsize = 10, 
-         scale = "row", 
-         fontsize_row = 10, 
-         height = 20)
+    color = heat_colors, 
+    cluster_rows = T, 
+    show_rownames = F,
+    annotation = meta, 
+    border_color = NA, 
+    fontsize = 10, 
+    scale = "row", 
+    fontsize_row = 10, 
+    height = 20)
 ```
          
 <img src="../img/sigOE_heatmap_salmon.png" width="600">   
@@ -160,14 +163,14 @@ Now we can start plotting. The `geom_point` object is most applicable, as this i
 ```r
 ## Volcano plot
 ggplot(res_tableOE_tb) +
-        geom_point(aes(x = log2FoldChange, y = -log10(padj), colour = threshold_OE)) +
-        ggtitle("Mov10 overexpression") +
-        xlab("log2 fold change") + 
-        ylab("-log10 adjusted p-value") +
-        #scale_y_continuous(limits = c(0,50)) +
-        theme(legend.position = "none",
-              plot.title = element_text(size = rel(1.5), hjust = 0.5),
-              axis.title = element_text(size = rel(1.25)))  
+    geom_point(aes(x = log2FoldChange, y = -log10(padj), colour = threshold_OE)) +
+    ggtitle("Mov10 overexpression") +
+    xlab("log2 fold change") + 
+    ylab("-log10 adjusted p-value") +
+    #scale_y_continuous(limits = c(0,50)) +
+    theme(legend.position = "none",
+          plot.title = element_text(size = rel(1.5), hjust = 0.5),
+          axis.title = element_text(size = rel(1.25)))  
 ```
 
 <img src="../img/volcano_plot_1_salmon.png" width="500"> 
@@ -177,32 +180,33 @@ This is a great way to get an overall picture of what is going on, but what if w
 First, we need to order the res_tableOE tibble by `padj`, and add an additional column to it, to include on those gene names we want to use to label the plot.
  
 ```r
-## Sort the results tibble by padj values and create a column to indicate which genes to label
-res_tableOE_tb <- res_tableOE_tb %>% arrange(padj) %>% mutate(genelabels = "")
+## Sort the results tibble by padj values 
+res_tableOE_tb <- res_tableOE_tb %>% arrange(padj)
 
-## Add the gene symbols as a column to the res_tableOE tibble from the grch38 table (annotables)
+## Add all the gene symbols as a column from the grch38 table using bind_cols(), which works with tibbles
 res_tableOE_tb <- bind_cols(res_tableOE_tb, symbol=grch38annot$symbol[match(res_tableOE_tb$gene, grch38annot$ensgene)])
 
-### In the line above, you could have also used the merge() function as we did before with the normalized counts, but that would have converted the tibble into a data frame.
+## Create an empty column to indicate which genes to label
+res_tableOE_tb <- res_tableOE_tb %>% mutate(genelabels = "")
 
-## Populate the genelables column with information from the new symbol column for only the first 10 rows
+## Populate the genelabels column with contents of the gene symbols column for the first 10 rows, i.e. the top 10 most significantly expressed genes
 res_tableOE_tb$genelabels[1:10] <- as.character(res_tableOE_tb$symbol[1:10])
 
 View(res_tableOE_tb)
 ```
 
-Next, we plot it as before with an additiona layer for `geom_text_repel()` wherein we can specify the column of gene labels we just created. 
+Next, we plot it as before with an additional layer for `geom_text_repel()` wherein we can specify the column of gene labels we just created. 
 
 ```r
 ggplot(res_tableOE_tb, aes(x = log2FoldChange, y = -log10(padj))) +
-        geom_point(aes(colour = threshold_OE)) +
-        geom_text_repel(aes(label = genelabels)) +
-        ggtitle("Mov10 overexpression") +
-        xlab("log2 fold change") + 
-        ylab("-log10 adjusted p-value") +
-        theme(legend.position = "none",
-              plot.title = element_text(size = rel(1.5), hjust = 0.5),
-              axis.title = element_text(size = rel(1.25))) 
+    geom_point(aes(colour = threshold_OE)) +
+    geom_text_repel(aes(label = genelabels)) +
+    ggtitle("Mov10 overexpression") +
+    xlab("log2 fold change") + 
+    ylab("-log10 adjusted p-value") +
+    theme(legend.position = "none",
+          plot.title = element_text(size = rel(1.5), hjust = 0.5),
+          axis.title = element_text(size = rel(1.25))) 
 ```
 
 <img src="../img/volcano_plot_2_salmon.png" width="500"> 
