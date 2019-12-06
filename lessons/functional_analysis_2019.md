@@ -366,7 +366,7 @@ gseaplot(gseaGO, geneSetID = 'GO:0007423')
 There are other gene sets available for GSEA analysis in clusterProfiler (Disease Ontology, Reactome pathways, etc.). In addition, it is possible to supply your own gene set GMT file, such as a GMT for MSigDB using special clusterProfiler functions as shown below:
 
 ```r
-biocLite("GSEABase")
+BiocManager::install("GSEABase")
 library(GSEABase)
 
 # Load in GMT file of gene sets (we downloaded from the Broad Institute [website](http://software.broadinstitute.org/gsea/msigdb/collections.jsp) for MSigDB)
