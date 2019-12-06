@@ -390,8 +390,7 @@ The [SPIA (Signaling Pathway Impact Analysis)](http://bioconductor.org/packages/
 ```r
 # Set-up
 
-source("http://bioconductor.org/biocLite.R") 
-biocLite("SPIA")
+BiocManager::install("SPIA")
 library(SPIA)
 
 ## Significant genes is a vector of fold changes where the names are ENTREZ gene IDs. The background set is a vector of all the genes represented on the platform.
