@@ -140,7 +140,7 @@ If you would like to see more information about any of the classes of data you c
   
 ```r
 # Explore all species information available
-unique(ah$species)
+unique(ah$species) %>% View()
 ```
   
 Now that we know the types of information available from AnnotationHub we can query it for the information we want using the `query()` function. Let's say we would like to **return the Ensembl `EnsDb` information for human**. To return the records available, we need to use the terms as they are output from the `ah` object to extract the desired data.
@@ -150,13 +150,40 @@ Now that we know the types of information available from AnnotationHub we can qu
 human_ens <- query(ah, c("Homo sapiens", "EnsDb"))
 ```
 
-The output for the `EnsDb` objects is much more recent than what we encountered with AnnotationDbi (most current release is Ensembl 94), however for Homo sapiens the releases only go back as far as Ensembl 87. This is fine if you are using GRCh38, however if you were using an older genome build like hg19, you would need to load the `EnsDb` package if available for that release or you might need to build your own with `ensembldb`.
+The query retrieves all **hits for the `EnsDb` objects**, and you will see that they are listed by the release number. The most current release for GRCh38 is Ensembl98 and AnnotationHUb offers that as an option to use. However, if you look at options for older releases, for Homo sapiens it only go back as far as Ensembl 87. This is fine if you are using GRCh38, however if you were using an older genome build like hg19/GRCH37, you would need to load the `EnsDb` package if available for that release or you might need to build your own with `ensembldb`.
 
-In our case, we are looking for the latest Ensembl release so that the annotations are the most up-to-date. To extract this information from AnnotationHub, we can use the AnnotationHub ID to subset the object:
+```r
+human_ens
+
+AnnotationHub with 13 records
+# snapshotDate(): 2019-10-29 
+# $dataprovider: Ensembl
+# $species: Homo sapiens
+# $rdataclass: EnsDb
+# additional mcols(): taxonomyid, genome, description, coordinate_1_based,
+#   maintainer, rdatadateadded, preparerclass, tags, rdatapath, sourceurl,
+#   sourcetype 
+# retrieve records with, e.g., 'object[["AH53211"]]' 
+
+            title                            
+  AH53211 | Ensembl 87 EnsDb for Homo Sapiens
+  AH53715 | Ensembl 88 EnsDb for Homo Sapiens
+  AH56681 | Ensembl 89 EnsDb for Homo Sapiens
+  AH57757 | Ensembl 90 EnsDb for Homo Sapiens
+  AH60773 | Ensembl 91 EnsDb for Homo Sapiens
+  ...       ...                              
+  AH67950 | Ensembl 95 EnsDb for Homo sapiens
+  AH69187 | Ensembl 96 EnsDb for Homo sapiens
+  AH73881 | Ensembl 97 EnsDb for Homo sapiens
+  AH73986 | Ensembl 79 EnsDb for Homo sapiens
+  AH75011 | Ensembl 98 EnsDb for Homo sapiens
+  ````
+
+In our case, we are looking for the latest Ensembl release so that the annotations are the most up-to-date. To extract this information from AnnotationHub, we can use the AnnotationHub ID to **subset the object**:
 
 ```r
 # Extract annotations of interest
-human_ens <- human_ens[["AH64923"]]
+human_ens <- human_ens[["AH75011"]]
 ```
 
 Now we can use `ensembldb` functions to extract the information at the gene, transcript, or exon levels. We are interested in the gene-level annotations, so we can extract that information as follows:
@@ -175,7 +202,7 @@ transcripts(human_ens, return.type = "data.frame") %>% View()
 exons(human_ens, return.type = "data.frame") %>% View()
 ```
 
-To obtain an annotation data frame using AnnotationHub, we'll use the `genes()` function, but only keep selected columns and filter out rows to keep those corresponding to our gene identifiers in our results file:
+To **obtain an annotation data frame** using AnnotationHub, we'll use the `genes()` function, but only keep selected columns and filter out rows to keep those corresponding to our gene identifiers in our results file:
 
 ```r
 # Create a gene-level dataframe 
@@ -213,6 +240,9 @@ annotations_ahb<- annotations_ahb[non_duplicates_idx, ]
 To create our `tx2gene` file, we would need to use a combination of the methods above and merge two dataframes together. For example:
 
 ```r
+
+## DO NOT RUN THIS CODE
+
 # Create a transcript dataframe
  txdb <- transcripts(human_ens, return.type = "data.frame") %>%
    dplyr::select(tx_id, gene_id)
