@@ -111,27 +111,28 @@ ah
 Using the output, you can get an idea of the information that you can query within the AnnotationHub object:
 
 ```
-AnnotationHub with 47474 records
-# snapshotDate(): 2018-10-24 
-# $dataprovider: BroadInstitute, Ensembl, UCSC, ftp://ftp.ncbi.nlm.nih.gov/gene/DATA/, Haemcode, Inparanoid8, FungiDB, ...
-# $species: Homo sapiens, Mus musculus, Drosophila melanogaster, Bos taurus, Pan troglodytes, Rattus norvegicus, Danio ...
-# $rdataclass: GRanges, BigWigFile, FaFile, TwoBitFile, OrgDb, Rle, ChainFile, EnsDb, Inparanoid8Db, TxDb
-# additional mcols(): taxonomyid, genome, description, coordinate_1_based, maintainer, rdatadateadded,
-#   preparerclass, tags, rdatapath, sourceurl, sourcetype 
-# retrieve records with, e.g., 'object[["AH2"]]' 
+AnnotationHub with 47240 records
+# snapshotDate(): 2019-10-29 
+# $dataprovider: BroadInstitute, Ensembl, UCSC, ftp://ftp.ncbi.nlm.nih.gov/gene/DATA/, H...
+# $species: Homo sapiens, Mus musculus, Drosophila melanogaster, Bos taurus, Pan troglod...
+# $rdataclass: GRanges, BigWigFile, TwoBitFile, Rle, OrgDb, EnsDb, ChainFile, TxDb, Inpa...
+# additional mcols(): taxonomyid, genome, description, coordinate_1_based,
+#   maintainer, rdatadateadded, preparerclass, tags, rdatapath, sourceurl,
+#   sourcetype 
+# retrieve records with, e.g., 'object[["AH5012"]]' 
 
-            title                                               
-  AH2     | Ailuropoda_melanoleuca.ailMel1.69.dna.toplevel.fa   
-  AH3     | Ailuropoda_melanoleuca.ailMel1.69.dna_rm.toplevel.fa
-  AH4     | Ailuropoda_melanoleuca.ailMel1.69.dna_sm.toplevel.fa
-  AH5     | Ailuropoda_melanoleuca.ailMel1.69.ncrna.fa          
-  AH6     | Ailuropoda_melanoleuca.ailMel1.69.pep.all.fa        
-  ...       ...                                                 
-  AH67895 | org.Vibrio_vulnificus.eg.sqlite                     
-  AH67896 | org.Achromobacter_group_B.eg.sqlite                 
-  AH67897 | org.Achromobacter_group_E.eg.sqlite                 
-  AH67898 | org.Pannonibacter_phragmitetus.eg.sqlite            
-  AH67899 | org.Salinispora_arenicola_CNS-205.eg.sqlite
+            title                                                                   
+  AH5012  | Chromosome Band                                                         
+  AH5013  | STS Markers                                                             
+  AH5014  | FISH Clones                                                             
+  AH5015  | Recomb Rate                                                             
+  AH5016  | ENCODE Pilot                                                            
+  ...       ...                                                                     
+  AH78364 | Xiphophorus_maculatus.X_maculatus-5.0-male.ncrna.2bit                   
+  AH78365 | Zonotrichia_albicollis.Zonotrichia_albicollis-1.0.1.cdna.all.2bit       
+  AH78366 | Zonotrichia_albicollis.Zonotrichia_albicollis-1.0.1.dna_rm.toplevel.2bit
+  AH78367 | Zonotrichia_albicollis.Zonotrichia_albicollis-1.0.1.dna_sm.toplevel.2bit
+  AH78368 | Zonotrichia_albicollis.Zonotrichia_albicollis-1.0.1.ncrna.2bit    
   ```
   
 Notice the note on retrieving records with `object[[AH2]]` - this will be how we can **extract a single record** from the AnnotationHub object.
