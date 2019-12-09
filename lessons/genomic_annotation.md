@@ -225,7 +225,23 @@ So what do we do here? And why do we have this problem? An answer from the [Ense
 annotations_ahb$entrezid <- map(annotations_ahb$entrezid,1) %>%  unlist()
 ```
 
-Then we would remove any duplicate gene symbol entries:
+> **NOTE:** Not all databases handle multiple mappings in the same way. For example, if we used the OrgDb instead of the EnsDb:
+> 
+> ```
+> human_orgdb <- query(ah, c("Homo sapiens", "OrgDb"))
+> human_orgdb <- human_ens[["AH75742"]]
+> annotations_orgdb <- select(human_orgdb, res_tableOE_tb$gene, c("SYMBOL", "GENENAME", "ENTREZID"), "ENSEMBL")
+> ```
+> We would find that multiple mapping entries would be automatically reduced to one-to-one. We would also find that more than half of the input genes do not return any annotations. This is because the OrgDb family of database are primarily based on mapping using Entrez Gene identifiers. Since our data is based on Ensembl mappings, using the OrgDb would result in a loss of information.
+
+
+Let's take a look and see how many of our Ensembl identifiers return some gene information:
+
+```r
+which(is.na(annotations_ahb$symbol)) %>% length()
+```
+
+It looks like for every Ensembl identifier in our results table, we have an associated gene symbol mapping. But how many of these gene symbols are unique?
 
 ```r
 # Determine the indices for the non-duplicated genes
@@ -233,7 +249,17 @@ non_duplicates_idx <- which(duplicated(annotations_ahb$symbol) == FALSE)
 
 # Return only the non-duplicated genes using indices
 annotations_ahb<- annotations_ahb[non_duplicates_idx, ]
+nrow(annotations_ahb)
 ```
+
+Finally, it would be good to know **what proportion of the Ensembl identifiers map to an Entrez identifier**:
+
+```r
+# Determine how many of the Entrez column entries are NA
+which(is.na(annotations_ahb$entrezid)) %>%  length()
+```
+
+That's more than half of our genes! If we plan on using Entrez ID results for downstream analysis, we should definitely keep this in mind. If you look at some of the Ensembl IDs from our query that returned NA, these map to pseudogenes (i.e [ENSG00000265439](https://useast.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000265439;r=6:44209766-44210063;t=ENST00000580735)) or non-coding RNAs (i.e. [ENSG00000265425](http://useast.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000265425;r=18:68427030-68436918;t=ENST00000577835)). The discrepanacy (which we can expect to observe) between databases is due to the fact that each implements its own different computational approaches for generating the gene builds.
 
 ### Using AnnotationHub to create our tx2gene file
 
