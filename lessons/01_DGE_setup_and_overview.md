@@ -296,6 +296,24 @@ However, in practice a large number of replicates can be either hard to obtain (
 
 > **NOTE:** If we use the Poisson this will underestimate variability leading to an increase in false positive DE genes.
 
+### Improving mean estimates with biological replicates
+
+The value of additional replicates is that as you add more data, you get increasingly precise estimates of group means, and ultimately greater confidence in the ability to distinguish differences between sample classes (i.e. more DE genes).
+
+-  **Biological replicates** represent multiple samples (i.e. RNA from different mice) representing the same sample class
+- **Technical replicates** represent the same sample (i.e. RNA from the same mouse) but with technical steps replicated
+- Usually biological variance is much greater than technical variance, so we do not need to account for technical variance to identify biological differences in expression
+- **Don't spend money on technical replicates - biological replicates are much more useful**
+
+>**NOTE:**
+> If you are using **cell lines** and are unsure whether or not you have prepared biological or technical replicates, take a look at [this link](https://web.archive.org/web/20170807192514/http://www.labstats.net:80/articles/cell_culture_n.html). This is a useful resource in helping you determine how best to set up your *in-vitro* experiment.
+
+The figure below illustrates the relationship between sequencing depth and number of replicates on the number of differentially expressed genes identified [[1](https://academic.oup.com/bioinformatics/article/30/3/301/228651/RNA-seq-differential-expression-studies-more)]. 
+
+<img src="../img/de_replicates_img2.png" width="500">
+
+Note that an **increase in the number of replicates tends to return more DE genes than increasing the sequencing depth**. Therefore, generally more replicates are better than higher sequencing depth, with the caveat that higher depth is required for detection of lowly expressed DE genes and for performing isoform-level differential expression. 
+
 
 ### Differential expression analysis workflow
 
