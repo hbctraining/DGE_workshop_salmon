@@ -78,7 +78,7 @@ Within R, there are many popular packages used for gene/transcript-level annotat
 
 AnnotationDbi is an R package that provides an interface for connecting and querying various annotation databases using SQLite data storage. The AnnotationDbi packages can query the *OrgDb*, *TxDb*, *EnsDb*, *Go.db*, and *BioMart* annotations. There is helpful [documentation](https://bioconductor.org/packages/release/bioc/vignettes/AnnotationDbi/inst/doc/IntroToAnnotationPackages.pdf) available to reference when extracting data from any of these databases.
 
-While AnnotationDbi is a popular tool, we will not be walking through code to use this package. However, if you are interested in more detail, we have [materials linked](AnnotationDbi_lesson.md) here with examples using our current dataset.
+While AnnotationDbi is a popular tool, **we will not be walking through code to use this package**. However, if you are interested in more detail, we have [materials linked](AnnotationDbi_lesson.md) here with examples using our current dataset.
 
 
 ## AnnotationHub
@@ -95,9 +95,13 @@ library(ensembldb)
 # Connect to AnnotationHub
 ah <- AnnotationHub()
 ```
-> **NOTE:** The `AnnotationHub()` command create a client that manages a local cache of files retrieved by the user, helping with quick and reproducible access. When encountering question `AnnotationHub does not exist, create directory?`, you can anwser either `yes` (create a permanant location to store cache) or `no` (create a temporary location to store cache). `hubCache(ah)` gets the file system location of the local AnnotationHub cache. `hubUrl(ah)` gets the URL for the online hub. 
 
-To see the types of information stored inside, we can just type the name of the object:
+> #### What is a cache? 
+> A cache is used in R to store data or a copy of the data so that future requests can be served faster without having to re-run a lengthy computation.
+> 
+> The `AnnotationHub()` command creates a client that manages a local cache of the database, helping with quick and reproducible access. When encountering question `AnnotationHub does not exist, create directory?`, you can anwser either `yes` (create a permanant location to store cache) or `no` (create a temporary location to store cache). `hubCache(ah)` gets the file system location of the local AnnotationHub cache. `hubUrl(ah)` gets the URL for the online hub. 
+
+To see the types of information stored inside our database, we can just type the name of the object:
 
 ```r
 # Explore the AnnotationHub object
@@ -130,16 +134,16 @@ AnnotationHub with 47474 records
   AH67899 | org.Salinispora_arenicola_CNS-205.eg.sqlite
   ```
   
-Notice the note on retrieving records with `object[[AH2]]` - this will be how we can extract a single record from the AnnotationHub object.
+Notice the note on retrieving records with `object[[AH2]]` - this will be how we can **extract a single record** from the AnnotationHub object.
   
-If you would like to see more information about any of the classes of data you can extract that information as well. For example, if you wanted to determine all species information available, you could subset the AnnotationHub object:
+If you would like to see more information about any of the classes of data you can extract that information as well. For example, if you wanted to **determine all species information available**, you could subset the AnnotationHub object:
   
 ```r
 # Explore all species information available
 unique(ah$species)
 ```
   
-Now that we know the types of information available from AnnotationHub we can query it for the information we want using the `query()` function. Let's say we would like to return the Ensembl `EnsDb` information for human. To return the records available, we need to use the terms as they are output from the `ah` object to extract the desired data.
+Now that we know the types of information available from AnnotationHub we can query it for the information we want using the `query()` function. Let's say we would like to **return the Ensembl `EnsDb` information for human**. To return the records available, we need to use the terms as they are output from the `ah` object to extract the desired data.
   
 ```r
 # Query AnnotationHub
