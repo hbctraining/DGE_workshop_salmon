@@ -209,7 +209,9 @@ More often than not, there is much more going on with your data than what you ar
 
 <img src="../img/de_variation.png" width="500">
 
-Even though the mean expression levels between sample groups may appear to be quite different, it is possible that the difference is not actually significant. This is illustrated for 'GeneA' expression between 'untreated' and 'treated' groups in the figure below. The mean expression level of geneA for the 'treated' group is twice as large as for the 'untreated' group. But is the difference in expression (counts) **between groups** significant given the amount of variation observed **within groups** (replicates). **We need to take into account the variation in the data (and where it might be coming from) when determining whether genes are differentially expressed.**
+Even though the mean expression levels between sample groups may appear to be quite different, it is possible that the difference is not actually significant. This is illustrated for 'GeneA' expression between 'untreated' and 'treated' groups in the figure below. The mean expression level of geneA for the 'treated' group is twice as large as for the 'untreated' group. But is the difference in expression (counts) **between groups** significant given the amount of variation observed **within groups** (replicates)?
+
+**We need to take into account the variation in the data (and where it might be coming from) when determining whether genes are differentially expressed.**
 
 <img src="../img/de_norm_counts_var.png" width="400">
 
