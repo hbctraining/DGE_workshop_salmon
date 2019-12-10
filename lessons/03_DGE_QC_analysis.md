@@ -108,7 +108,9 @@ The figure below was generated from a time course experiment with sample groups 
 - Are there any outliers in the data?
 - Should we have any other concerns regarding the samples in the dataset?
 
-<img src="../img/PCA_example3.png" width="600">
+<p align="center">
+<img src="../img/PCA_example3.png" width="900">
+</p>
 
 ***
 
