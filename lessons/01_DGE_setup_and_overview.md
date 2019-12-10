@@ -61,7 +61,7 @@ The authors are investigating interactions between various genes involved in Fra
 Before we get into the details of the analysis, let's get started by opening up RStudio and setting up a new project for this analysis. 
 
 1. Go to the `File` menu and select `New Project`.
-2. In the `New Project` window, choose `New Directory`. Then, choose `Empty Project`. Name your new directory `DEanalysis` and then "Create the project as subdirectory of:" the Desktop (or location of your choice).
+2. In the `New Project` window, choose `New Directory`. Then, choose `New Project`. Name your new directory `DEanalysis` and then "Create the project as subdirectory of:" the Desktop (or location of your choice).
 3. The new project should automatically open in RStudio. 
 
 To check whether or not you are in the correct working directory, use `getwd()`. The path `Desktop/DEanalysis` should be returned to you in the console. Within your working directory use the `New folder` button in the bottom right panel to create two new directories:  `meta` and `results`. Remember the key to a good analysis is keeping organized from the start! (*NOTE: we will be downloading our `data` folder`*)
