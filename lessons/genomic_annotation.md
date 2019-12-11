@@ -236,21 +236,26 @@ annotations_ahb$entrezid <- map(annotations_ahb$entrezid,1) %>%  unlist()
 > We would find that multiple mapping entries would be automatically reduced to one-to-one. We would also find that more than half of the input genes do not return any annotations. This is because the OrgDb family of database are primarily based on mapping using Entrez Gene identifiers. Since our data is based on Ensembl mappings, using the OrgDb would result in a loss of information.
 
 
-Let's take a look and see how many of our Ensembl identifiers return some gene information:
-
+Let's take a look and see how many of our Ensembl identifiers have an associated gene symbol, and how many of them are unique:
 ```r
 which(is.na(annotations_ahb$symbol)) %>% length()
+
+which(duplicated(annotations_ahb$symbol)) %>% length()
 ```
 
-It looks like for every Ensembl identifier in our results table, we have an associated gene symbol mapping. But how many of these gene symbols are unique?
-
+Let's identify the non-duplicated genes and only keep the ones that are not duplicated
 ```r
 # Determine the indices for the non-duplicated genes
 non_duplicates_idx <- which(duplicated(annotations_ahb$symbol) == FALSE)
 
+# How many rows does annotations_ahb have?
+annotations_ahb %>% nrow()
+
 # Return only the non-duplicated genes using indices
-annotations_ahb<- annotations_ahb[non_duplicates_idx, ]
-nrow(annotations_ahb)
+annotations_ahb <- annotations_ahb[non_duplicates_idx, ]
+
+# How many rows are we left with after removing?
+annotations_ahb %>% nrow()
 ```
 
 Finally, it would be good to know **what proportion of the Ensembl identifiers map to an Entrez identifier**:
