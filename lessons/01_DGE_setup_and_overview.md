@@ -231,19 +231,7 @@ ggplot(data) +
 
 <img src="../img/deseq_counts_distribution.png" width="400">
 
-If we zoom in close to zero, we can see a large number of genes with counts of zero:
-
-```r
-ggplot(data) +
-   geom_histogram(aes(x = Mov10_oe_1), stat = "bin", bins = 200) + 
-   xlim(-5, 500)  +
-   xlab("Raw expression counts") +
-   ylab("Number of genes")
-```
-
-<img src="../img/deseq_counts_distribution_zoomed.png" width="400">
-
-These images illustrate some **common features** of RNA-seq count data:
+This plot illustrates some **common features** of RNA-seq count data:
 
 * a low number of counts associated with a large proportion of genes
 * a long right tail due to the lack of any upper limit for expression
