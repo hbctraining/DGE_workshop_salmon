@@ -95,7 +95,7 @@ Above we provided the bare minimum for the `results()` function. Take a look at 
 
 > **What is indepdendent filtering?** This is a low mean threshold that is empirically determined from your data, in which the fraction of significant genes can be increased by reducing the number of genes that are considered in teh muliple testing.
 >
->  <img src="../img/independent_filt_slide2.png" width="600">
+>  <img src="../img/independent_filt_slide.png" width="600">
 > 
 > *Image courtesy of [slideshare presentation](https://www.slideshare.net/joachimjacob/5rna-seqpart5detecting-differentialexpression) from Joachim Jacob, 2014.*
 
