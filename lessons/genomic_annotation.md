@@ -217,7 +217,7 @@ To **obtain an annotation data frame** using AnnotationHub, we'll use the `genes
 ```r
 # Create a gene-level dataframe 
 annotations_ahb <- genes(human_ens, return.type = "data.frame")  %>%
-  dplyr::select(gene_id, symbol, entrezid, gene_biotype) %>% 
+  dplyr::select(gene_id, entrezid, gene_biotype) %>% 
   dplyr::filter(gene_id %in% res_tableOE_tb$gene)
 ```
 
