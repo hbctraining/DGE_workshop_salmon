@@ -45,7 +45,7 @@ grch38annot <- tx2gene %>%
                dplyr::distinct()
 
 ## This will bring in a column of gene symbols
-normalized_counts <- merge(normalized_counts, grch38annot[, c("ensgene", "symbol")], by.x="gene", by.y="ensgene")
+normalized_counts <- merge(normalized_counts, grch38annot, by.x="gene", by.y="ensgene")
 
 # Now create a tibble for the normalized counts
 normalized_counts <- normalized_counts %>%
