@@ -105,17 +105,16 @@ library(clusterProfiler)
 
 For the different steps in the functional analysis, we require Ensembl and Entrez IDs. We will use the gene annotations that we generated previously to merge with our differential expression results.
 
+```r
+## Merge the AnnotationHub dataframe with the results 
+res_ids <- inner_join(res_tableOE_tb, annotations_ahb, by=c("gene"="gene_id"))    
+```
+
 > _**NOTE:** If you were unable to generate the `annotations_ahb` object, you can download the annotations to your `data` folder by right-clicking [here](https://github.com/hbctraining/DGE_workshop_salmon/blob/master/data/DGE_workshop_annotations.RData?raw=true). To generate the object you would run the following code:_
 >
 > ```r
 > load("data/DGE_workshop_annotations.RData")
 >```
-
-```r
-## Merge the AnnotationHub dataframe with the results 
-res_ids <- inner_join(res_tableOE_tb, annotations_ahb, by=c("gene"="gene_id"))
-        
-```
 
 To perform the over-representation analysis, we need a list of background genes and a list of significant genes. For our background dataset we will use all genes tested for differential expression (all genes in our results table). For our significant gene list we will use genes with p-adjusted values less than 0.05 (we could include a fold change threshold too if we have many DE genes).
 
