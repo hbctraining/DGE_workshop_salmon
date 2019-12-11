@@ -92,6 +92,11 @@ Above we provided the bare minimum for the `results()` function. Take a look at 
 ```
 
 * **Independent filtering**: We are including the `alpha` argument and setting it to 0.05. This is the significance cutoff used for optimizing the independent filtering (by default it is set to 0.1). If the adjusted p-value cutoff (FDR) will be a value other than 0.1 (for our final list of significant genes), `alpha` should be set to that value. There is also an argument to turn off the filtering off by setting `independentFiltering = F`.
+
+> **What is indepdendent filtering?** This is a low mean threshold that is empirically determined from your data, in which the fraction of significant genes can be increased by reducing the number of genes that are considered in teh muliple testing.
+>
+>  <img src="../img/independent_filt_slide.png" width="300">
+
 * **Cooks cutoff**: We can also turn of the filtering to remove extreme outlier genes with `cooksCutoff`
 * **Multiple correction**: In DESeq2, the p-values attained by the Wald test are corrected for multiple testing using the Benjamini and Hochberg method by default. There are options to use other methods using the `pAdjustMethod` argument
 
