@@ -137,14 +137,23 @@ AnnotationHub with 47240 records
   
 Notice the note on retrieving records with `object[[AH2]]` - this will be how we can **extract a single record** from the AnnotationHub object.
   
-If you would like to see more information about any of the classes of data you can extract that information as well. For example, if you wanted to **determine all species information available**, you could subset the AnnotationHub object:
+If you would like to see more information about any of the classes of data you can extract that information as well. For example, if you wanted to **determine all species information available**, you could explore that within the AnnotationHub object:
   
 ```r
 # Explore all species information available
 unique(ah$species) %>% View()
 ```
+
+In addition to species information, there is also additional information about the type of Data Objects and the Data Providers:
+```r
+# Explore the types of Data Objects available
+unique(ah$rdataclass) %>% View()
+
+# Explore the Data Providers
+unique(ah$dataprovider) %>% View()
+```
   
-Now that we know the types of information available from AnnotationHub we can query it for the information we want using the `query()` function. Let's say we would like to **return the Ensembl `EnsDb` information for human**. To return the records available, we need to use the terms as they are output from the `ah` object to extract the desired data.
+Now that we know the types of information available from AnnotationHub we can query it for the information we want using the `query()` function. Let's say we would like to **return the Ensembl `EnsDb` information for Human**. To return the records available, we need to use the terms as they are output from the `ah` object to extract the desired data.
   
 ```r
 # Query AnnotationHub
@@ -243,7 +252,7 @@ which(is.na(annotations_ahb$symbol)) %>% length()
 which(duplicated(annotations_ahb$symbol)) %>% length()
 ```
 
-Let's identify the non-duplicated genes and only keep the ones that are not duplicated
+Let's identify the non-duplicated genes and only keep the ones that are not duplicated:
 ```r
 # Determine the indices for the non-duplicated genes
 non_duplicates_idx <- which(duplicated(annotations_ahb$symbol) == FALSE)
