@@ -105,6 +105,8 @@ library(clusterProfiler)
 
 For the different steps in the functional analysis, we require Ensembl and Entrez IDs. We will use the gene annotations that we generated previously to merge with our differential expression results.
 
+> _**NOTE:** If you were unable to generate the `annotations_ahb` object, you can download the annotations to your `data` folder by right-clicking [here]()*
+
 ```r
 ## Merge the AnnotationHub dataframe with the results 
 res_ids <- inner_join(res_tableOE_tb, annotations_ahb, by=c("gene"="gene_id"))
