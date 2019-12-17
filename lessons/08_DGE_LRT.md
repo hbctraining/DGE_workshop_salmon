@@ -15,7 +15,18 @@ Approximate time: 60 minutes
 
 ## Hypothesis testing: Likelihood ratio test (LRT)
 
-An alternative to pair-wise comparisons is to **analyze all levels of a factor at once**. By default the Wald test is used to generate the results table, but DESeq2 also offers the LRT which is used to identify any genes that show change in expression across the different levels. This type of test can be especially useful in analyzing time course experiments. 
+DESeq2 also offers the Likelihood Ratio Test as an alternative **when evaluating expression change across more than two levels**. This type of test can be especially useful in analyzing time course experiments. 
+
+**How does this compare to the Wald test?**
+
+The **Wald test** (default) is a test of hypothesis usually performed on parameters that have been estimated by maximum likelihood. It only **estimates one model and evaluates the null hypothesis that LFC == 0.**
+
+
+The Likelihood Ratio Test is also performed on parameters that have been estimated by maximum likelihood. For this test **two models are estimated; the fit of one model (full model) is compared to the fit of the other model (reduced model).**
+
+
+Here, we are evaluating the **null hypothesis that the full model (which includes our main effect) fits just as well as the reduced model**. If we reject the null hypothesis, this suggests that there is a significant amount of variation explained by our main effect, therfore this gene is differntially expressed across the different levels.
+
 
 To use the LRT, we use the `DESeq()` function but this time adding two arguments: 
 
