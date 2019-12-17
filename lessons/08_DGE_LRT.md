@@ -22,7 +22,7 @@ DESeq2 also offers the Likelihood Ratio Test as an alternative **when evaluating
 The **Wald test** (default) is a test of hypothesis usually performed on parameters that have been estimated by maximum likelihood. It only **estimates one model per gene and evaluates the null hypothesis that LFC == 0.**
 
 
-The Likelihood Ratio Test is also performed on parameters that have been estimated by maximum likelihood. For this test **two models are estimated per gene; the fit of one model is compared to the fit of the other model.**
+The **Likelihood Ratio Test** is also performed on parameters that have been estimated by maximum likelihood. For this test **two models are estimated per gene; the fit of one model is compared to the fit of the other model.**
 
 <p align="center">
 <img src="../img/lrt_formula.png" width="300">
