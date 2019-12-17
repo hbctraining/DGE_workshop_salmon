@@ -24,6 +24,10 @@ The **Wald test** (default) is a test of hypothesis usually performed on paramet
 
 The Likelihood Ratio Test is also performed on parameters that have been estimated by maximum likelihood. For this test **two models are estimated; the fit of one model (full model) is compared to the fit of the other model (reduced model).**
 
+<p align="center">
+<img src="../img/lrt_formula.png" width="300">
+</p>
+
 
 Here, we are evaluating the **null hypothesis that the full model (which includes our main effect) fits just as well as the reduced model**. If we reject the null hypothesis, this suggests that there is a significant amount of variation explained by our main effect, therfore this gene is differntially expressed across the different levels.
 
