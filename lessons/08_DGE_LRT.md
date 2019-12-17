@@ -19,21 +19,21 @@ DESeq2 also offers the Likelihood Ratio Test as an alternative **when evaluating
 
 ### How does this compare to the Wald test?
 
-The **Wald test** (default) is a test of hypothesis usually performed on parameters that have been estimated by maximum likelihood. It only **estimates one model and evaluates the null hypothesis that LFC == 0.**
+The **Wald test** (default) is a test of hypothesis usually performed on parameters that have been estimated by maximum likelihood. It only **estimates one model per gene and evaluates the null hypothesis that LFC == 0.**
 
 
-The Likelihood Ratio Test is also performed on parameters that have been estimated by maximum likelihood. For this test **two models are estimated; the fit of one model is compared to the fit of the other model.**
+The Likelihood Ratio Test is also performed on parameters that have been estimated by maximum likelihood. For this test **two models are estimated per gene; the fit of one model is compared to the fit of the other model.**
 
 <p align="center">
 <img src="../img/lrt_formula.png" width="300">
 </p>
 
-* m2 is the full model (i.e. the full design formula your provided when creating your `dds` object`)
 * m1 is the reduced model (i.e the design formula with your main effect term removed)
+* m2 is the full model (i.e. the full design formula your provided when creating your `dds` object`)
 
 *It is shown that LR follows a chi-squared distribution, and this can be used to calculate and associated p-value.*
 
-Here, we are evaluating the **null hypothesis that the full model fits just as well as the reduced model**. If we reject the null hypothesis, this suggests that there is a significant amount of variation explained by our main effect, therfore this gene is differentially expressed across the different levels. DESeq2 implements the LRT by using an Analysis of Deviance (ANODEV) to compare the two model fits.
+Here, we are evaluating the **null hypothesis that the full model fits just as well as the reduced model**. If we reject the null hypothesis, this suggests that there is a significant amount of variation explained by our main effect, therefore the gene is differentially expressed across the different levels. DESeq2 implements the LRT by using an Analysis of Deviance (ANODEV) to compare the two model fits.
 
 To use the LRT, we use the `DESeq()` function but this time adding two arguments: 
 
