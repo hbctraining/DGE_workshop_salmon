@@ -28,11 +28,14 @@ As discussed [earlier](https://hbctraining.github.io/DGE_workshop/lessons/01_DGE
 Modeling is a mathematically formalized way to approximate how the data behaves given a set of parameters (i.e. size factor, dispersion). DESeq2 will use this formula as our model for each gene, and fit the normalized count data to it. After the model is fit, coefficients are estimated for each sample group along with their standard error. The coefficents are the estimates for the **log2 foldchanges** for each sample group. 
 
 
-## Hypothesis testing using the Wald test
+## Hypothesis testing 
 
 The first step in hypothesis testing is to set up a **null hypothesis** for each gene. In our case is, the null hypothesis is that there is **no differential expression across the two sample groups (LFC == 0)**. Notice that we can do this without observing any data, because it is based on a thought experiment. Second, we use a statistical test to determine if based on the observed data, the null hypothesis is true. 
 
-With DESeq2, the Wald test is commonly used for hypothesis testing when comparing two groups. A Wald test statistic is computed along with a probability that a test statistic at least as extreme as the observed value were selected at random. This probability is called the p-value of the test. If the p-value is small we reject the null hypothesis and state that there is evidence against the null (i.e. the gene is differentially expressed).
+### Wald test
+
+With DESeq2, the Wald test is the default used for hypothesis testing when comparing two groups. **The Wald test is a way of testing the significance of particular explanatory variables in a statistical model**. In our case we are testing each gene to see if the model coefficient (LFC) for sampletype differs significantly from zero. DESeq2 does this by taking the estimate of LFC and dividing it by its standard error, resulting in a z-statistic, which is compared to a standard normal distribution. A p-value is computed reporting the probability that a z-statistic at least as extreme as the observed value would be selected at random. If the p-value is small we reject the null hypothesis and state that there is evidence against the null (i.e. the gene is differentially expressed).
+
 
 ## Multiple test correction
 
