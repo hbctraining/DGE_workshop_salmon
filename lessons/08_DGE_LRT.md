@@ -17,20 +17,23 @@ Approximate time: 60 minutes
 
 DESeq2 also offers the Likelihood Ratio Test as an alternative **when evaluating expression change across more than two levels**. This type of test can be especially useful in analyzing time course experiments. 
 
-**How does this compare to the Wald test?**
+### How does this compare to the Wald test?
 
 The **Wald test** (default) is a test of hypothesis usually performed on parameters that have been estimated by maximum likelihood. It only **estimates one model and evaluates the null hypothesis that LFC == 0.**
 
 
-The Likelihood Ratio Test is also performed on parameters that have been estimated by maximum likelihood. For this test **two models are estimated; the fit of one model (full model) is compared to the fit of the other model (reduced model).**
+The Likelihood Ratio Test is also performed on parameters that have been estimated by maximum likelihood. For this test **two models are estimated; the fit of one model is compared to the fit of the other model.**
 
 <p align="center">
 <img src="../img/lrt_formula.png" width="300">
 </p>
 
+* m2 is the full model (i.e. the full design formula your provided when creating your `dds` object`)
+* m1 is the reduced model (i.e the design formula with your main effect term removed)
 
-Here, we are evaluating the **null hypothesis that the full model (which includes our main effect) fits just as well as the reduced model**. If we reject the null hypothesis, this suggests that there is a significant amount of variation explained by our main effect, therfore this gene is differntially expressed across the different levels.
+*It is shown that LR follows a chi-squared distribution, and this can be used to calculate and associated p-value.*
 
+Here, we are evaluating the **null hypothesis that the full model fits just as well as the reduced model**. If we reject the null hypothesis, this suggests that there is a significant amount of variation explained by our main effect, therfore this gene is differentially expressed across the different levels. DESeq2 implements the LRT by using an Analysis of Deviance (ANODEV) to compare the two model fits.
 
 To use the LRT, we use the `DESeq()` function but this time adding two arguments: 
 
@@ -48,9 +51,7 @@ library(DEGreport)
 dds_lrt <- DESeq(dds, test="LRT", reduced = ~ 1)
 ```
 
-Since our 'full' model only has one factor (`sampletype`), the 'reduced' model is just the intercept. 
-
-The LRT is comparing the full model to the reduced model to identify significant genes. **The p-values are determined solely by the difference in deviance between the 'full' and 'reduced' model formula (not log2 fold changes)**. Essentially the LRT test is testing whether the term(s) removed in the 'reduced' model explains a significant amount of variation in the data?
+Since our 'full' model only has one factor (`sampletype`), the 'reduced' model is just the intercept (`~ 1`).
 
 Generally, this test will result in a larger number of genes than the individual pair-wise comparisons. While the LRT is a test of significance for differences of any level of the factor, one should not expect it to be exactly equal to the union of sets of genes using Wald tests (although we do expect a majority overlap).
 
