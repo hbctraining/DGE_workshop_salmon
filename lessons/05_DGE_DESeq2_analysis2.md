@@ -34,7 +34,12 @@ The first step in hypothesis testing is to set up a **null hypothesis** for each
 
 ### Wald test
 
-With DESeq2, the Wald test is the default used for hypothesis testing when comparing two groups. **The Wald test is a test of hypothesis usually performed on parameters that have been estimated by maximum likelihood.**. In our case we are testing each gene model coefficient (LFC) which was derived using parameters like dispersion which were estimated using maximum likelihood. DESeq2 implements the Wald test by taking the LFC and dividing it by its standard error, resulting in a z-statistic, which is compared to a standard normal distribution. A p-value is computed reporting the probability that a z-statistic at least as extreme as the observed value would be selected at random. If the p-value is small we reject the null hypothesis and state that there is evidence against the null (i.e. the gene is differentially expressed).
+With DESeq2, the Wald test is the default used for hypothesis testing when comparing two groups. **The Wald test is a test of hypothesis usually performed on parameters that have been estimated by maximum likelihood.**. In our case we are testing each gene model coefficient (LFC) which was derived using parameters like dispersion which were estimated using maximum likelihood. 
+
+DESeq2 implements the Wald test by:
+* Taking the LFC and dividing it by its standard error, resulting in a z-statistic
+* The z-statistic is compared to a standard normal distribution, and a p-value is computed reporting the probability that a z-statistic at least as extreme as the observed value would be selected at random
+* If the p-value is small we reject the null hypothesis and state that there is evidence against the null (i.e. the gene is differentially expressed).
 
 
 ## Multiple test correction
