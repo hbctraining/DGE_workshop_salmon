@@ -15,16 +15,16 @@ library(tidyverse)
 #     - Use `read.csv()` to read in the downloaded file and save it in the object/variable `counts`
 counts <- read.csv("data/raw_counts_mouseKO.txt")
 
-#       - What is the syntax for a function?
-#       - How do we get help for using a function?
+#     - What is the syntax for a function?
+#     - How do we get help for using a function?
 #     - What is the data structure of `counts`?
 class(counts)
 
-#       - What main data structures are available in R?
+#     - What main data structures are available in R?
 #     - What are the data types of the columns?
 str(counts)
 
-#       - What data types are available in R?
+#     - What data types are available in R?
 #       
 # ## Creating vectors/factors and dataframes
 # 
@@ -61,14 +61,14 @@ rownames(meta) <- c(paste0(rep("KO", 4), 1:4), paste0(rep("WT",4), 1:4))
 # 
 # Now that we have created our metadata data frame, it's often a good idea to get some descriptive statistics about the data before performing any analyses. 
 # 
-# - Summarize the contents of the `meta` object, how many data types are represented?
+#      - Summarize the contents of the `meta` object, how many data types are represented?
 str(meta)
 
 #   - Check that the row names in the `meta` data frame are identical to the column names in `counts` (content and order).
 all(rownames(meta) %in% colnames(counts))
 all(rownames(meta) == colnames(counts))
 
-# - Convert the existing `stage` column into a factor data type
+#      - Convert the existing `stage` column into a factor data type
 meta$stage <- factor(meta$stage)
 str(meta)
 
@@ -77,45 +77,46 @@ str(meta)
 # 
 # 4. Using the `meta` data frame created in the previous question, perform the following exercises (questions **DO NOT** build upon each other):
 #   
-#   - return only the `genotype` and `sex` columns using `[]`:
+#      - return only the `genotype` and `sex` columns using `[]`:
 meta[,c(3,1)]
 
-#   - return the `genotype` values for samples 1, 7, and 8 using `[]`:
+#      - return the `genotype` values for samples 1, 7, and 8 using `[]`:
 meta[c(1,7,3),3]
 
-#   - use `filter()` to return all data for those samples with genotype `WT`:
+#      - use `filter()` to return all data for those samples with genotype `WT`:
 filter(meta, genotype == "WT")
 # OR
 meta %>% filter(genotype == "WT")
 
-#   - use `filter()`/`select()`to return only the `stage` and `genotype` columns for those samples with `myc` > 50:
+#      - use `filter()`/`select()`to return only the `stage` and `genotype` columns for those samples with `myc` > 50:
 meta %>% 
   filter(myc > 50) %>% 
   select(stage, genotype)
 
 select(filter(meta, myc > 50), stage, genotype)
 
-#   - add a column called `pre_treatment` to the beginning of the dataframe with the values T, F, T, F, T, F, T, F 
+#      - add a column called `pre_treatment` to the beginning of the dataframe with the values T, F, T, F, T, F, T, F 
 pretreatment <- c(T, F, T, F, T, F, T, F)
 
 meta <- cbind(pretreatment, meta)
 
-# - why might this design be problematic?
+#      - why might this design be problematic?
 ## Answer: confounded design
 
-# - Using `%>%` create a tibble of the `meta` object and call it `meta_tb` (make sure you don't lose the rownames!)
-# - change the names of the columns to: "A", "B", "C", "D", "E":
+#      - Using `%>%` create a tibble of the `meta` object and call it `meta_tb` (make sure you don't lose the rownames!)
+#      - change the names of the columns to: "A", "B", "C", "D", "E":
 #      
 meta_tb <- meta %>% 
               rownames_to_column(var="sampleIDs") %>%
               as.tibble()
+
 colnames(meta_tb)[2:6] <- LETTERS[1:5]
 
 # ## Visualizing data
 # 
 # 5. Often it is easier to see the patterns or nature of our data when we explore it visually with a variety of graphics. Let's use ggplot2 to explore differences in the expression of the Myc gene based on genotype.
 #                                                                             
-# - Plot a boxplot of the expression of Myc for the KO and WT samples using `theme_minimal()` and give the plot new axes names and a centered title.
+#      - Plot a boxplot of the expression of Myc for the KO and WT samples using `theme_minimal()` and give the plot new axes names and a centered title.
 #                   
 ggplot(meta) +
   geom_boxplot(aes(x = genotype, y = myc)) +
@@ -129,8 +130,7 @@ ggplot(meta) +
 #                                                                             
 # 6. Many different statistical tools or analytical packages expect all data needed as input to be in the structure of a list. Let's create a list of our count and metadata in preparation for a downstream analysis.
 # 
-# - Create a list called `project1` with the `meta` and `counts` objects, as well as a new vector with all the sample names extracted from one of the 2 data frames.
-# 
-# 
+#      - Create a list called `project1` with the `meta` and `counts` objects, as well as a new vector with all the sample names extracted from one of the 2 data frames.
+#  
 project1 <- list(meta, counts, rownames(meta))
 project1
