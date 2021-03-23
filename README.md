@@ -1,4 +1,4 @@
-# Differential gene expression workshop using Salmon counts
+# Differential gene expression workshop using Salmon counts - THIS REPO IS ARCHIVED, PLEASE GO TO [https://hbctraining.github.io/main](https://hbctraining.github.io/main) FOR CURRENT LESSONS.
 
 | Audience | Computational skills required| Duration |
 :----------|:----------|:----------|
